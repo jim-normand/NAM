@@ -1,0 +1,350 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		38C1CB9A135306A3002C7EBE /* blob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB89135306A3002C7EBE /* blob.cpp */; };
+		38C1CB9B135306A3002C7EBE /* bloblist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB8B135306A3002C7EBE /* bloblist.cpp */; };
+		38C1CB9C135306A3002C7EBE /* hashtable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB8D135306A3002C7EBE /* hashtable.cpp */; };
+		38C1CB9D135306A3002C7EBE /* llah.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB8F135306A3002C7EBE /* llah.cpp */; };
+		38C1CB9E135306A3002C7EBE /* llahparam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB91135306A3002C7EBE /* llahparam.cpp */; };
+		38C1CB9F135306A3002C7EBE /* paper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB94135306A3002C7EBE /* paper.cpp */; };
+		38C1CBA0135306A3002C7EBE /* paperlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB96135306A3002C7EBE /* paperlist.cpp */; };
+		38C1CBA1135306A3002C7EBE /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB98135306A3002C7EBE /* window.cpp */; };
+		38C1CBB2135306CA002C7EBE /* combination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CBA3135306CA002C7EBE /* combination.cpp */; };
+		38C1CBB3135306CA002C7EBE /* glwindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CBA5135306CA002C7EBE /* glwindow.cpp */; };
+		38C1CBB4135306CA002C7EBE /* mycam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CBA7135306CA002C7EBE /* mycam.cpp */; };
+		38C1CBB5135306CA002C7EBE /* myimage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CBA9135306CA002C7EBE /* myimage.cpp */; };
+		38C1CBB6135306CA002C7EBE /* mylabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CBAB135306CA002C7EBE /* mylabel.cpp */; };
+		38C1CBB7135306CA002C7EBE /* mymat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CBAD135306CA002C7EBE /* mymat.cpp */; };
+		38C1CBB8135306CA002C7EBE /* mytimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CBAF135306CA002C7EBE /* mytimer.cpp */; };
+		38C1CBBD135306ED002C7EBE /* libopencv_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C1CBBA135306ED002C7EBE /* libopencv_core.dylib */; };
+		38C1CBBE135306ED002C7EBE /* libopencv_highgui.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C1CBBB135306ED002C7EBE /* libopencv_highgui.dylib */; };
+		38C1CBBF135306ED002C7EBE /* libopencv_imgproc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C1CBBC135306ED002C7EBE /* libopencv_imgproc.dylib */; };
+		38C1CBC313530702002C7EBE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C1CBC213530702002C7EBE /* GLUT.framework */; };
+		38C1CBC513530702002C7EBE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C1CBC413530702002C7EBE /* OpenGL.framework */; };
+		38C1CBF513530875002C7EBE /* libopencv_calib3d.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C1CBF413530875002C7EBE /* libopencv_calib3d.dylib */; };
+		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		8DD76F6A0486A84900D96B5E /* RandomDotMarkers.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* RandomDotMarkers.1 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76F690486A84900D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				8DD76F6A0486A84900D96B5E /* RandomDotMarkers.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		38C1CB89135306A3002C7EBE /* blob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = blob.cpp; sourceTree = "<group>"; };
+		38C1CB8A135306A3002C7EBE /* blob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blob.h; sourceTree = "<group>"; };
+		38C1CB8B135306A3002C7EBE /* bloblist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bloblist.cpp; sourceTree = "<group>"; };
+		38C1CB8C135306A3002C7EBE /* bloblist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bloblist.h; sourceTree = "<group>"; };
+		38C1CB8D135306A3002C7EBE /* hashtable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hashtable.cpp; sourceTree = "<group>"; };
+		38C1CB8E135306A3002C7EBE /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
+		38C1CB8F135306A3002C7EBE /* llah.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = llah.cpp; sourceTree = "<group>"; };
+		38C1CB90135306A3002C7EBE /* llah.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = llah.h; sourceTree = "<group>"; };
+		38C1CB91135306A3002C7EBE /* llahparam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = llahparam.cpp; sourceTree = "<group>"; };
+		38C1CB92135306A3002C7EBE /* llahparam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = llahparam.h; sourceTree = "<group>"; };
+		38C1CB93135306A3002C7EBE /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		38C1CB94135306A3002C7EBE /* paper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = paper.cpp; sourceTree = "<group>"; };
+		38C1CB95135306A3002C7EBE /* paper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paper.h; sourceTree = "<group>"; };
+		38C1CB96135306A3002C7EBE /* paperlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = paperlist.cpp; sourceTree = "<group>"; };
+		38C1CB97135306A3002C7EBE /* paperlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paperlist.h; sourceTree = "<group>"; };
+		38C1CB98135306A3002C7EBE /* window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = window.cpp; sourceTree = "<group>"; };
+		38C1CB99135306A3002C7EBE /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
+		38C1CBA3135306CA002C7EBE /* combination.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = combination.cpp; path = mylib/combination.cpp; sourceTree = "<group>"; };
+		38C1CBA4135306CA002C7EBE /* combination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = combination.h; path = mylib/combination.h; sourceTree = "<group>"; };
+		38C1CBA5135306CA002C7EBE /* glwindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glwindow.cpp; path = mylib/glwindow.cpp; sourceTree = "<group>"; };
+		38C1CBA6135306CA002C7EBE /* glwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glwindow.h; path = mylib/glwindow.h; sourceTree = "<group>"; };
+		38C1CBA7135306CA002C7EBE /* mycam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mycam.cpp; path = mylib/mycam.cpp; sourceTree = "<group>"; };
+		38C1CBA8135306CA002C7EBE /* mycam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mycam.h; path = mylib/mycam.h; sourceTree = "<group>"; };
+		38C1CBA9135306CA002C7EBE /* myimage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = myimage.cpp; path = mylib/myimage.cpp; sourceTree = "<group>"; };
+		38C1CBAA135306CA002C7EBE /* myimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = myimage.h; path = mylib/myimage.h; sourceTree = "<group>"; };
+		38C1CBAB135306CA002C7EBE /* mylabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mylabel.cpp; path = mylib/mylabel.cpp; sourceTree = "<group>"; };
+		38C1CBAC135306CA002C7EBE /* mylabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mylabel.h; path = mylib/mylabel.h; sourceTree = "<group>"; };
+		38C1CBAD135306CA002C7EBE /* mymat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mymat.cpp; path = mylib/mymat.cpp; sourceTree = "<group>"; };
+		38C1CBAE135306CA002C7EBE /* mymat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mymat.h; path = mylib/mymat.h; sourceTree = "<group>"; };
+		38C1CBAF135306CA002C7EBE /* mytimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mytimer.cpp; path = mylib/mytimer.cpp; sourceTree = "<group>"; };
+		38C1CBB0135306CA002C7EBE /* mytimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mytimer.h; path = mylib/mytimer.h; sourceTree = "<group>"; };
+		38C1CBB1135306CA002C7EBE /* opencvpath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = opencvpath.h; path = mylib/opencvpath.h; sourceTree = "<group>"; };
+		38C1CBBA135306ED002C7EBE /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = /usr/local/lib/libopencv_core.dylib; sourceTree = "<absolute>"; };
+		38C1CBBB135306ED002C7EBE /* libopencv_highgui.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.dylib; path = /usr/local/lib/libopencv_highgui.dylib; sourceTree = "<absolute>"; };
+		38C1CBBC135306ED002C7EBE /* libopencv_imgproc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.dylib; path = /usr/local/lib/libopencv_imgproc.dylib; sourceTree = "<absolute>"; };
+		38C1CBC213530702002C7EBE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		38C1CBC413530702002C7EBE /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		38C1CBF413530875002C7EBE /* libopencv_calib3d.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_calib3d.dylib; path = /usr/local/lib/libopencv_calib3d.dylib; sourceTree = "<absolute>"; };
+		8DD76F6C0486A84900D96B5E /* RandomDotMarkers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RandomDotMarkers; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6859E8B029090EE04C91782 /* RandomDotMarkers.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = RandomDotMarkers.1; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76F660486A84900D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38C1CBBD135306ED002C7EBE /* libopencv_core.dylib in Frameworks */,
+				38C1CBBE135306ED002C7EBE /* libopencv_highgui.dylib in Frameworks */,
+				38C1CBBF135306ED002C7EBE /* libopencv_imgproc.dylib in Frameworks */,
+				38C1CBC313530702002C7EBE /* GLUT.framework in Frameworks */,
+				38C1CBC513530702002C7EBE /* OpenGL.framework in Frameworks */,
+				38C1CBF513530875002C7EBE /* libopencv_calib3d.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* RandomDotMarkers */ = {
+			isa = PBXGroup;
+			children = (
+				38C1CBB9135306CE002C7EBE /* Frameworks */,
+				38C1CBA2135306B8002C7EBE /* Lib */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				C6859E8C029090F304C91782 /* Documentation */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = RandomDotMarkers;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				38C1CB89135306A3002C7EBE /* blob.cpp */,
+				38C1CB8A135306A3002C7EBE /* blob.h */,
+				38C1CB8B135306A3002C7EBE /* bloblist.cpp */,
+				38C1CB8C135306A3002C7EBE /* bloblist.h */,
+				38C1CB8D135306A3002C7EBE /* hashtable.cpp */,
+				38C1CB8E135306A3002C7EBE /* hashtable.h */,
+				38C1CB8F135306A3002C7EBE /* llah.cpp */,
+				38C1CB90135306A3002C7EBE /* llah.h */,
+				38C1CB91135306A3002C7EBE /* llahparam.cpp */,
+				38C1CB92135306A3002C7EBE /* llahparam.h */,
+				08FB7796FE84155DC02AAC07 /* main.cpp */,
+				38C1CB93135306A3002C7EBE /* main.h */,
+				38C1CB94135306A3002C7EBE /* paper.cpp */,
+				38C1CB95135306A3002C7EBE /* paper.h */,
+				38C1CB96135306A3002C7EBE /* paperlist.cpp */,
+				38C1CB97135306A3002C7EBE /* paperlist.h */,
+				38C1CB98135306A3002C7EBE /* window.cpp */,
+				38C1CB99135306A3002C7EBE /* window.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76F6C0486A84900D96B5E /* RandomDotMarkers */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		38C1CBA2135306B8002C7EBE /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				38C1CBA3135306CA002C7EBE /* combination.cpp */,
+				38C1CBA4135306CA002C7EBE /* combination.h */,
+				38C1CBA5135306CA002C7EBE /* glwindow.cpp */,
+				38C1CBA6135306CA002C7EBE /* glwindow.h */,
+				38C1CBA7135306CA002C7EBE /* mycam.cpp */,
+				38C1CBA8135306CA002C7EBE /* mycam.h */,
+				38C1CBA9135306CA002C7EBE /* myimage.cpp */,
+				38C1CBAA135306CA002C7EBE /* myimage.h */,
+				38C1CBAB135306CA002C7EBE /* mylabel.cpp */,
+				38C1CBAC135306CA002C7EBE /* mylabel.h */,
+				38C1CBAD135306CA002C7EBE /* mymat.cpp */,
+				38C1CBAE135306CA002C7EBE /* mymat.h */,
+				38C1CBAF135306CA002C7EBE /* mytimer.cpp */,
+				38C1CBB0135306CA002C7EBE /* mytimer.h */,
+				38C1CBB1135306CA002C7EBE /* opencvpath.h */,
+			);
+			name = Lib;
+			sourceTree = "<group>";
+		};
+		38C1CBB9135306CE002C7EBE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				38C1CBC413530702002C7EBE /* OpenGL.framework */,
+				38C1CBC213530702002C7EBE /* GLUT.framework */,
+				38C1CBF413530875002C7EBE /* libopencv_calib3d.dylib */,
+				38C1CBBA135306ED002C7EBE /* libopencv_core.dylib */,
+				38C1CBBB135306ED002C7EBE /* libopencv_highgui.dylib */,
+				38C1CBBC135306ED002C7EBE /* libopencv_imgproc.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6859E8C029090F304C91782 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				C6859E8B029090EE04C91782 /* RandomDotMarkers.1 */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DD76F620486A84900D96B5E /* RandomDotMarkers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "RandomDotMarkers" */;
+			buildPhases = (
+				8DD76F640486A84900D96B5E /* Sources */,
+				8DD76F660486A84900D96B5E /* Frameworks */,
+				8DD76F690486A84900D96B5E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RandomDotMarkers;
+			productInstallPath = "$(HOME)/bin";
+			productName = RandomDotMarkers;
+			productReference = 8DD76F6C0486A84900D96B5E /* RandomDotMarkers */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "RandomDotMarkers" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* RandomDotMarkers */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DD76F620486A84900D96B5E /* RandomDotMarkers */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD76F640486A84900D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
+				38C1CB9A135306A3002C7EBE /* blob.cpp in Sources */,
+				38C1CB9B135306A3002C7EBE /* bloblist.cpp in Sources */,
+				38C1CB9C135306A3002C7EBE /* hashtable.cpp in Sources */,
+				38C1CB9D135306A3002C7EBE /* llah.cpp in Sources */,
+				38C1CB9E135306A3002C7EBE /* llahparam.cpp in Sources */,
+				38C1CB9F135306A3002C7EBE /* paper.cpp in Sources */,
+				38C1CBA0135306A3002C7EBE /* paperlist.cpp in Sources */,
+				38C1CBA1135306A3002C7EBE /* window.cpp in Sources */,
+				38C1CBB2135306CA002C7EBE /* combination.cpp in Sources */,
+				38C1CBB3135306CA002C7EBE /* glwindow.cpp in Sources */,
+				38C1CBB4135306CA002C7EBE /* mycam.cpp in Sources */,
+				38C1CBB5135306CA002C7EBE /* myimage.cpp in Sources */,
+				38C1CBB6135306CA002C7EBE /* mylabel.cpp in Sources */,
+				38C1CBB7135306CA002C7EBE /* mymat.cpp in Sources */,
+				38C1CBB8135306CA002C7EBE /* mytimer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB923208733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = RandomDotMarkers;
+			};
+			name = Debug;
+		};
+		1DEB923308733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				PRODUCT_NAME = RandomDotMarkers;
+			};
+			name = Release;
+		};
+		1DEB923608733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Debug;
+		};
+		1DEB923708733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "RandomDotMarkers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923208733DC60010E9CD /* Debug */,
+				1DEB923308733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "RandomDotMarkers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923608733DC60010E9CD /* Debug */,
+				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
