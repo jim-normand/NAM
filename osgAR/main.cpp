@@ -45,19 +45,19 @@ osg::Image* Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg)
    osg::Image* osgImg1 = new osg::Image(); 
    osgImg1->allocateImage(cvImg->width, cvImg->height, 1, 
                           GL_RGBA_INTEGER_EXT, GL_UNSIGNED_BYTE); 
-   //Mutex.lock(); 
-   for(int r = 0; r < cvImg->height; ++r) 
-   { 
-      for(int c = 0; c < cvImg->width; ++c) 
-      { 
-         for(int p = 0; p < 4; ++p) 
-         { 
-            p != 3 ? *(osgImg1->data() + 4*cvImg->width * r + 4*c + p) = 
-            (unsigned char)(*(cvImg->imageData + 3 * cvImg->width * r + 3 * c + p)) : 
-            *(osgImg1->data() + 4*cvImg->width * r + 4*c + p) = 255; 
-         } 
-      } 
-   } 
+   osgImg1->setImage( 
+                    cvImg->width, //s 
+                    cvImg->height, //t 
+                    1, //r 
+                    3, 
+                    GL_BGR, 
+                    GL_UNSIGNED_BYTE, 
+                    (unsigned char*)(cvImg->imageData), 
+                    osg::Image::NO_DELETE 
+                    ); 
+   
+   osgImg1->setOrigin( (cvImg->origin == IPL_ORIGIN_BL) ? 
+                     osg::Image::TOP_LEFT : osg::Image::BOTTOM_LEFT); 
    
    
    //Mutex.unlock(); 
