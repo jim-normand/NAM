@@ -34,11 +34,19 @@
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
 
-#include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
+#include <opencv2/calib3d/calib3d.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgproc/imgproc_c.h>
+#include <opencv2/highgui/highgui.hpp>
 
 
 #include <iostream>
+using namespace std;
+
+CvCapture *captureMethod;
+
+bool liveVideo = false;
 
 osg::Image* Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg) 
 { 
@@ -391,8 +399,15 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
       bool flip = false;
       
       osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-      
-      IplImage* cvImage = cvLoadImage(movie_file.c_str());
+      IplImage *cvImage=NULL;
+      if (liveVideo) {
+         cvImage = cvQueryFrame(captureMethod);
+         osg::notify(osg::NOTICE) << "getting frame from video";
+      }
+      else {
+         //cvImage = cvLoadImage(movie_file.c_str());
+         cvImage = cvQueryFrame(captureMethod);
+      }
       osg::Image* image = Convert_OpenCV_to_OSG_IMAGE(cvImage);
       //osg::Image* image = osgDB::readImageFile(movie_file);
       //osg::ImageStream* imagestream = dynamic_cast<osg::ImageStream*>(image);
@@ -590,6 +605,8 @@ int main( int argc, char **argv )
    arguments.getApplicationUsage()->addCommandLineOption("--image","Render to an image, then apply a post draw callback to it, and use this image to update a texture.");
    arguments.getApplicationUsage()->addCommandLineOption("--texture-rectangle","Use osg::TextureRectangle for doing the render to texture to.");
    
+   arguments.getApplicationUsage()->addCommandLineOption("--live-video","Use live video with OpenCV");
+   
    // construct the viewer.
    osgViewer::Viewer viewer(arguments);
    viewer.setThreadingModel(osgViewer::Viewer::SingleThreaded);
@@ -614,6 +631,19 @@ int main( int argc, char **argv )
    unsigned int tex_height = 512;
    unsigned int samples = 0;
    unsigned int colorSamples = 0;
+   
+   if (arguments.read("--live-video")) {
+      // run on the OpenCV capture
+      liveVideo = true;
+      captureMethod = cvCaptureFromCAM(0);
+      if (captureMethod == NULL) {
+         osg::notify(osg::FATAL)<<"couldn't open camera stream. exit."<<std::endl;
+      }
+   }
+   else {
+      liveVideo = false;
+      captureMethod = cvCaptureFromFile(arguments[2]);
+   }
    
    while (arguments.read("--width", tex_width)) {}
    while (arguments.read("--height", tex_height)) {}
