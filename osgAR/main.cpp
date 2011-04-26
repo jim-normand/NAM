@@ -34,7 +34,35 @@
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
 
+#include <opencv2/opencv.hpp>
+#include <opencv2/core/core.hpp>
+
+
 #include <iostream>
+
+osg::Image* Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg) 
+{ 
+   osg::Image* osgImg1 = new osg::Image(); 
+   osgImg1->allocateImage(cvImg->width, cvImg->height, 1, 
+                          GL_RGBA_INTEGER_EXT, GL_UNSIGNED_BYTE); 
+   //Mutex.lock(); 
+   for(int r = 0; r < cvImg->height; ++r) 
+   { 
+      for(int c = 0; c < cvImg->width; ++c) 
+      { 
+         for(int p = 0; p < 4; ++p) 
+         { 
+            p != 3 ? *(osgImg1->data() + 4*cvImg->width * r + 4*c + p) = 
+            (unsigned char)(*(cvImg->imageData + 3 * cvImg->width * r + 3 * c + p)) : 
+            *(osgImg1->data() + 4*cvImg->width * r + 4*c + p) = 255; 
+         } 
+      } 
+   } 
+   
+   
+   //Mutex.unlock(); 
+   return osgImg1; 
+}
 
 // call back which creates a deformation field to oscillate the model.
 class MyGeometryCallback : 
@@ -363,12 +391,15 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
       bool flip = false;
       
       osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-      osg::Image* image = osgDB::readImageFile(movie_file);
-      osg::ImageStream* imagestream = dynamic_cast<osg::ImageStream*>(image);
-      if (imagestream) 
-      {
-         imagestream->play();
-      }
+      
+      IplImage* cvImage = cvLoadImage(movie_file.c_str());
+      osg::Image* image = Convert_OpenCV_to_OSG_IMAGE(cvImage);
+      //osg::Image* image = osgDB::readImageFile(movie_file);
+      //osg::ImageStream* imagestream = dynamic_cast<osg::ImageStream*>(image);
+      //if (imagestream) 
+      //{
+      //   imagestream->play();
+      //}
       
       if (image)
       {

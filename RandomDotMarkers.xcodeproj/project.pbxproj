@@ -30,6 +30,12 @@
 		38C1CBF513530875002C7EBE /* libopencv_calib3d.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C1CBF413530875002C7EBE /* libopencv_calib3d.dylib */; };
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* RandomDotMarkers.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* RandomDotMarkers.1 */; };
+		A3348D4A13672B8000B334E2 /* libopencv_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3348D4913672B8000B334E2 /* libopencv_core.dylib */; };
+		A3348D4C13672B8D00B334E2 /* libopencv_features2d.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3348D4B13672B8D00B334E2 /* libopencv_features2d.dylib */; };
+		A3348D5113672BAC00B334E2 /* libopencv_highgui.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3348D4D13672BAC00B334E2 /* libopencv_highgui.dylib */; };
+		A3348D5213672BAC00B334E2 /* libopencv_imgproc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3348D4E13672BAC00B334E2 /* libopencv_imgproc.dylib */; };
+		A3348D5313672BAC00B334E2 /* libopencv_legacy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3348D4F13672BAC00B334E2 /* libopencv_legacy.dylib */; };
+		A3348D5413672BAC00B334E2 /* libopencv_video.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A3348D5013672BAC00B334E2 /* libopencv_video.dylib */; };
 		A350BE681366E24B0098ABA4 /* libosg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A350BE601366E24B0098ABA4 /* libosg.dylib */; };
 		A350BE691366E24B0098ABA4 /* libosgDB.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A350BE611366E24B0098ABA4 /* libosgDB.dylib */; };
 		A350BE6A1366E24B0098ABA4 /* libosgGA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A350BE621366E24B0098ABA4 /* libosgGA.dylib */; };
@@ -105,6 +111,13 @@
 		38C1CBC413530702002C7EBE /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		38C1CBF413530875002C7EBE /* libopencv_calib3d.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_calib3d.dylib; path = /usr/local/lib/libopencv_calib3d.dylib; sourceTree = "<absolute>"; };
 		8DD76F6C0486A84900D96B5E /* RandomDotMarkers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RandomDotMarkers; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3348D4613672B5B00B334E2 /* libopencv_core.2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.2.2.dylib; path = usr/local/lib/libopencv_core.2.2.dylib; sourceTree = SDKROOT; };
+		A3348D4913672B8000B334E2 /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = usr/local/lib/libopencv_core.dylib; sourceTree = SDKROOT; };
+		A3348D4B13672B8D00B334E2 /* libopencv_features2d.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_features2d.dylib; path = usr/local/lib/libopencv_features2d.dylib; sourceTree = SDKROOT; };
+		A3348D4D13672BAC00B334E2 /* libopencv_highgui.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.dylib; path = usr/local/lib/libopencv_highgui.dylib; sourceTree = SDKROOT; };
+		A3348D4E13672BAC00B334E2 /* libopencv_imgproc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.dylib; path = usr/local/lib/libopencv_imgproc.dylib; sourceTree = SDKROOT; };
+		A3348D4F13672BAC00B334E2 /* libopencv_legacy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_legacy.dylib; path = usr/local/lib/libopencv_legacy.dylib; sourceTree = SDKROOT; };
+		A3348D5013672BAC00B334E2 /* libopencv_video.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_video.dylib; path = usr/local/lib/libopencv_video.dylib; sourceTree = SDKROOT; };
 		A350BE601366E24B0098ABA4 /* libosg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosg.dylib; path = usr/local/lib/libosg.dylib; sourceTree = SDKROOT; };
 		A350BE611366E24B0098ABA4 /* libosgDB.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgDB.dylib; path = usr/local/lib/libosgDB.dylib; sourceTree = SDKROOT; };
 		A350BE621366E24B0098ABA4 /* libosgGA.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgGA.dylib; path = usr/local/lib/libosgGA.dylib; sourceTree = SDKROOT; };
@@ -138,6 +151,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3348D5113672BAC00B334E2 /* libopencv_highgui.dylib in Frameworks */,
+				A3348D5213672BAC00B334E2 /* libopencv_imgproc.dylib in Frameworks */,
+				A3348D5313672BAC00B334E2 /* libopencv_legacy.dylib in Frameworks */,
+				A3348D5413672BAC00B334E2 /* libopencv_video.dylib in Frameworks */,
+				A3348D4C13672B8D00B334E2 /* libopencv_features2d.dylib in Frameworks */,
+				A3348D4A13672B8000B334E2 /* libopencv_core.dylib in Frameworks */,
 				A350BE721366E2530098ABA4 /* libOpenThreads.dylib in Frameworks */,
 				A350BE681366E24B0098ABA4 /* libosg.dylib in Frameworks */,
 				A350BE691366E24B0098ABA4 /* libosgDB.dylib in Frameworks */,
@@ -156,6 +175,13 @@
 		08FB7794FE84155DC02AAC07 /* RandomDotMarkers */ = {
 			isa = PBXGroup;
 			children = (
+				A3348D4D13672BAC00B334E2 /* libopencv_highgui.dylib */,
+				A3348D4E13672BAC00B334E2 /* libopencv_imgproc.dylib */,
+				A3348D4F13672BAC00B334E2 /* libopencv_legacy.dylib */,
+				A3348D5013672BAC00B334E2 /* libopencv_video.dylib */,
+				A3348D4B13672B8D00B334E2 /* libopencv_features2d.dylib */,
+				A3348D4913672B8000B334E2 /* libopencv_core.dylib */,
+				A3348D4613672B5B00B334E2 /* libopencv_core.2.2.dylib */,
 				A350BE711366E2530098ABA4 /* libOpenThreads.dylib */,
 				A350BE601366E24B0098ABA4 /* libosg.dylib */,
 				A350BE611366E24B0098ABA4 /* libosgDB.dylib */,
