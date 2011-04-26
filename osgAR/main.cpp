@@ -58,7 +58,7 @@ osg::Image* Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg)
                     cvImg->height, //t 
                     1, //r 
                     3, 
-                    GL_BGR, 
+                    GL_BGRA, 
                     GL_UNSIGNED_BYTE, 
                     (unsigned char*)(cvImg->imageData), 
                     osg::Image::NO_DELETE 
@@ -158,74 +158,6 @@ public:
    
 };
 
-struct MyCameraPostDrawCallback : public osg::Camera::DrawCallback
-{
-   MyCameraPostDrawCallback(osg::Image* image):
-   _image(image)
-   {
-   }
-   
-   virtual void operator () (const osg::Camera& /*camera*/) const
-   {
-      if (_image && _image->getPixelFormat()==GL_RGBA && _image->getDataType()==GL_UNSIGNED_BYTE)
-      {
-         // we'll pick out the center 1/2 of the whole image,
-         int column_start = _image->s()/4;
-         int column_end = 3*column_start;
-         
-         int row_start = _image->t()/4;
-         int row_end = 3*row_start;
-         
-         
-         // and then invert these pixels
-         for(int r=row_start; r<row_end; ++r)
-         {
-            unsigned char* data = _image->data(column_start, r);
-            for(int c=column_start; c<column_end; ++c)
-            {
-               (*data) = 255-(*data); ++data;
-               (*data) = 255-(*data); ++data;
-               (*data) = 255-(*data); ++data;
-               (*data) = 255; ++data;
-            }
-         }
-         
-         
-         // dirty the image (increments the modified count) so that any textures
-         // using the image can be informed that they need to update.
-         _image->dirty();
-      }
-      else if (_image && _image->getPixelFormat()==GL_RGBA && _image->getDataType()==GL_FLOAT)
-      {
-         // we'll pick out the center 1/2 of the whole image,
-         int column_start = _image->s()/4;
-         int column_end = 3*column_start;
-         
-         int row_start = _image->t()/4;
-         int row_end = 3*row_start;
-         
-         // and then invert these pixels
-         for(int r=row_start; r<row_end; ++r)
-         {
-            float* data = (float*)_image->data(column_start, r);
-            for(int c=column_start; c<column_end; ++c)
-            {
-               (*data) = 1.0f-(*data); ++data;
-               (*data) = 1.0f-(*data); ++data;
-               (*data) = 1.0f-(*data); ++data;
-               (*data) = 1.0f; ++data;
-            }
-         }
-         
-         // dirty the image (increments the modified count) so that any textures
-         // using the image can be informed that they need to update.
-         _image->dirty();
-      }
-      
-   }
-   
-   osg::Image* _image;
-};
 
 
 osg::Geometry* myCreateTexturedQuadGeometry(const osg::Vec3& pos,float width,float height, osg::Image* image, bool useTextureRectangle, bool xyPlane, bool option_flip)
@@ -546,29 +478,6 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
       camera->setRenderTargetImplementation(renderImplementation);
       
       
-      if (useImage)
-      {
-         osg::Image* image = new osg::Image;
-         image->allocateImage(tex_width, tex_height, 1, GL_RGBA, GL_UNSIGNED_BYTE);
-         //image->allocateImage(tex_width, tex_height, 1, GL_RGBA, GL_FLOAT);
-         
-         // attach the image so its copied on each frame.
-         camera->attach(osg::Camera::COLOR_BUFFER, image,
-                        samples, colorSamples);
-         
-         camera->setPostDrawCallback(new MyCameraPostDrawCallback(image));
-         
-         // Rather than attach the texture directly to illustrate the texture's ability to
-         // detect an image update and to subload the image onto the texture.  You needn't
-         // do this when using an Image for copying to, as a separate camera->attach(..)
-         // would suffice as well, but we'll do it the long way round here just for demonstration
-         // purposes (long way round meaning we'll need to copy image to main memory, then
-         // copy it back to the graphics card to the texture in one frame).
-         // The long way round allows us to manually modify the copied image via the callback
-         // and then let this modified image by reloaded back.
-         texture->setImage(0, image);
-      }
-      else
       {
          // attach the texture and use it as the color buffer.
          camera->attach(osg::Camera::COLOR_BUFFER, texture, 
@@ -602,7 +511,6 @@ int main( int argc, char **argv )
    arguments.getApplicationUsage()->addCommandLineOption("--window","Use a separate Window for render to texture.");
    arguments.getApplicationUsage()->addCommandLineOption("--width","Set the width of the render to texture.");
    arguments.getApplicationUsage()->addCommandLineOption("--height","Set the height of the render to texture.");
-   arguments.getApplicationUsage()->addCommandLineOption("--image","Render to an image, then apply a post draw callback to it, and use this image to update a texture.");
    arguments.getApplicationUsage()->addCommandLineOption("--texture-rectangle","Use osg::TextureRectangle for doing the render to texture to.");
    
    arguments.getApplicationUsage()->addCommandLineOption("--live-video","Use live video with OpenCV");
