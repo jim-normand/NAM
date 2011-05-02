@@ -1,3 +1,7 @@
+#include <osgUtil/Optimizer>
+#include <osgViewer/ViewerEventHandlers>
+
+
 #include "videogeometry.h"
 
 // Test Skeletonization
@@ -40,18 +44,6 @@ Group* startup()
 	lightStateSet = scene->getOrCreateStateSet();
 	lightStateSet->ref();
 	
-	/*
-   // create a light
-	LightSource *lightSource = new LightSource();
-	lightSource->setLight(createLight(Vec4(0.9, 0.9, 0.9, 1.0)));
-	// enable the light for the entire scene
-	lightSource->setLocalStateSetModes(StateAttribute::ON);
-	lightSource->setStateSetModes(*lightStateSet, StateAttribute::ON);
-	
-	lightTransform = new PositionAttitudeTransform();
-	lightTransform->addChild(lightSource);
-	lightTransform->setPosition(Vec3(3, 0, 0));*/
-	
 	// create VideoGeometry
 	try {
 		videoGeode = new VideoGeode();
@@ -69,8 +61,6 @@ Group* startup()
 		std::cerr << e;
 	}
 	
-	//lightTransform->addChild(sun);
-	//scene->addChild(lightTransform);
    scene->addChild(videoPlane);
 	
 	return scene;
@@ -100,7 +90,7 @@ int main(int argc, char **argv)
    Node *osgModel = osgDB::readNodeFiles(arguments);
    
    // if not loaded assume no arguments passed in, try use default mode instead.
-   if (!osgModel) osgModel = osgDB::readNodeFile("/Users/jim/Documents/Dev/OpenSceneGraph/OpenSceneGraph-Data/Images/cessna.osg"); // cause I can't get Xcode to search in this directory (OSG_FILE_PATH)
+   if (!osgModel) osgModel = osgDB::readNodeFile("cessna.osg"); // I can't get Xcode to search in this directory (OSG_FILE_PATH) so this does not work
    
    if (!osgModel)
    {
@@ -128,16 +118,18 @@ int main(int argc, char **argv)
    scene->addChild(lightTransform);
    scene->addChild(model);
    
-   
+
    // Creating the viewer
 	osgViewer::Viewer viewer;
 	viewer.setSceneData(scene);
+   viewer.addEventHandler( new osgViewer::StatsHandler );
 	viewer.setCameraManipulator(new osgGA::TrackballManipulator());
 	viewer.realize();
-	
+   
+
 	while (!viewer.done()) {
 		update(viewer.elapsedTime());
       videoGeode->updateVideoTexture();
 		viewer.frame();
-	}
+   }
 }

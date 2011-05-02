@@ -222,7 +222,48 @@
 		</dict>
 	</array>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>38A6EAC0136EEF5300F44AAD</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>osgcompositeviewer.cpp</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>38A6EAC1136EEF5300F44AAD</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>osgcompositeviewer.cpp</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>38A6EAF6136EF18B00F44AAD</string>
+						<key>history</key>
+						<array>
+							<string>38A6EAC2136EEF5300F44AAD</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1096, 983}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>1295 -224 1096 1024 1280 -280 1920 1080 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -355,7 +396,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>38A6EA99136EE6DE00F44AAD</string>
+										<string>38A6EAF5136EF18B00F44AAD</string>
 										<key>history</key>
 										<array>
 											<string>38C1CBE3135307CE002C7EBE</string>
@@ -396,20 +437,21 @@
 											<string>387403BB136857F800F73F3E</string>
 											<string>387405571368782700F73F3E</string>
 											<string>38121206136AF025001C84CF</string>
-											<string>38121208136AF025001C84CF</string>
 											<string>38121304136B02F5001C84CF</string>
 											<string>38A6E9E2136EBCEC00F44AAD</string>
 											<string>38A6E9E5136EBCEC00F44AAD</string>
-											<string>38A6EA20136EDB2D00F44AAD</string>
-											<string>38A6EA22136EDB2D00F44AAD</string>
 											<string>38A6EA24136EDB2D00F44AAD</string>
 											<string>38A6EA88136EE67000F44AAD</string>
 											<string>38A6EA8A136EE67000F44AAD</string>
 											<string>38A6EA8B136EE67000F44AAD</string>
 											<string>38A6EA8C136EE67000F44AAD</string>
-											<string>38A6EA8D136EE67000F44AAD</string>
-											<string>38A6EA97136EE6DE00F44AAD</string>
-											<string>38A6EA98136EE6DE00F44AAD</string>
+											<string>38A6EA9C136EE98E00F44AAD</string>
+											<string>38A6EA9D136EE98E00F44AAD</string>
+											<string>38A6EA9E136EE98E00F44AAD</string>
+											<string>38A6EAAD136EED7300F44AAD</string>
+											<string>38A6EADE136EF09000F44AAD</string>
+											<string>38A6EAE9136EF11700F44AAD</string>
+											<string>38A6EAEA136EF11700F44AAD</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -590,7 +632,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>326035166.10365599</real>
+	<real>326037899.53412497</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>
@@ -609,9 +651,10 @@
 	<array>
 		<string>38A6E9C4136EB95800F44AAD</string>
 		<string>38A6E9C5136EB95800F44AAD</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>38C1CB841353066C002C7EBE</string>
+		<string>38A6EAC0136EEF5300F44AAD</string>
 		<string>/Users/jim/Documents/Dev/RandomDotMarkers/NAM/RandomDotMarkers.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -631,12 +674,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>main-VideoGeometry.cpp</string>
+								<string>View</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -653,8 +698,6 @@
 							<string>407pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>

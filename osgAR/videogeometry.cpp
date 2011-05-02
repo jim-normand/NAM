@@ -128,6 +128,7 @@ Texture2D *VideoGeode::createVideoTexture(bool texRepeat)
 void VideoGeode::updateVideoTexture()
 {
    cvCopy(cvQueryFrame(_capture),_camImage,0);
+   process(_camImage);
    Convert_OpenCV_to_OSG_IMAGE(_camImage,_videoImage);
    _videoImage->dirty();
    _videoTexture->dirtyTextureObject();
@@ -160,11 +161,6 @@ PositionAttitudeTransform *VideoGeode::createVideoPlane(float size, bool texRepe
 	// vertex array
 	Vec3Array *vertexArray = new Vec3Array();
 	
-	//vertexArray->push_back(Vec3(-size, -size, 0));
-	//vertexArray->push_back(Vec3(size, -size, 0));
-	//vertexArray->push_back(Vec3(size, size, 0));
-	//vertexArray->push_back(Vec3(-size, size, 0));
-   
    vertexArray->push_back(Vec3(-size, 0, -size));
 	vertexArray->push_back(Vec3(size, 0, -size));
 	vertexArray->push_back(Vec3(size, 0, size));

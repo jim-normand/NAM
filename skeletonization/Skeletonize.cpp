@@ -94,23 +94,23 @@ void process(IplImage *colorSrcImg, int threshold)
 {
    IplImage *graySrcImg = cvCreateImage(cvGetSize(colorSrcImg), IPL_DEPTH_8U, 1);
    
-   /***** Source *****/
+   // Source Image in color
    //cvShowImage("Source", colorSrcImg);
    cvConvertImage(colorSrcImg, graySrcImg);
    
-   /***** Threshold *****/
+   // Applying Threshold + Morphological Closing
    cvThreshold(graySrcImg, graySrcImg, threshold, 255, CV_THRESH_BINARY);
    cvMorphologyEx(graySrcImg, graySrcImg, NULL,
                   cvCreateStructuringElementEx(5, 5, 2, 2, CV_SHAPE_RECT),
                   CV_MOP_CLOSE);
    //cvShowImage("Binary", graySrcImg);
    
-   /***** Skeleton *****/
-   Skeletonize skel(graySrcImg);
+   // Applying the Skeletonization
+   Skeletonize skel(graySrcImg); //this can problably be optimized 
    skel();
   // cvShowImage("Skeleton", graySrcImg);
    
-   /***** Intersections *****/
+   // Computing Intersections and Drawing in Red them on the original Image
    vector<CvPoint> crossroads = Intersections(graySrcImg)();
    for (unsigned int i = 0; i < crossroads.size(); ++i)
    {
