@@ -40,8 +40,24 @@
 
 #include <iostream>
 
+// Test Skeletonization
+#include "../skeletonization/Skeletonize.h"
+
+osg::Image *texImage = NULL;
+osg::Matrixd perspMatrix;
+osg::Matrixd viewMatrix;
+double l,r,t,b,n,f;
+osg::Vec3d e,c,u;
+
+
 osg::Image* Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg) 
 { 
+   
+    std::cout<<"Trying to convert IplImage to osg::Image"<<std::endl;
+   std::cout<<"Information on the image: "<<cvImg<<std::endl;
+   std::cout<<"Width: "<<cvImg->width<<" Height: "<<cvImg->height<<" Channels: "<<cvImg->nChannels<<std::endl;
+   
+   
    osg::Image* osgImg1 = new osg::Image(); 
    osgImg1->allocateImage(cvImg->width, cvImg->height, 1, 
                           GL_RGBA_INTEGER_EXT, GL_UNSIGNED_BYTE); 
@@ -49,20 +65,67 @@ osg::Image* Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg)
                     cvImg->width, //s 
                     cvImg->height, //t 
                     1, //r 
-                    3, 
-                    GL_BGR, 
+                    cvImg->nChannels,//3, 
+                    GL_BGR,//GL_BGRA, 
                     GL_UNSIGNED_BYTE, 
                     (unsigned char*)(cvImg->imageData), 
                     osg::Image::NO_DELETE 
                     ); 
    
    osgImg1->setOrigin( (cvImg->origin == IPL_ORIGIN_BL) ? 
-                     osg::Image::TOP_LEFT : osg::Image::BOTTOM_LEFT); 
+                     osg::Image::BOTTOM_LEFT : osg::Image::TOP_LEFT); 
    
+   std::cout<<"Conversion finihed"<<std::endl;
    
    //Mutex.unlock(); 
    return osgImg1; 
 }
+
+osg::Image* Convert_OpenCV_to_OSG_IMAGE2(IplImage cvImg)
+{
+   
+}
+
+osg::Matrixd computeCameraViewMatrix(osg::Node* node)
+{
+   // declaring a camera (to get the computations easily)
+   osg::Camera* camera = new osg::Camera;
+
+   // BB of the model
+   const osg::BoundingSphere& bs = node->getBound();
+   
+   // set view
+   camera->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
+   camera->setViewMatrixAsLookAt(bs.center()-osg::Vec3(0.0f,5.0f,0.0f)*bs.radius(),bs.center(),osg::Vec3(0.0f,0.0f,1.0f));
+   
+   return camera->getViewMatrix();
+}
+
+osg::Matrixd computeCameraProjectionMatrix(osg::Node* node)
+{
+   // declaring a camera (to get the computations easily)
+   osg::Camera* camera = new osg::Camera;
+   
+   // BB of the model
+   const osg::BoundingSphere& bs = node->getBound();
+   
+   float znear = 1.0f*bs.radius();
+   float zfar  = 3.0f*bs.radius();
+   
+   // 2:1 aspect ratio as per flag geometry below.
+   float proj_top   = 0.25f*znear;
+   float proj_right = 0.5f*znear;
+   
+   znear *= 0.9f;
+   zfar *= 1.1f;
+   
+   // set up projection matrix
+   camera->setProjectionMatrixAsFrustum(-proj_right,proj_right,-proj_top,proj_top,znear,zfar);
+   // set view
+  
+   return camera->getProjectionMatrix();
+}
+
 
 // call back which creates a deformation field to oscillate the model.
 class MyGeometryCallback : 
@@ -73,7 +136,8 @@ public:
    
    MyGeometryCallback(const osg::Vec3& o,
                       const osg::Vec3& x,const osg::Vec3& y,const osg::Vec3& z,
-                      double period,double xphase,double amplitude):
+                      double period,double xphase,double amplitude,
+                      CvCapture *capture):
    _firstCall(true),
    _startTime(0.0),
    _time(0.0),
@@ -83,7 +147,9 @@ public:
    _origin(o),
    _xAxis(x),
    _yAxis(y),
-   _zAxis(z) {}
+   _zAxis(z),
+   _capture(capture)
+   {}
    
    virtual void update(osg::NodeVisitor* nv,osg::Drawable* drawable)
    {
@@ -99,8 +165,26 @@ public:
       
       _time = simulationTime-_startTime;
       
+      
+      //Test Jim
+      /*IplImage* cvImage = NULL;
+      cvImage = cvQueryFrame(_capture);
+      osg::Image* image = Convert_OpenCV_to_OSG_IMAGE(cvImage);
+      
+      osg::Texture2D* texture = new osg::Texture2D(image);
+      texture->setResizeNonPowerOfTwoHint(false);
+      texture->setFilter(osg::Texture::MIN_FILTER,osg::Texture::LINEAR);
+      texture->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
+      texture->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_EDGE);
+      
+      
+      drawable->getOrCreateStateSet()->setTextureAttributeAndModes(0,
+                                                                   texture,
+                                                                   osg::StateAttribute::ON);*/
+      
       drawable->accept(*this);
       drawable->dirtyBound();
+
       
       osg::Geometry* geometry = dynamic_cast<osg::Geometry*>(drawable);
       if (geometry)
@@ -147,6 +231,8 @@ public:
    osg::Vec3   _xAxis;
    osg::Vec3   _yAxis;
    osg::Vec3   _zAxis;
+                       
+   CvCapture   *_capture;
    
 };
 
@@ -268,8 +354,9 @@ osg::Geometry* myCreateTexturedQuadGeometry(const osg::Vec3& pos,float width,flo
 osg::Node* createPreRenderSubGraph(osg::Node* subgraph, 
                                    unsigned tex_width, unsigned tex_height, 
                                    osg::Camera::RenderTargetImplementation renderImplementation, 
-                                   bool useImage, bool useTextureRectangle, bool useHDR, 
-                                   unsigned int samples, unsigned int colorSamples, std::string movie_file)
+                                   bool useImage, bool useTextureRectangle, bool useHDR, bool useWebcam,
+                                   unsigned int samples, unsigned int colorSamples, 
+                                   std::string movie_file, CvCapture *capture)
 {
    if (!subgraph) return 0;
    
@@ -370,7 +457,7 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
       
       polyGeom->setStateSet(stateset);
       
-      polyGeom->setUpdateCallback(new MyGeometryCallback(origin,xAxis,yAxis,zAxis,1.0,1.0/width,0.2f));
+      polyGeom->setUpdateCallback(new MyGeometryCallback(origin,xAxis,yAxis,zAxis,1.0,1.0/width,0.2f,capture));
       
       osg::Geode* geode = new osg::Geode();
       geode->addDrawable(polyGeom);
@@ -392,18 +479,57 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
       
       osg::ref_ptr<osg::Geode> geode = new osg::Geode;
       
-      IplImage* cvImage = cvLoadImage(movie_file.c_str());
-      osg::Image* image = Convert_OpenCV_to_OSG_IMAGE(cvImage);
-      //osg::Image* image = osgDB::readImageFile(movie_file);
-      //osg::ImageStream* imagestream = dynamic_cast<osg::ImageStream*>(image);
-      //if (imagestream) 
-      //{
-      //   imagestream->play();
-      //}
+      IplImage* cvImage = NULL;
+      if(!useWebcam)
+         cvImage =cvLoadImage(movie_file.c_str());
+      else {
+         cvImage = cvQueryFrame(capture);
+      }
+
+      
+      // Skeletonization
+      process(cvImage);
+      texImage = Convert_OpenCV_to_OSG_IMAGE(cvImage);
+      //osg::Image* image = Convert_OpenCV_to_OSG_IMAGE(cvImage);
+      
+      
+      if (texImage)
+      {
+         osg::notify(osg::NOTICE)<<"image->s()"<<texImage->s()<<" image->t()="<<texImage->t()<<" aspectRatio="<<texImage->getPixelAspectRatio()<<std::endl;
+         
+         float width = texImage->s() * texImage->getPixelAspectRatio();
+         float height = texImage->t();
+         
+         osg::ref_ptr<osg::Drawable> drawable = myCreateTexturedQuadGeometry(pos, width, height,texImage, useTextureRectangle, xyPlane, flip);
+         
+         if (texImage->isImageTranslucent())
+         {
+            osg::notify(osg::NOTICE)<<"Transparent movie, enabling blending."<<std::endl;
+            
+            drawable->getOrCreateStateSet()->setMode(GL_BLEND, osg::StateAttribute::ON);
+            drawable->getOrCreateStateSet()->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+         }
+         drawable->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
+         geode->addDrawable(drawable.get());
+         
+         bottomright = pos + osg::Vec3(width,height,0.0f);
+         
+         if (xyPlane) pos.y() += height*1.05f;
+         else pos.z() += height*1.05f;
+      }
+      
+      
+      
+      /*osg::Image* image = osgDB::readImageFile(movie_file);
+      osg::ImageStream* imagestream = dynamic_cast<osg::ImageStream*>(image);
+      if (imagestream) 
+      {
+         imagestream->play();
+      }
       
       if (image)
       {
-         osg::notify(osg::NOTICE)<<"image->s()"<<image->s()<<" image-t()="<<image->t()<<" aspectRatio="<<image->getPixelAspectRatio()<<std::endl;
+         osg::notify(osg::NOTICE)<<"image->s()"<<image->s()<<" image->t()="<<image->t()<<" aspectRatio="<<image->getPixelAspectRatio()<<std::endl;
          
          float width = image->s() * image->getPixelAspectRatio();
          float height = image->t();
@@ -424,7 +550,7 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
          
          if (xyPlane) pos.y() += height*1.05f;
          else pos.z() += height*1.05f;
-      }
+      }*/
       
       osg::Camera* camera = new osg::Camera;
       
@@ -483,6 +609,11 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
                      0, 0, false,
                      samples, colorSamples);
       
+      // TEST JIM
+      camera->getProjectionMatrixAsFrustum(l,r,b,t,n,f);
+      camera->getViewMatrixAsLookAt(e,c,u);
+
+      
       // add subgraph to render
       camera->addChild(geode);
       
@@ -490,7 +621,7 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
       
    }
    
-   // then create the camera node to do the render to texture
+   // then create the camera node view something
    {    
       osg::Camera* camera = new osg::Camera;
       
@@ -561,6 +692,10 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
                         samples, colorSamples);
       }
       
+      // TEST
+      //camera->getProjectionMatrixAsFrustum(l,r,b,t,n,f);
+      //camera->getViewMatrixAsLookAt(e,c,u);
+      
       
       // add subgraph to render
       camera->addChild(subgraph);
@@ -572,7 +707,7 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
    return parent;
 }
 
-int main( int argc, char **argv )
+int mainosgAR( int argc, char **argv )
 {
    // use an ArgumentParser object to manage the program arguments.
    osg::ArgumentParser arguments(&argc,argv);
@@ -610,8 +745,8 @@ int main( int argc, char **argv )
       return 1;
    }
    
-   unsigned int tex_width = 1024;
-   unsigned int tex_height = 512;
+   unsigned int tex_width = 512;//1024;
+   unsigned int tex_height = 512;//512;
    unsigned int samples = 0;
    unsigned int colorSamples = 0;
    
@@ -637,6 +772,22 @@ int main( int argc, char **argv )
    bool useHDR = false;
    while (arguments.read("--hdr")) { useHDR = true; }
    
+   // Using the webcam instead of an image?
+   bool useWebcam = false;
+   CvCapture *webcamCapture = NULL;
+   while (arguments.read("--webcam")){ 
+      useWebcam = true;
+      webcamCapture = cvCreateCameraCapture(0);
+   }
+   
+   // Name of the texture/video to use
+   std::string srcName;
+   if(!useWebcam)
+      srcName = arguments[2];
+   else {
+      srcName = "";
+   }
+
    
    // load the nodes from the commandline arguments.
    osg::Node* loadedModel = osgDB::readNodeFiles(arguments);
@@ -657,12 +808,29 @@ int main( int argc, char **argv )
    loadedModelTransform->setUpdateCallback(nc);
    
    osg::Group* rootNode = new osg::Group();
-   rootNode->addChild(createPreRenderSubGraph(loadedModelTransform,tex_width,tex_height, renderImplementation, useImage, useTextureRectangle, useHDR, samples, colorSamples, arguments[2]));
+   rootNode->addChild(createPreRenderSubGraph(loadedModelTransform,tex_width,tex_height, renderImplementation, useImage, useTextureRectangle, useHDR, useWebcam, samples, colorSamples, srcName, webcamCapture));
    
-   osgDB::writeNodeFile(*rootNode, "test.ive");
+   //osgDB::writeNodeFile(*rootNode, "test.ive");
    
    // add model to the viewer.
    viewer.setSceneData( rootNode );
+   viewer.realize();
    
-   return viewer.run();
+   while (!viewer.done())
+   {
+      //viewer.getCamera()->setProjectionMatrix(computeCameraProjectionMatrix(loadedModelTransform));
+      //viewer.getCamera()->setViewMatrix(computeCameraViewMatrix(loadedModelTransform));
+      /*viewer.getCamera()->setProjectionMatrixAsFrustum(l,r,b,t,n,f);
+      viewer.getCamera()->setViewMatrixAsLookAt(e,c,u);
+      
+      viewer.getCamera()->setViewport(0,0,tex_width,tex_height);
+      viewer.getCamera()->addChild(loadedModelTransform);*/
+      viewer.updateTraversal();
+      viewer.frame();
+   }
+   
+   //cvReleaseCapture(&webcamCapture);
+   return 0;
+   
+   //return viewer.run();
 }
