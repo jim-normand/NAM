@@ -34,11 +34,19 @@
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
 
-#include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
+#include <opencv2/calib3d/calib3d.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgproc/imgproc_c.h>
+#include <opencv2/highgui/highgui.hpp>
 
 
 #include <iostream>
+using namespace std;
+
+CvCapture *captureMethod;
+
+bool liveVideo = false;
 
 // Test Skeletonization
 #include "../skeletonization/Skeletonize.h"
@@ -478,54 +486,22 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
       bool flip = false;
       
       osg::ref_ptr<osg::Geode> geode = new osg::Geode;
-      
-      IplImage* cvImage = NULL;
-      if(!useWebcam)
-         cvImage =cvLoadImage(movie_file.c_str());
+      IplImage *cvImage=NULL;
+      if (liveVideo) {
+         cvImage = cvQueryFrame(captureMethod);
+         osg::notify(osg::NOTICE) << "getting frame from video";
+      }
       else {
-         cvImage = cvQueryFrame(capture);
+         //cvImage = cvLoadImage(movie_file.c_str());
+         cvImage = cvQueryFrame(captureMethod);
       }
-
-      
-      // Skeletonization
-      process(cvImage);
-      texImage = Convert_OpenCV_to_OSG_IMAGE(cvImage);
-      //osg::Image* image = Convert_OpenCV_to_OSG_IMAGE(cvImage);
-      
-      
-      if (texImage)
-      {
-         osg::notify(osg::NOTICE)<<"image->s()"<<texImage->s()<<" image->t()="<<texImage->t()<<" aspectRatio="<<texImage->getPixelAspectRatio()<<std::endl;
-         
-         float width = texImage->s() * texImage->getPixelAspectRatio();
-         float height = texImage->t();
-         
-         osg::ref_ptr<osg::Drawable> drawable = myCreateTexturedQuadGeometry(pos, width, height,texImage, useTextureRectangle, xyPlane, flip);
-         
-         if (texImage->isImageTranslucent())
-         {
-            osg::notify(osg::NOTICE)<<"Transparent movie, enabling blending."<<std::endl;
-            
-            drawable->getOrCreateStateSet()->setMode(GL_BLEND, osg::StateAttribute::ON);
-            drawable->getOrCreateStateSet()->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
-         }
-         drawable->getOrCreateStateSet()->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
-         geode->addDrawable(drawable.get());
-         
-         bottomright = pos + osg::Vec3(width,height,0.0f);
-         
-         if (xyPlane) pos.y() += height*1.05f;
-         else pos.z() += height*1.05f;
-      }
-      
-      
-      
-      /*osg::Image* image = osgDB::readImageFile(movie_file);
-      osg::ImageStream* imagestream = dynamic_cast<osg::ImageStream*>(image);
-      if (imagestream) 
-      {
-         imagestream->play();
-      }
+      osg::Image* image = Convert_OpenCV_to_OSG_IMAGE(cvImage);
+      //osg::Image* image = osgDB::readImageFile(movie_file);
+      //osg::ImageStream* imagestream = dynamic_cast<osg::ImageStream*>(image);
+      //if (imagestream) 
+      //{
+      //   imagestream->play();
+      //}
       
       if (image)
       {
@@ -550,7 +526,7 @@ osg::Node* createPreRenderSubGraph(osg::Node* subgraph,
          
          if (xyPlane) pos.y() += height*1.05f;
          else pos.z() += height*1.05f;
-      }*/
+      }
       
       osg::Camera* camera = new osg::Camera;
       
@@ -725,6 +701,8 @@ int mainosgAR( int argc, char **argv )
    arguments.getApplicationUsage()->addCommandLineOption("--image","Render to an image, then apply a post draw callback to it, and use this image to update a texture.");
    arguments.getApplicationUsage()->addCommandLineOption("--texture-rectangle","Use osg::TextureRectangle for doing the render to texture to.");
    
+   arguments.getApplicationUsage()->addCommandLineOption("--live-video","Use live video with OpenCV");
+   
    // construct the viewer.
    osgViewer::Viewer viewer(arguments);
    viewer.setThreadingModel(osgViewer::Viewer::SingleThreaded);
@@ -749,6 +727,19 @@ int mainosgAR( int argc, char **argv )
    unsigned int tex_height = 512;//512;
    unsigned int samples = 0;
    unsigned int colorSamples = 0;
+   
+   if (arguments.read("--live-video")) {
+      // run on the OpenCV capture
+      liveVideo = true;
+      captureMethod = cvCaptureFromCAM(0);
+      if (captureMethod == NULL) {
+         osg::notify(osg::FATAL)<<"couldn't open camera stream. exit."<<std::endl;
+      }
+   }
+   else {
+      liveVideo = false;
+      captureMethod = cvCaptureFromFile(arguments[2]);
+   }
    
    while (arguments.read("--width", tex_width)) {}
    while (arguments.read("--height", tex_height)) {}

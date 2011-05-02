@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38A4FE7213681A2A003D16F9 /* Intersections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE6E13681A2A003D16F9 /* Intersections.cpp */; };
+		38A4FE7313681A2A003D16F9 /* Skeletonize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE7013681A2A003D16F9 /* Skeletonize.cpp */; };
+		38A4FE7413681A2A003D16F9 /* Intersections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE6E13681A2A003D16F9 /* Intersections.cpp */; };
+		38A4FE7513681A2A003D16F9 /* Skeletonize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE7013681A2A003D16F9 /* Skeletonize.cpp */; };
+		38A6E89F136E996B00F44AAD /* videogeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E89D136E996B00F44AAD /* videogeometry.cpp */; };
+		38A6E97B136EB0D200F44AAD /* main-VideoGeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */; };
 		38C1CB9A135306A3002C7EBE /* blob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB89135306A3002C7EBE /* blob.cpp */; };
 		38C1CB9B135306A3002C7EBE /* bloblist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB8B135306A3002C7EBE /* bloblist.cpp */; };
 		38C1CB9C135306A3002C7EBE /* hashtable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38C1CB8D135306A3002C7EBE /* hashtable.cpp */; };
@@ -72,6 +78,13 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		38A4FE6E13681A2A003D16F9 /* Intersections.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Intersections.cpp; path = skeletonization/Intersections.cpp; sourceTree = "<group>"; };
+		38A4FE6F13681A2A003D16F9 /* Intersections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Intersections.h; path = skeletonization/Intersections.h; sourceTree = "<group>"; };
+		38A4FE7013681A2A003D16F9 /* Skeletonize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skeletonize.cpp; path = skeletonization/Skeletonize.cpp; sourceTree = "<group>"; };
+		38A4FE7113681A2A003D16F9 /* Skeletonize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Skeletonize.h; path = skeletonization/Skeletonize.h; sourceTree = "<group>"; };
+		38A6E89D136E996B00F44AAD /* videogeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = videogeometry.cpp; sourceTree = "<group>"; };
+		38A6E89E136E996B00F44AAD /* videogeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = videogeometry.h; sourceTree = "<group>"; };
+		38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "main-VideoGeometry.cpp"; sourceTree = "<group>"; };
 		38C1CB89135306A3002C7EBE /* blob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = blob.cpp; sourceTree = "<group>"; };
 		38C1CB8A135306A3002C7EBE /* blob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blob.h; sourceTree = "<group>"; };
 		38C1CB8B135306A3002C7EBE /* bloblist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bloblist.cpp; sourceTree = "<group>"; };
@@ -175,22 +188,7 @@
 		08FB7794FE84155DC02AAC07 /* RandomDotMarkers */ = {
 			isa = PBXGroup;
 			children = (
-				A3348D4D13672BAC00B334E2 /* libopencv_highgui.dylib */,
-				A3348D4E13672BAC00B334E2 /* libopencv_imgproc.dylib */,
-				A3348D4F13672BAC00B334E2 /* libopencv_legacy.dylib */,
-				A3348D5013672BAC00B334E2 /* libopencv_video.dylib */,
-				A3348D4B13672B8D00B334E2 /* libopencv_features2d.dylib */,
-				A3348D4913672B8000B334E2 /* libopencv_core.dylib */,
-				A3348D4613672B5B00B334E2 /* libopencv_core.2.2.dylib */,
-				A350BE711366E2530098ABA4 /* libOpenThreads.dylib */,
-				A350BE601366E24B0098ABA4 /* libosg.dylib */,
-				A350BE611366E24B0098ABA4 /* libosgDB.dylib */,
-				A350BE621366E24B0098ABA4 /* libosgGA.dylib */,
-				A350BE631366E24B0098ABA4 /* libosgParticle.dylib */,
-				A350BE641366E24B0098ABA4 /* libosgSim.dylib */,
-				A350BE651366E24B0098ABA4 /* libosgText.dylib */,
-				A350BE661366E24B0098ABA4 /* libosgUtil.dylib */,
-				A350BE671366E24B0098ABA4 /* libosgViewer.dylib */,
+				38A4FE6D13681A17003D16F9 /* skeletonization */,
 				A36AD8461366CD3F0066E897 /* osgAR */,
 				38C1CBB9135306CE002C7EBE /* Frameworks */,
 				38C1CBA2135306B8002C7EBE /* Lib */,
@@ -235,6 +233,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		38A4FE6D13681A17003D16F9 /* skeletonization */ = {
+			isa = PBXGroup;
+			children = (
+				38A4FE6E13681A2A003D16F9 /* Intersections.cpp */,
+				38A4FE6F13681A2A003D16F9 /* Intersections.h */,
+				38A4FE7013681A2A003D16F9 /* Skeletonize.cpp */,
+				38A4FE7113681A2A003D16F9 /* Skeletonize.h */,
+			);
+			name = skeletonization;
+			sourceTree = "<group>";
+		};
 		38C1CBA2135306B8002C7EBE /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +280,13 @@
 		A3281F2C13572FB9007DC809 /* OpenCV */ = {
 			isa = PBXGroup;
 			children = (
+				A3348D4D13672BAC00B334E2 /* libopencv_highgui.dylib */,
+				A3348D4E13672BAC00B334E2 /* libopencv_imgproc.dylib */,
+				A3348D4F13672BAC00B334E2 /* libopencv_legacy.dylib */,
+				A3348D5013672BAC00B334E2 /* libopencv_video.dylib */,
+				A3348D4B13672B8D00B334E2 /* libopencv_features2d.dylib */,
+				A3348D4913672B8000B334E2 /* libopencv_core.dylib */,
+				A3348D4613672B5B00B334E2 /* libopencv_core.2.2.dylib */,
 				38C1CBF413530875002C7EBE /* libopencv_calib3d.dylib */,
 				38C1CBBA135306ED002C7EBE /* libopencv_core.dylib */,
 				38C1CBBB135306ED002C7EBE /* libopencv_highgui.dylib */,
@@ -282,6 +298,15 @@
 		A3281F2E13572FCC007DC809 /* OpenSceneGraph */ = {
 			isa = PBXGroup;
 			children = (
+				A350BE711366E2530098ABA4 /* libOpenThreads.dylib */,
+				A350BE601366E24B0098ABA4 /* libosg.dylib */,
+				A350BE611366E24B0098ABA4 /* libosgDB.dylib */,
+				A350BE621366E24B0098ABA4 /* libosgGA.dylib */,
+				A350BE631366E24B0098ABA4 /* libosgParticle.dylib */,
+				A350BE641366E24B0098ABA4 /* libosgSim.dylib */,
+				A350BE651366E24B0098ABA4 /* libosgText.dylib */,
+				A350BE661366E24B0098ABA4 /* libosgUtil.dylib */,
+				A350BE671366E24B0098ABA4 /* libosgViewer.dylib */,
 			);
 			name = OpenSceneGraph;
 			sourceTree = "<group>";
@@ -289,6 +314,9 @@
 		A36AD8461366CD3F0066E897 /* osgAR */ = {
 			isa = PBXGroup;
 			children = (
+				38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */,
+				38A6E89D136E996B00F44AAD /* videogeometry.cpp */,
+				38A6E89E136E996B00F44AAD /* videogeometry.h */,
 				A36AD8471366CD3F0066E897 /* main.cpp */,
 				A36AD8491366CD3F0066E897 /* osgAR.1 */,
 			);
@@ -387,6 +415,8 @@
 				38C1CBB6135306CA002C7EBE /* mylabel.cpp in Sources */,
 				38C1CBB7135306CA002C7EBE /* mymat.cpp in Sources */,
 				38C1CBB8135306CA002C7EBE /* mytimer.cpp in Sources */,
+				38A4FE7213681A2A003D16F9 /* Intersections.cpp in Sources */,
+				38A4FE7313681A2A003D16F9 /* Skeletonize.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +425,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A36AD8481366CD3F0066E897 /* main.cpp in Sources */,
+				38A4FE7413681A2A003D16F9 /* Intersections.cpp in Sources */,
+				38A4FE7513681A2A003D16F9 /* Skeletonize.cpp in Sources */,
+				38A6E89F136E996B00F44AAD /* videogeometry.cpp in Sources */,
+				38A6E97B136EB0D200F44AAD /* main-VideoGeometry.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
