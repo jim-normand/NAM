@@ -7,6 +7,7 @@
  */
 
 #include "videogeometry.h"
+#include "../skeletonization/Skeletonize.h"
 
 using namespace osg;
 
@@ -159,10 +160,15 @@ PositionAttitudeTransform *VideoGeode::createVideoPlane(float size, bool texRepe
 	// vertex array
 	Vec3Array *vertexArray = new Vec3Array();
 	
-	vertexArray->push_back(Vec3(-size, -size, 0));
-	vertexArray->push_back(Vec3(size, -size, 0));
-	vertexArray->push_back(Vec3(size, size, 0));
-	vertexArray->push_back(Vec3(-size, size, 0));
+	//vertexArray->push_back(Vec3(-size, -size, 0));
+	//vertexArray->push_back(Vec3(size, -size, 0));
+	//vertexArray->push_back(Vec3(size, size, 0));
+	//vertexArray->push_back(Vec3(-size, size, 0));
+   
+   vertexArray->push_back(Vec3(-size, 0, -size));
+	vertexArray->push_back(Vec3(size, 0, -size));
+	vertexArray->push_back(Vec3(size, 0, size));
+	vertexArray->push_back(Vec3(-size, 0, size));
 	
 	// face array
 	DrawElementsUInt *faceArray = new DrawElementsUInt(PrimitiveSet::TRIANGLES, 0);

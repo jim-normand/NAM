@@ -472,6 +472,10 @@
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
+				REZ_SEARCH_PATHS = (
+					"$(HOME)/Documents/Dev/OpenSceneGraph/OpenSceneGraph-Data/Images",
+					"$(OSG_FILE_PATH)",
+				);
 				SDKROOT = macosx10.6;
 				VALID_ARCHS = "i386 x86_64";
 			};

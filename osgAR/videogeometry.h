@@ -29,7 +29,7 @@ using namespace osg;
 
 void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image *videoTex);
 
-class VideoGeode {
+class VideoGeode : public Referenced {
 public:
 	VideoGeode(GLuint w=640, GLuint h=480);
 	void clearMaterial();
