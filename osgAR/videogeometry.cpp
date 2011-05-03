@@ -10,6 +10,7 @@
 #include "../skeletonization/Skeletonize.h"
 
 using namespace osg;
+using namespace std;
 
 void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image* videoTex) 
 { 
@@ -17,7 +18,8 @@ void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image* videoTex)
    /*
     std::cout<<"Trying to convert IplImage to osg::Image"<<std::endl;
    std::cout<<"Information on the image: "<<cvImg<<std::endl;
-   std::cout<<"Width: "<<cvImg->width<<" Height: "<<cvImg->height<<" Channels: "<<cvImg->nChannels<<std::endl;
+   std::cout<<"Width: "<<cvImg->width<<" Height: "<<cvImg->height;
+   std::cout<<" Channels: "<<cvImg->nChannels<<std::endl;
    */
    
    cvFlip(cvImg, cvImg, 0);
@@ -42,6 +44,9 @@ void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image* videoTex)
 }
 
 
+/////////////////////////////////////////////////////////////////////////////// 
+///////////////////////    CLASS   VIDEOGEODE   /////////////////////////////// 
+/////////////////////////////////////////////////////////////////////////////// 
 
 VideoGeode::VideoGeode(GLuint w, GLuint h):_width(w),_height(h)
 {
@@ -58,12 +63,12 @@ VideoGeode::VideoGeode(GLuint w, GLuint h):_width(w),_height(h)
 
 void VideoGeode::clearMaterial()
 {
-	material = new Material();
+	_material = new Material();
 }
 
 void VideoGeode::prepareMaterial(Material *givenMaterial)
 {
-	material = givenMaterial;
+	_material = givenMaterial;
 }
 
 /*
@@ -111,6 +116,9 @@ Texture2D *VideoGeode::createVideoTexture(bool texRepeat)
 	_videoTexture->setDataVariance(Object::DYNAMIC);
 	_videoTexture->setFilter(Texture::MIN_FILTER, Texture::LINEAR_MIPMAP_LINEAR);
 	_videoTexture->setFilter(Texture::MAG_FILTER, Texture::LINEAR);
+   
+   // Test
+   _videoTexture->setResizeNonPowerOfTwoHint(false);
 	
 	// handle repeat
 	if (texRepeat) {
@@ -142,7 +150,7 @@ PositionAttitudeTransform *VideoGeode::createVideoSphere(float size, bool texRep
 	// assign the material to the sphere
 	StateSet *sphereStateSet = sphere->getOrCreateStateSet();
 	sphereStateSet->ref();
-	sphereStateSet->setAttribute(material);
+	sphereStateSet->setAttribute(_material);
 	
    try {
       sphereStateSet->setTextureAttributeAndModes(0, createVideoTexture(texRepeat), StateAttribute::ON);
@@ -190,7 +198,7 @@ PositionAttitudeTransform *VideoGeode::createVideoPlane(float size, bool texRepe
 	normalIndexArray->push_back(0);
 	
 	// texture coordinates
-	osg::Vec2Array *texCoords = new osg::Vec2Array();
+	Vec2Array *texCoords = new Vec2Array();
 	texCoords->push_back(Vec2(0.0, 0.0));
 	texCoords->push_back(Vec2(1.0, 0.0));
 	texCoords->push_back(Vec2(1.0, 1.0));
@@ -210,7 +218,7 @@ PositionAttitudeTransform *VideoGeode::createVideoPlane(float size, bool texRepe
 	// assign the material to the sphere
 	StateSet *planeStateSet = plane->getOrCreateStateSet();
 	planeStateSet->ref();
-	planeStateSet->setAttribute(material);
+	planeStateSet->setAttribute(_material);
 	
    try {
 		planeStateSet->setTextureAttributeAndModes(0, createVideoTexture(texRepeat), StateAttribute::ON);
@@ -222,6 +230,122 @@ PositionAttitudeTransform *VideoGeode::createVideoPlane(float size, bool texRepe
 	planeTransform->addChild(plane);
 	return planeTransform;
 }
-
-
 // \End Test Jim
+
+
+/////////////////////////////////////////////////////////////////////////////// 
+///////////////////////    CLASS   MOVIEGEODE   /////////////////////////////// 
+/////////////////////////////////////////////////////////////////////////////// 
+
+MovieGeode::MovieGeode(std::string movieName)
+{
+	clearMaterial();
+   
+   // ImageStream
+   _movieImage    = osgDB::readImageFile(movieName);
+   cout<<"Image from Movie: "<<_movieImage<<endl;
+   _movieStream   = dynamic_cast<osg::ImageStream*>(_movieImage);
+   if(!_movieStream)
+      cout << "Error! Could not load movie file"<<endl;
+   else {
+      _movieStream->play();
+   }
+
+   // Creating texturead Quad
+}
+
+void MovieGeode::clearMaterial()
+{
+	_mat = new Material();
+}
+
+void MovieGeode::prepareMaterial(Material *givenMaterial)
+{
+	_mat = givenMaterial;
+}
+
+// Getters
+Image* MovieGeode::getMovieImage()
+{
+   return _movieImage;
+}
+
+ImageStream* MovieGeode::getMovieStream()
+{
+   return _movieStream;
+}
+
+PositionAttitudeTransform *MovieGeode::createMoviePlane(const osg::Vec3& pos, float width,float height, bool texRepeat)
+//osg::Geometry* myCreateTexturedQuadGeometry(const osg::Vec3& pos,float width,float height, osg::Image* image, bool useTextureRectangle, bool xyPlane, bool option_flip)
+{
+   bool flip = _movieImage->getOrigin()==osg::Image::TOP_LEFT;
+   //if (option_flip) flip = !flip;
+   
+   osg::Geometry* pictureQuad = osg::createTexturedQuadGeometry(pos,
+                                                                osg::Vec3(width,0.0f,0.0f),
+                                                                osg::Vec3(0.0f,0.0f,height),
+                                                                0.0f, flip ? 1.0f : 0.0f , 1.0f, flip ? 0.0f : 1.0f);
+   
+   _movieTexture = new osg::Texture2D(_movieImage);
+   _movieTexture->setResizeNonPowerOfTwoHint(false);
+   _movieTexture->setFilter(Texture::MIN_FILTER, Texture::LINEAR_MIPMAP_LINEAR);
+   _movieTexture->setFilter(Texture::MAG_FILTER, Texture::LINEAR);
+   //_movieTexture->setFilter(osg::Texture::MIN_FILTER,osg::Texture::LINEAR);
+   //_movieTexture->setWrap(osg::Texture::WRAP_S, osg::Texture::CLAMP_TO_EDGE);
+   //_movieTexture->setWrap(osg::Texture::WRAP_T, osg::Texture::CLAMP_TO_EDGE);
+   
+   // handle repeat
+   if (texRepeat) {
+      _movieTexture->setWrap(Texture::WRAP_S, Texture::REPEAT);
+      _movieTexture->setWrap(Texture::WRAP_T, Texture::REPEAT);
+   } else {
+      _movieTexture->setWrap(Texture::WRAP_S, Texture::CLAMP);
+      _movieTexture->setWrap(Texture::WRAP_T, Texture::CLAMP);
+   }
+   
+   pictureQuad->getOrCreateStateSet()->setTextureAttributeAndModes(0,_movieTexture,osg::StateAttribute::ON);
+   
+   osg::ref_ptr<osg::Geode> geode = new osg::Geode;
+   geode->addDrawable(pictureQuad);
+   
+   PositionAttitudeTransform *planeTransform = new PositionAttitudeTransform();
+	planeTransform->addChild(geode);
+	return planeTransform;
+}
+
+
+PositionAttitudeTransform *MovieGeode::createMovieSphere(float size, osg::Image* image, bool texRepeat)
+{
+   osg::ref_ptr<Geode> sphere = new Geode();
+	sphere->addDrawable(new ShapeDrawable(new Sphere(Vec3(0, 0, 4), size)));
+	
+	// assign the material to the sphere
+	StateSet *sphereStateSet = sphere->getOrCreateStateSet();
+	sphereStateSet->ref();
+	sphereStateSet->setAttribute(_mat);
+	
+   _movieTexture = new osg::Texture2D(image);
+   _movieTexture->setResizeNonPowerOfTwoHint(false);
+   _movieTexture->setFilter(Texture::MIN_FILTER, Texture::LINEAR_MIPMAP_LINEAR);
+   _movieTexture->setFilter(Texture::MAG_FILTER, Texture::LINEAR);
+  
+   // handle repeat
+   if (texRepeat) {
+      _movieTexture->setWrap(Texture::WRAP_S, Texture::REPEAT);
+      _movieTexture->setWrap(Texture::WRAP_T, Texture::REPEAT);
+   } else {
+      _movieTexture->setWrap(Texture::WRAP_S, Texture::CLAMP);
+      _movieTexture->setWrap(Texture::WRAP_T, Texture::CLAMP);
+   }
+   
+   
+   try {
+      sphereStateSet->setTextureAttributeAndModes(0, _movieTexture, StateAttribute::ON);
+   } catch (char *e) {
+      throw e;
+   }
+	
+	PositionAttitudeTransform *sphereTransform = new PositionAttitudeTransform();
+	sphereTransform->addChild(sphere);
+	return sphereTransform;
+}

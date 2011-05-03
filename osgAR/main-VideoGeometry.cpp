@@ -7,18 +7,32 @@
 // Test Skeletonization
 #include "../skeletonization/Skeletonize.h"
 
+#include <iostream>
+
 using namespace osg;
+using namespace std;
 
 // factor for speed of whole animation
 const float ANIMATION_SPEED = 2.0;
 int uniqueLightNumber = 0;
 
 // Global Pointers (bad!)
-ref_ptr<PositionAttitudeTransform>  videoPlane;
+
+// Lighting stuff
 ref_ptr<PositionAttitudeTransform>  lightTransform;
 ref_ptr<StateSet>                   lightStateSet;
 ref_ptr<LightSource>                lightSource;
+
+// Video Geometry Stuff
+ref_ptr<PositionAttitudeTransform>  videoPlane;
 ref_ptr<VideoGeode>                 videoGeode;
+
+// Movie Geometry Stuff
+ref_ptr<PositionAttitudeTransform>  moviePlane;
+ref_ptr<MovieGeode>                 movieGeode;
+
+
+// A 3D model
 ref_ptr<PositionAttitudeTransform>  model;
 //ref_ptr<Node>                       model;
 
@@ -85,6 +99,9 @@ int main(int argc, char **argv)
    // use an ArgumentParser object to manage the program arguments.
    osg::ArgumentParser arguments(&argc,argv);
    
+   std::string libName = osgDB::Registry::instance()->createLibraryNameForExtension("ffmpeg");
+   osgDB::Registry::instance()->loadLibrary(libName);
+      
    // load the nodes from the commandline arguments.
    model = new PositionAttitudeTransform();
    Node *osgModel = osgDB::readNodeFiles(arguments);
@@ -118,6 +135,34 @@ int main(int argc, char **argv)
    scene->addChild(lightTransform);
    scene->addChild(model);
    
+   
+   // Testing the movie
+   //osg::Image* image = osgDB::readImageFile(arguments[2]);
+   
+   cout<<"Number of arguments: "<<arguments.argc()<<endl;
+   
+   if(arguments.argc() >= 3 && arguments.isString(2)){
+      
+      cout<<"Movie name: "<<arguments[2]<<endl;
+      
+      // Trying movie stuff
+      try {
+         movieGeode = new MovieGeode(arguments[2]);
+      }
+      catch (char *e) {
+         std::cerr << e;
+      }
+      
+      // not sure this is actually useful
+		Material *mat = new Material();
+		mat->setEmission(Material::FRONT, Vec4(1.0, 1.0, 1.0, 1.0));
+		mat->setAmbient(Material::FRONT,  Vec4(1.0, 1.0, 1.0, 1.0));
+		mat->setShininess(Material::FRONT, 25.0);
+      
+      movieGeode->prepareMaterial(mat);
+      moviePlane = movieGeode->createMoviePlane(Vec3(5,5,5), 5, 5, true); // position, width, height, repeatTexture
+      scene->addChild(moviePlane);
+   }
 
    // Creating the viewer
 	osgViewer::Viewer viewer;

@@ -6,6 +6,7 @@
  *
  */
 
+// OSG includes
 #include <osg/Matrix>
 #include <osg/ShapeDrawable>
 #include <osg/Geometry>
@@ -19,13 +20,17 @@
 #include <osgViewer/Viewer>
 #include <osgGA/TrackballManipulator>
 #include <osgDB/ReadFile>
+#include <osg/ImageStream>
+
+// Std includes
 #include <iostream>
 
+// OpenCV includes
+#include <opencv2/opencv.hpp>
+#include <opencv2/core/core.hpp>
 
 using namespace osg;
 
-#include <opencv2/opencv.hpp>
-#include <opencv2/core/core.hpp>
 
 void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image *videoTex);
 
@@ -42,7 +47,7 @@ public:
    void updateVideoTexture();
    
 private:
-	Material    *material;
+	Material    *_material;
    
    // Test OpenCV
    CvCapture   *_capture;
@@ -51,4 +56,30 @@ private:
    GLuint      _height;
    Image       *_videoImage;
    Texture2D   *_videoTexture;
+};
+
+
+class MovieGeode : public Referenced {
+public:
+   MovieGeode(std::string movieName);
+   void clearMaterial();
+   void prepareMaterial(Material *givenMaterial);
+   
+   // Getters
+   Image*         getMovieImage();
+   ImageStream*   getMovieStream();
+   
+   // Test Jim
+   PositionAttitudeTransform* createMovieSphere(float size, osg::Image* image, bool texRepeat);
+   PositionAttitudeTransform* createMoviePlane(const osg::Vec3& pos, float width,float height, bool texRepeat);
+   Texture2D* createMovieTexture(bool texRepeat);
+   void updateMovieTexture();
+   
+private:
+   Material    *_mat;
+   
+   // Image Stream
+   ImageStream *_movieStream;
+   Image       *_movieImage;
+   Texture2D   *_movieTexture;
 };

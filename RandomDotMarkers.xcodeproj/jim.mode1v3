@@ -227,24 +227,24 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>38A6EAC0136EEF5300F44AAD</string>
+				<string>384E3C6B137009A500ABCB00</string>
 				<key>PBXProjectModuleLabel</key>
-				<string>osgcompositeviewer.cpp</string>
+				<string>osgmovie.cpp</string>
 				<key>PBXSplitModuleInNavigatorKey</key>
 				<dict>
 					<key>Split0</key>
 					<dict>
 						<key>PBXProjectModuleGUID</key>
-						<string>38A6EAC1136EEF5300F44AAD</string>
+						<string>384E3C6C137009A500ABCB00</string>
 						<key>PBXProjectModuleLabel</key>
-						<string>osgcompositeviewer.cpp</string>
+						<string>osgmovie.cpp</string>
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>38A6EAF6136EF18B00F44AAD</string>
+						<string>384E3CDB1370298F00ABCB00</string>
 						<key>history</key>
 						<array>
-							<string>38A6EAC2136EEF5300F44AAD</string>
+							<string>384E3C6D137009A500ABCB00</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -256,11 +256,11 @@
 			<key>Geometry</key>
 			<dict>
 				<key>Frame</key>
-				<string>{{0, 20}, {1096, 983}}</string>
+				<string>{{0, 20}, {750, 983}}</string>
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>1295 -224 1096 1024 1280 -280 1920 1080 </string>
+				<string>2450 -225 750 1024 1280 -280 1920 1080 </string>
 			</dict>
 		</dict>
 	</array>
@@ -396,7 +396,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>38A6EAF5136EF18B00F44AAD</string>
+										<string>384E3CDA1370298F00ABCB00</string>
 										<key>history</key>
 										<array>
 											<string>38C1CBE3135307CE002C7EBE</string>
@@ -443,15 +443,18 @@
 											<string>38A6EA24136EDB2D00F44AAD</string>
 											<string>38A6EA88136EE67000F44AAD</string>
 											<string>38A6EA8A136EE67000F44AAD</string>
-											<string>38A6EA8B136EE67000F44AAD</string>
 											<string>38A6EA8C136EE67000F44AAD</string>
-											<string>38A6EA9C136EE98E00F44AAD</string>
 											<string>38A6EA9D136EE98E00F44AAD</string>
 											<string>38A6EA9E136EE98E00F44AAD</string>
 											<string>38A6EAAD136EED7300F44AAD</string>
 											<string>38A6EADE136EF09000F44AAD</string>
-											<string>38A6EAE9136EF11700F44AAD</string>
-											<string>38A6EAEA136EF11700F44AAD</string>
+											<string>384E3C65137009A500ABCB00</string>
+											<string>384E3C9913700E9600ABCB00</string>
+											<string>384E3C9B13700E9600ABCB00</string>
+											<string>384E3CB61370123700ABCB00</string>
+											<string>384E3CD71370298F00ABCB00</string>
+											<string>384E3CD81370298F00ABCB00</string>
+											<string>384E3CD91370298F00ABCB00</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -509,9 +512,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>38A6E9B3136EB85B00F44AAD</string>
+				<string>384E3C18136FEA6F00ABCB00</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>38A6E9B4136EB85B00F44AAD</string>
+				<string>384E3C19136FEA6F00ABCB00</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -632,7 +635,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>326037899.53412497</real>
+	<real>326117775.90782303</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>
@@ -649,12 +652,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>38A6E9C4136EB95800F44AAD</string>
-		<string>38A6E9C5136EB95800F44AAD</string>
-		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>38C1CB841353066C002C7EBE</string>
-		<string>38A6EAC0136EEF5300F44AAD</string>
+		<string>1CD10A99069EF8BA00B06720</string>
+		<string>384E3C6B137009A500ABCB00</string>
 		<string>/Users/jim/Documents/Dev/RandomDotMarkers/NAM/RandomDotMarkers.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -674,14 +674,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>View</string>
+								<string>main-VideoGeometry.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -698,6 +696,8 @@
 							<string>407pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -737,7 +737,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>38C1CB841353066C002C7EBE</string>
-				<string>38A6E9B5136EB85B00F44AAD</string>
+				<string>384E3C1B136FEA6F00ABCB00</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -750,7 +750,7 @@
 			<key>WindowToolGUID</key>
 			<string>38C1CB841353066C002C7EBE</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -859,13 +859,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>38A6E9B6136EB85B00F44AAD</string>
+				<string>384E3C1C136FEA6F00ABCB00</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>38A6E9B7136EB85B00F44AAD</string>
-				<string>38A6E9B8136EB85B00F44AAD</string>
-				<string>38A6E9B9136EB85B00F44AAD</string>
-				<string>38A6E9BA136EB85B00F44AAD</string>
-				<string>38A6E9BB136EB85B00F44AAD</string>
+				<string>384E3C1D136FEA6F00ABCB00</string>
+				<string>384E3C1E136FEA6F00ABCB00</string>
+				<string>384E3C1F136FEA6F00ABCB00</string>
+				<string>384E3C20136FEA6F00ABCB00</string>
+				<string>384E3C21136FEA6F00ABCB00</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -874,7 +874,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
