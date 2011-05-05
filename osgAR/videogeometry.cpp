@@ -8,6 +8,7 @@
 
 #include "videogeometry.h"
 #include "../skeletonization/Skeletonize.h"
+#include "NAM-FFmpegImageStream.hpp"
 
 using namespace osg;
 using namespace std;
@@ -28,8 +29,8 @@ void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image* videoTex)
                      cvImg->width, //s 
                      cvImg->height, //t 
                      1, //r 
-                     GL_RGB8,//3, 
-                     GL_BGR_EXT,//GL_BGRA, 
+                     GL_RGB8,//GL_RGBA,// 
+                     GL_BGR_EXT, //GL_BGRA,//
                      GL_UNSIGNED_BYTE, 
                      (unsigned char*)(cvImg->imageData), 
                       osg::Image::NO_DELETE 
@@ -58,6 +59,7 @@ VideoGeode::VideoGeode(GLuint w, GLuint h):_width(w),_height(h)
    cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, _height);
    _camImage = cvCreateImage(cvSize(_width, _height), IPL_DEPTH_8U, 3);
    cvCopy(cvQueryFrame(_capture),_camImage,0);
+   
    _videoImage = new osg::Image();
 }
 
@@ -199,10 +201,10 @@ PositionAttitudeTransform *VideoGeode::createVideoPlane(float size, bool texRepe
 	
 	// texture coordinates
 	Vec2Array *texCoords = new Vec2Array();
-	texCoords->push_back(Vec2(0.0, 0.0));
-	texCoords->push_back(Vec2(1.0, 0.0));
-	texCoords->push_back(Vec2(1.0, 1.0));
-	texCoords->push_back(Vec2(0.0, 1.0));
+	texCoords->push_back(Vec2(0.0f, 0.0f));
+	texCoords->push_back(Vec2(1.0f, 0.0f));
+	texCoords->push_back(Vec2(1.0f, 1.0f));
+	texCoords->push_back(Vec2(0.0f, 1.0f));
 	
 	Geometry *geometry = new Geometry();
 	geometry->setVertexArray(vertexArray);
@@ -242,9 +244,11 @@ MovieGeode::MovieGeode(std::string movieName)
 	clearMaterial();
    
    // ImageStream
-   _movieImage    = osgDB::readImageFile(movieName);
+   //_movieImage    = osgDB::readImageFile(movieName);
    cout<<"Image from Movie: "<<_movieImage<<endl;
-   _movieStream   = dynamic_cast<osg::ImageStream*>(_movieImage);
+   //_movieStream   = dynamic_cast<osg::ImageStream*>(_movieImage);
+   _movieStream   = new NAMFFmpegImageStream();
+   _movieStream->open(movieName);
    if(!_movieStream)
       cout << "Error! Could not load movie file"<<endl;
    else {
@@ -278,7 +282,8 @@ ImageStream* MovieGeode::getMovieStream()
 PositionAttitudeTransform *MovieGeode::createMoviePlane(const osg::Vec3& pos, float width,float height, bool texRepeat)
 //osg::Geometry* myCreateTexturedQuadGeometry(const osg::Vec3& pos,float width,float height, osg::Image* image, bool useTextureRectangle, bool xyPlane, bool option_flip)
 {
-   bool flip = _movieImage->getOrigin()==osg::Image::TOP_LEFT;
+   bool flip = _movieStream->getOrigin()==osg::Image::TOP_LEFT;
+   //bool flip = _movieImage->getOrigin()==osg::Image::TOP_LEFT; OK
    //if (option_flip) flip = !flip;
    
    osg::Geometry* pictureQuad = osg::createTexturedQuadGeometry(pos,
@@ -286,7 +291,8 @@ PositionAttitudeTransform *MovieGeode::createMoviePlane(const osg::Vec3& pos, fl
                                                                 osg::Vec3(0.0f,0.0f,height),
                                                                 0.0f, flip ? 1.0f : 0.0f , 1.0f, flip ? 0.0f : 1.0f);
    
-   _movieTexture = new osg::Texture2D(_movieImage);
+   //_movieTexture = new osg::Texture2D(_movieImage); OK
+   _movieTexture = new osg::Texture2D(dynamic_cast<osg::Image*>(_movieStream));
    _movieTexture->setResizeNonPowerOfTwoHint(false);
    _movieTexture->setFilter(Texture::MIN_FILTER, Texture::LINEAR_MIPMAP_LINEAR);
    _movieTexture->setFilter(Texture::MAG_FILTER, Texture::LINEAR);
@@ -314,7 +320,7 @@ PositionAttitudeTransform *MovieGeode::createMoviePlane(const osg::Vec3& pos, fl
 }
 
 
-PositionAttitudeTransform *MovieGeode::createMovieSphere(float size, osg::Image* image, bool texRepeat)
+PositionAttitudeTransform *MovieGeode::createMovieSphere(float size, bool texRepeat)
 {
    osg::ref_ptr<Geode> sphere = new Geode();
 	sphere->addDrawable(new ShapeDrawable(new Sphere(Vec3(0, 0, 4), size)));
@@ -324,7 +330,7 @@ PositionAttitudeTransform *MovieGeode::createMovieSphere(float size, osg::Image*
 	sphereStateSet->ref();
 	sphereStateSet->setAttribute(_mat);
 	
-   _movieTexture = new osg::Texture2D(image);
+   _movieTexture = new osg::Texture2D(_movieImage);
    _movieTexture->setResizeNonPowerOfTwoHint(false);
    _movieTexture->setFilter(Texture::MIN_FILTER, Texture::LINEAR_MIPMAP_LINEAR);
    _movieTexture->setFilter(Texture::MAG_FILTER, Texture::LINEAR);
@@ -348,4 +354,10 @@ PositionAttitudeTransform *MovieGeode::createMovieSphere(float size, osg::Image*
 	PositionAttitudeTransform *sphereTransform = new PositionAttitudeTransform();
 	sphereTransform->addChild(sphere);
 	return sphereTransform;
+}
+
+
+void MovieGeode::updateMovieTexture()
+{
+   _movieStream->updateImage();
 }

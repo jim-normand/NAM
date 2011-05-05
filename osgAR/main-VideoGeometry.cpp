@@ -13,7 +13,7 @@ using namespace osg;
 using namespace std;
 
 // factor for speed of whole animation
-const float ANIMATION_SPEED = 2.0;
+const float ANIMATION_SPEED = 2.0f;
 int uniqueLightNumber = 0;
 
 // Global Pointers (bad!)
@@ -43,10 +43,10 @@ Light* createLight(Vec4 color)
 	// each light must have a unique number
 	light->setLightNum(uniqueLightNumber++);
 	// we set the light's position via a PositionAttitudeTransform object
-	light->setPosition(Vec4(0.0, 0.0, 0.0, 1.0));
+	light->setPosition(Vec4(0.0f, 0.0f, 0.0f, 1.0f));
 	light->setDiffuse(color);
-	light->setSpecular(Vec4(1.0, 1.0, 1.0, 1.0));
-	light->setAmbient( Vec4(0.0, 0.0, 0.0, 1.0));
+	light->setSpecular(Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	light->setAmbient( Vec4(0.0f, 0.0f, 0.0f, 1.0f));
 	
 	return light;
 }
@@ -64,9 +64,9 @@ Group* startup()
 		
 		// stars / starfield
 		Material *material = new Material();
-		material->setEmission(Material::FRONT, Vec4(1.0, 1.0, 1.0, 1.0));
-		material->setAmbient(Material::FRONT,  Vec4(1.0, 1.0, 1.0, 1.0));
-		material->setShininess(Material::FRONT, 25.0);
+		material->setEmission(Material::FRONT, Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		material->setAmbient(Material::FRONT,  Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		material->setShininess(Material::FRONT, 25.0f);
 		// creating a video plane
 		videoGeode->prepareMaterial(material);
       videoPlane = videoGeode->createVideoPlane(5, true);
@@ -89,8 +89,12 @@ void update(double time)
    rotate.makeRotate(-time/10.0, 0, 0, 1);
    videoPlane->setAttitude(rotate);
    
+   // MoviePlane
+   //rotate.makeRotate(-time, 1,0,0);
+   //moviePlane->setAttitude(rotate);
+   
    // Model
-   rotate.makeRotate(time/20.0, 0,1,0);
+   rotate.makeRotate(time/5.0, 0,1,0);
    model->setAttitude(rotate);
 }
 
@@ -120,7 +124,7 @@ int main(int argc, char **argv)
    
    // create a light
 	lightSource = new LightSource();
-	lightSource->setLight(createLight(Vec4(0.9, 0.9, 0.9, 1.0)));
+	lightSource->setLight(createLight(Vec4(0.9f, 0.9f, 0.9f, 1.0f)));
 	// enable the light for the entire scene
 	lightSource->setLocalStateSetModes(StateAttribute::ON);
 	lightSource->setStateSetModes(*lightStateSet, StateAttribute::ON);
@@ -155,15 +159,15 @@ int main(int argc, char **argv)
       
       // not sure this is actually useful
 		Material *mat = new Material();
-		mat->setEmission(Material::FRONT, Vec4(1.0, 1.0, 1.0, 1.0));
-		mat->setAmbient(Material::FRONT,  Vec4(1.0, 1.0, 1.0, 1.0));
-		mat->setShininess(Material::FRONT, 25.0);
+		mat->setEmission(Material::FRONT, Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		mat->setAmbient(Material::FRONT,  Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		mat->setShininess(Material::FRONT, 25.0f);
       
-      movieGeode->prepareMaterial(mat);
-      moviePlane = movieGeode->createMoviePlane(Vec3(5,5,5), 5, 5, true); // position, width, height, repeatTexture
-      scene->addChild(moviePlane);
+      //movieGeode->prepareMaterial(mat);
+      //moviePlane = movieGeode->createMoviePlane(Vec3(5,5,5), 5, 5, true); // position, width, height, repeatTexture
+      //scene->addChild(moviePlane);
    }
-
+   
    // Creating the viewer
 	osgViewer::Viewer viewer;
 	viewer.setSceneData(scene);
@@ -175,6 +179,8 @@ int main(int argc, char **argv)
 	while (!viewer.done()) {
 		update(viewer.elapsedTime());
       videoGeode->updateVideoTexture();
+      // TEST MOVIE
+      //movieGeode->updateMovieTexture();
 		viewer.frame();
    }
 }
