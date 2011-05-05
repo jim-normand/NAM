@@ -27,9 +27,6 @@ ref_ptr<LightSource>                lightSource;
 ref_ptr<PositionAttitudeTransform>  videoPlane;
 ref_ptr<VideoGeode>                 videoGeode;
 
-// Movie Geometry Stuff
-ref_ptr<PositionAttitudeTransform>  moviePlane;
-ref_ptr<MovieGeode>                 movieGeode;
 
 
 // A 3D model
@@ -149,13 +146,6 @@ int main(int argc, char **argv)
       
       cout<<"Movie name: "<<arguments[2]<<endl;
       
-      // Trying movie stuff
-      try {
-         movieGeode = new MovieGeode(arguments[2]);
-      }
-      catch (char *e) {
-         std::cerr << e;
-      }
       
       // not sure this is actually useful
 		Material *mat = new Material();

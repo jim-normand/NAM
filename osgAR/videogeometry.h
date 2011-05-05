@@ -30,7 +30,7 @@
 #include <opencv2/core/core.hpp>
 
 // Big test
-#include "NAM-FFmpegImageStream.hpp"
+//#include "NAM-FFmpegImageStream.hpp"
 
 using namespace osg;
 
@@ -62,28 +62,3 @@ private:
 };
 
 
-class MovieGeode : public Referenced {
-public:
-   MovieGeode(std::string movieName);
-   void clearMaterial();
-   void prepareMaterial(Material *givenMaterial);
-   
-   // Getters
-   Image*         getMovieImage();
-   ImageStream*   getMovieStream();
-   
-   // Test Jim
-   PositionAttitudeTransform* createMovieSphere(float size, bool texRepeat);
-   PositionAttitudeTransform* createMoviePlane(const osg::Vec3& pos, float width,float height, bool texRepeat);
-   Texture2D* createMovieTexture(bool texRepeat);
-   void updateMovieTexture();
-   
-private:
-   Material    *_mat;
-   
-   // Image Stream
-   //ImageStream *_movieStream;
-   NAMFFmpegImageStream *_movieStream;
-   Image       *_movieImage;
-   Texture2D   *_movieTexture;
-};
