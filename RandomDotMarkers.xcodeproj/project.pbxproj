@@ -80,23 +80,6 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		384E3D2A13704B6100ABCB00 /* NAM-FFmpegImageStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "NAM-FFmpegImageStream.cpp"; sourceTree = "<group>"; };
 		384E3D2B13704B6100ABCB00 /* NAM-FFmpegImageStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "NAM-FFmpegImageStream.hpp"; sourceTree = "<group>"; };
-		384E3D5013704D4200ABCB00 /* BoundedMessageQueue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BoundedMessageQueue.hpp; path = FFmpeg/BoundedMessageQueue.hpp; sourceTree = "<group>"; };
-		384E3D5113704D4200ABCB00 /* FFmpegAudioStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FFmpegAudioStream.hpp; path = FFmpeg/FFmpegAudioStream.hpp; sourceTree = "<group>"; };
-		384E3D5213704D4200ABCB00 /* FFmpegClocks.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FFmpegClocks.hpp; path = FFmpeg/FFmpegClocks.hpp; sourceTree = "<group>"; };
-		384E3D5313704D4200ABCB00 /* FFmpegDecoder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FFmpegDecoder.hpp; path = FFmpeg/FFmpegDecoder.hpp; sourceTree = "<group>"; };
-		384E3D5413704D4200ABCB00 /* FFmpegDecoderAudio.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FFmpegDecoderAudio.hpp; path = FFmpeg/FFmpegDecoderAudio.hpp; sourceTree = "<group>"; };
-		384E3D5513704D4200ABCB00 /* FFmpegDecoderVideo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FFmpegDecoderVideo.hpp; path = FFmpeg/FFmpegDecoderVideo.hpp; sourceTree = "<group>"; };
-		384E3D5613704D4200ABCB00 /* FFmpegHeaders.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FFmpegHeaders.hpp; path = FFmpeg/FFmpegHeaders.hpp; sourceTree = "<group>"; };
-		384E3D5713704D4200ABCB00 /* FFmpegImageStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FFmpegImageStream.hpp; path = FFmpeg/FFmpegImageStream.hpp; sourceTree = "<group>"; };
-		384E3D5813704D4200ABCB00 /* FFmpegPacket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FFmpegPacket.hpp; path = FFmpeg/FFmpegPacket.hpp; sourceTree = "<group>"; };
-		384E3D5913704D4200ABCB00 /* MessageQueue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MessageQueue.hpp; path = FFmpeg/MessageQueue.hpp; sourceTree = "<group>"; };
-		384E3DA8137050B200ABCB00 /* FFmpegAudioStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFmpegAudioStream.cpp; path = FFmpeg/FFmpegAudioStream.cpp; sourceTree = "<group>"; };
-		384E3DA9137050B200ABCB00 /* FFmpegClocks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFmpegClocks.cpp; path = FFmpeg/FFmpegClocks.cpp; sourceTree = "<group>"; };
-		384E3DAA137050B200ABCB00 /* FFmpegDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFmpegDecoder.cpp; path = FFmpeg/FFmpegDecoder.cpp; sourceTree = "<group>"; };
-		384E3DAB137050B200ABCB00 /* FFmpegDecoderAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFmpegDecoderAudio.cpp; path = FFmpeg/FFmpegDecoderAudio.cpp; sourceTree = "<group>"; };
-		384E3DAC137050B200ABCB00 /* FFmpegDecoderVideo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFmpegDecoderVideo.cpp; path = FFmpeg/FFmpegDecoderVideo.cpp; sourceTree = "<group>"; };
-		384E3DAD137050B200ABCB00 /* FFmpegImageStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFmpegImageStream.cpp; path = FFmpeg/FFmpegImageStream.cpp; sourceTree = "<group>"; };
-		384E3DAE137050B200ABCB00 /* ReaderWriterFFmpeg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReaderWriterFFmpeg.cpp; path = FFmpeg/ReaderWriterFFmpeg.cpp; sourceTree = "<group>"; };
 		38A4FE6E13681A2A003D16F9 /* Intersections.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Intersections.cpp; path = skeletonization/Intersections.cpp; sourceTree = "<group>"; };
 		38A4FE6F13681A2A003D16F9 /* Intersections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Intersections.h; path = skeletonization/Intersections.h; sourceTree = "<group>"; };
 		38A4FE7013681A2A003D16F9 /* Skeletonize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skeletonize.cpp; path = skeletonization/Skeletonize.cpp; sourceTree = "<group>"; };
@@ -207,7 +190,6 @@
 		08FB7794FE84155DC02AAC07 /* RandomDotMarkers */ = {
 			isa = PBXGroup;
 			children = (
-				384E3D4F13704CF000ABCB00 /* FFmpeg */,
 				38A4FE6D13681A17003D16F9 /* skeletonization */,
 				A36AD8461366CD3F0066E897 /* osgAR */,
 				38C1CBB9135306CE002C7EBE /* Frameworks */,
@@ -251,30 +233,6 @@
 				A36AD8441366CD3F0066E897 /* osgAR */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		384E3D4F13704CF000ABCB00 /* FFmpeg */ = {
-			isa = PBXGroup;
-			children = (
-				384E3D5013704D4200ABCB00 /* BoundedMessageQueue.hpp */,
-				384E3DA8137050B200ABCB00 /* FFmpegAudioStream.cpp */,
-				384E3D5113704D4200ABCB00 /* FFmpegAudioStream.hpp */,
-				384E3DA9137050B200ABCB00 /* FFmpegClocks.cpp */,
-				384E3D5213704D4200ABCB00 /* FFmpegClocks.hpp */,
-				384E3DAA137050B200ABCB00 /* FFmpegDecoder.cpp */,
-				384E3D5313704D4200ABCB00 /* FFmpegDecoder.hpp */,
-				384E3DAB137050B200ABCB00 /* FFmpegDecoderAudio.cpp */,
-				384E3D5413704D4200ABCB00 /* FFmpegDecoderAudio.hpp */,
-				384E3DAC137050B200ABCB00 /* FFmpegDecoderVideo.cpp */,
-				384E3D5513704D4200ABCB00 /* FFmpegDecoderVideo.hpp */,
-				384E3D5613704D4200ABCB00 /* FFmpegHeaders.hpp */,
-				384E3DAD137050B200ABCB00 /* FFmpegImageStream.cpp */,
-				384E3D5713704D4200ABCB00 /* FFmpegImageStream.hpp */,
-				384E3D5813704D4200ABCB00 /* FFmpegPacket.hpp */,
-				384E3D5913704D4200ABCB00 /* MessageQueue.hpp */,
-				384E3DAE137050B200ABCB00 /* ReaderWriterFFmpeg.cpp */,
-			);
-			name = FFmpeg;
 			sourceTree = "<group>";
 		};
 		38A4FE6D13681A17003D16F9 /* skeletonization */ = {
