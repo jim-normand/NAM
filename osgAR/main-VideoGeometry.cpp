@@ -100,8 +100,6 @@ int main(int argc, char **argv)
    // use an ArgumentParser object to manage the program arguments.
    osg::ArgumentParser arguments(&argc,argv);
    
-   std::string libName = osgDB::Registry::instance()->createLibraryNameForExtension("ffmpeg");
-   osgDB::Registry::instance()->loadLibrary(libName);
       
    // load the nodes from the commandline arguments.
    model = new PositionAttitudeTransform();
