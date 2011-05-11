@@ -166,16 +166,25 @@ PositionAttitudeTransform *VideoGeode::createVideoSphere(float size, bool texRep
 }
 
 
-PositionAttitudeTransform *VideoGeode::createVideoPlane(float size, bool texRepeat)
+PositionAttitudeTransform *VideoGeode::createVideoPlane(float sizeX, float sizeY, bool texRepeat)
 {
 	// vertex array
 	Vec3Array *vertexArray = new Vec3Array();
+   
+   sizeX /= 2.0;
+   sizeY /= 2.0;
 	
-   vertexArray->push_back(Vec3(-size, 0, -size));
-	vertexArray->push_back(Vec3(size, 0, -size));
-	vertexArray->push_back(Vec3(size, 0, size));
-	vertexArray->push_back(Vec3(-size, 0, size));
+   vertexArray->push_back(Vec3(-sizeX, 0, -sizeY));
+	vertexArray->push_back(Vec3(sizeX, 0, -sizeY));
+	vertexArray->push_back(Vec3(sizeX, 0, sizeY));
+	vertexArray->push_back(Vec3(-sizeX, 0, sizeY));
+
 	
+   /*vertexArray->push_back(Vec3(-sizeX, -sizeY, 0));
+	vertexArray->push_back(Vec3(sizeX, -sizeY, 0));
+	vertexArray->push_back(Vec3(sizeX, sizeY, 0));
+	vertexArray->push_back(Vec3(-sizeX, sizeY, 0));*/
+   
 	// face array
 	DrawElementsUInt *faceArray = new DrawElementsUInt(PrimitiveSet::TRIANGLES, 0);
 	

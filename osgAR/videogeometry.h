@@ -45,7 +45,7 @@ public:
 	
 	// Test Jim
 	PositionAttitudeTransform *createVideoSphere(float size, bool texRepeat);
-	PositionAttitudeTransform *createVideoPlane(float size, bool texRepeat);
+	PositionAttitudeTransform *createVideoPlane(float sizeX, float sizeY, bool texRepeat);
    Texture2D *createVideoTexture(bool texRepeat);
    void updateVideoTexture();
    

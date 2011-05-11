@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3838FB3C137AC2B3005687A1 /* CustomCameraManipulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3838FB3B137AC2B3005687A1 /* CustomCameraManipulator.cpp */; };
 		38A4FE7213681A2A003D16F9 /* Intersections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE6E13681A2A003D16F9 /* Intersections.cpp */; };
 		38A4FE7313681A2A003D16F9 /* Skeletonize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE7013681A2A003D16F9 /* Skeletonize.cpp */; };
 		38A4FE7413681A2A003D16F9 /* Intersections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE6E13681A2A003D16F9 /* Intersections.cpp */; };
@@ -78,6 +79,8 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		3838FB3A137AC2B3005687A1 /* CustomCameraManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCameraManipulator.h; sourceTree = "<group>"; };
+		3838FB3B137AC2B3005687A1 /* CustomCameraManipulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomCameraManipulator.cpp; sourceTree = "<group>"; };
 		384E3D2A13704B6100ABCB00 /* NAM-FFmpegImageStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "NAM-FFmpegImageStream.cpp"; sourceTree = "<group>"; };
 		384E3D2B13704B6100ABCB00 /* NAM-FFmpegImageStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "NAM-FFmpegImageStream.hpp"; sourceTree = "<group>"; };
 		38A4FE6E13681A2A003D16F9 /* Intersections.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Intersections.cpp; path = skeletonization/Intersections.cpp; sourceTree = "<group>"; };
@@ -316,6 +319,8 @@
 		A36AD8461366CD3F0066E897 /* osgAR */ = {
 			isa = PBXGroup;
 			children = (
+				3838FB3A137AC2B3005687A1 /* CustomCameraManipulator.h */,
+				3838FB3B137AC2B3005687A1 /* CustomCameraManipulator.cpp */,
 				384E3D2A13704B6100ABCB00 /* NAM-FFmpegImageStream.cpp */,
 				384E3D2B13704B6100ABCB00 /* NAM-FFmpegImageStream.hpp */,
 				38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */,
@@ -433,6 +438,7 @@
 				38A4FE7513681A2A003D16F9 /* Skeletonize.cpp in Sources */,
 				38A6E89F136E996B00F44AAD /* videogeometry.cpp in Sources */,
 				38A6E97B136EB0D200F44AAD /* main-VideoGeometry.cpp in Sources */,
+				3838FB3C137AC2B3005687A1 /* CustomCameraManipulator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
