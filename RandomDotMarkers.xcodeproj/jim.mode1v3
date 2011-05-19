@@ -299,7 +299,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>14</integer>
+									<integer>11</integer>
 									<integer>6</integer>
 									<integer>0</integer>
 								</array>
@@ -342,7 +342,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>videogeometry.cpp</string>
+								<string>main-VideoGeometry.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -350,11 +350,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>videogeometry.cpp</string>
+										<string>main-VideoGeometry.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>389A77961385015300469870</string>
+										<string>389A779F138502FC00469870</string>
 										<key>history</key>
 										<array>
 											<string>38C1CBE3135307CE002C7EBE</string>
@@ -456,9 +456,9 @@
 											<string>385EECFC13816FB9009E3B71</string>
 											<string>385EED0013816FB9009E3B71</string>
 											<string>385EED071381709A009E3B71</string>
-											<string>389A77931385015300469870</string>
 											<string>389A77941385015300469870</string>
-											<string>389A77951385015300469870</string>
+											<string>389A779D138502FC00469870</string>
+											<string>389A779E138502FC00469870</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -639,7 +639,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>327483731.294586</real>
+	<real>327484156.32456303</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>

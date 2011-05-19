@@ -118,18 +118,23 @@ int main(int argc, char **argv)
    arguments.read("--height",imHeight);
    int threshold = 230;
    arguments.read("--thres",threshold);
+   // do we want to use a movie?
+   movieName="";
+   arguments.read("--video", movieName);
+   if(!movieName.empty())
+      cout<<"Movie name: "<<movieName<<endl;
    
    // we need the scene's state set to enable the light for the entire scene
 	scene = new Group();
 	lightStateSet = scene->getOrCreateStateSet();
 	lightStateSet->ref();
 	
-   cout<<"Number of arguments: "<<arguments.argc()<<endl;
+   /*cout<<"Number of arguments: "<<arguments.argc()<<endl;
    movieName = "";
    if(arguments.argc() >= 3 && arguments.isString(2)){
       movieName = arguments[2];
       cout<<"Movie name: "<<movieName<<endl;
-   }
+   }*/
    
 	// create VideoGeometry
 	try {

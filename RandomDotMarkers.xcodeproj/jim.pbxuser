@@ -153,6 +153,9 @@
 			389A77941385015300469870 /* PBXTextBookmark */ = 389A77941385015300469870 /* PBXTextBookmark */;
 			389A77951385015300469870 /* PBXTextBookmark */ = 389A77951385015300469870 /* PBXTextBookmark */;
 			389A77961385015300469870 /* PBXTextBookmark */ = 389A77961385015300469870 /* PBXTextBookmark */;
+			389A779D138502FC00469870 /* PBXTextBookmark */ = 389A779D138502FC00469870 /* PBXTextBookmark */;
+			389A779E138502FC00469870 /* PBXTextBookmark */ = 389A779E138502FC00469870 /* PBXTextBookmark */;
+			389A779F138502FC00469870 /* PBXTextBookmark */ = 389A779F138502FC00469870 /* PBXTextBookmark */;
 			38A4FD3C13672B15003D16F9 = 38A4FD3C13672B15003D16F9 /* PBXTextBookmark */;
 			38A4FE8613681A81003D16F9 = 38A4FE8613681A81003D16F9 /* PBXTextBookmark */;
 			38A4FE8813681A81003D16F9 = 38A4FE8813681A81003D16F9 /* PBXTextBookmark */;
@@ -895,7 +898,7 @@
 		fRef = 38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */;
 		name = "main-VideoGeometry.cpp: 234";
 		rLen = 0;
-		rLoc = 6901;
+		rLoc = 7067;
 		rType = 0;
 		vrLen = 2458;
 		vrLoc = 5431;
@@ -1356,7 +1359,7 @@
 		fRef = 38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */;
 		name = "main-VideoGeometry.cpp: 136";
 		rLen = 0;
-		rLoc = 3600;
+		rLoc = 3766;
 		rType = 0;
 		vrLen = 1977;
 		vrLoc = 0;
@@ -1390,6 +1393,36 @@
 		rType = 0;
 		vrLen = 2844;
 		vrLoc = 172;
+	};
+	389A779D138502FC00469870 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 38A6E89D136E996B00F44AAD /* videogeometry.cpp */;
+		name = "videogeometry.cpp: 60";
+		rLen = 0;
+		rLoc = 1727;
+		rType = 0;
+		vrLen = 2844;
+		vrLoc = 172;
+	};
+	389A779E138502FC00469870 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */;
+		name = "main-VideoGeometry.cpp: 136";
+		rLen = 0;
+		rLoc = 3766;
+		rType = 0;
+		vrLen = 1977;
+		vrLoc = 0;
+	};
+	389A779F138502FC00469870 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */;
+		name = "main-VideoGeometry.cpp: 122";
+		rLen = 0;
+		rLoc = 3224;
+		rType = 0;
+		vrLen = 2135;
+		vrLoc = 2306;
 	};
 	38A4FC47136704B5003D16F9 /* osgAR */ = {
 		isa = PBXExecutable;
@@ -1595,9 +1628,9 @@
 	};
 	38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1571, 3705}}";
-			sepNavSelRange = "{3600, 0}";
-			sepNavVisRange = "{0, 1977}";
+			sepNavIntBoundsRect = "{{0, 0}, {1571, 3744}}";
+			sepNavSelRange = "{3224, 0}";
+			sepNavVisRange = "{2306, 2135}";
 			sepNavWindowFrame = "{{1295, -280}, {1096, 1080}}";
 		};
 	};
