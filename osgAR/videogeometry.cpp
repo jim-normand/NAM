@@ -64,20 +64,23 @@ VideoGeode::VideoGeode(std::string videoName, int cc, GLuint w, GLuint h, int th
    }
    else {
       _capture = cvCreateFileCapture(_videoName.c_str());
+      //_capture = cvCaptureFromAVI(_videoName.c_str());
+      if(!_capture){
+         std::cout << "Could not read video file. Exiting" << std::endl;
+         exit(1);
+      }
       _width = cvGetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH);
       _height = cvGetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT);
+      
+      double fps = cvGetCaptureProperty(_capture, CV_CAP_PROP_FPS);
+      std::cout<<"FPS: "<<fps<<std::endl;
       std::cout<<"videoW: "<<_width<<" videoH: "<<_height<<std::endl;
       _camImage = cvCreateImage(cvSize(_width, _height), IPL_DEPTH_8U, 3);
    }
 
-   //cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH, _width);
-   //cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, _height);
-   //_camImage = cvCreateImage(cvSize(_width, _height), IPL_DEPTH_8U, 3);
-   //cvCopy(cvQueryFrame(_capture),_camImage,0);
-
    IplImage *curImage = cvQueryFrame(_capture);
-   std::cout<<"currentImage W: "<<curImage->width<<" H: "<<curImage->height<<" D: "<<curImage->depth<<std::endl;
-   std::cout<<"CamImage W: "<<_camImage->width<<" H: "<<_camImage->height<<" D: "<<_camImage->depth<<std::endl;
+   std::cout<<"currentImage W: "<<curImage->width<<" H: "<<curImage->height<<" D: "<<curImage->depth<<" C: "<<curImage->nChannels<<std::endl;
+   std::cout<<"CamImage W: "<<_camImage->width<<" H: "<<_camImage->height<<" D: "<<_camImage->depth<<" C: "<<_camImage->nChannels<<std::endl;
    cvCopy(curImage,_camImage,0);
    
    _videoImage = new osg::Image();
@@ -104,11 +107,13 @@ void VideoGeode::prepareMaterial(Material *givenMaterial)
 
 void VideoGeode::increaseThreshold(int incr){
    _threshold += incr;
+   std::cout<<"New Threshold: "<<_threshold<<std::endl;
 }
 
 
 void VideoGeode::decreaseThreshold(int incr){
    _threshold -= incr;
+   std::cout<<"New Threshold: "<<_threshold<<std::endl;
 }
 
 
@@ -125,12 +130,15 @@ Texture2D *VideoGeode::createVideoTexture(bool texRepeat)
 	
 	// create texture
 	_videoTexture = new Texture2D;
-	_videoTexture->setDataVariance(Object::DYNAMIC);
-	_videoTexture->setFilter(Texture::MIN_FILTER, Texture::LINEAR_MIPMAP_LINEAR);
+	//_videoTexture->setDataVariance(Object::DYNAMIC);
+	_videoTexture->setDataVariance(Object::STATIC);
+	//_videoTexture->setFilter(Texture::MIN_FILTER, Texture::LINEAR_MIPMAP_LINEAR);
+	_videoTexture->setFilter(Texture::MIN_FILTER, Texture::LINEAR);
 	_videoTexture->setFilter(Texture::MAG_FILTER, Texture::LINEAR);
    
    // Test
    _videoTexture->setResizeNonPowerOfTwoHint(false);
+   //_videoTexture->setResizeNonPowerOfTwoHint(true);
 	
 	// handle repeat
 	if (texRepeat) {
@@ -148,6 +156,7 @@ Texture2D *VideoGeode::createVideoTexture(bool texRepeat)
 void VideoGeode::updateVideoTexture()
 {
    cvCopy(cvQueryFrame(_capture),_camImage,0);
+   //_camImage = cvCloneImage(cvQueryFrame(_capture));
    _skel->processImage(_camImage, _threshold);
    Convert_OpenCV_to_OSG_IMAGE(_camImage,_videoImage);
    _videoImage->dirty();

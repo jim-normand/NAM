@@ -21,11 +21,11 @@ bool CustomEventHandler::handle(const osgGA::GUIEventAdapter &ea, osgGA::GUIActi
       case osgGA::GUIEventAdapter::KEYDOWN:
          switch (ea.getKey()) {
             case 'u':case 'U':
-               std::cout<<"U pressed"<<std::endl;
+               //std::cout<<"U pressed"<<std::endl;
                _videoGeode->increaseThreshold();
                break;
             case 'i':case 'I':
-               std::cout<<"I pressed"<<std::endl;
+               //std::cout<<"I pressed"<<std::endl;
                _videoGeode->decreaseThreshold();
                break;
 

@@ -118,18 +118,28 @@ void Skeletonize::processImage(IplImage *colorSrcImg, int threshold)
    IplImage *graySrcImg = cvCreateImage(cvGetSize(colorSrcImg), IPL_DEPTH_8U, 1);
    
    // Source Image in color
-   //cvShowImage("Source", colorSrcImg);
    cvConvertImage(colorSrcImg, graySrcImg);
+   cvShowImage("Non-Equalized", graySrcImg);
+   
+   cvEqualizeHist(graySrcImg, graySrcImg);
+   cvShowImage("Equalized", graySrcImg);
    
    // Applying Threshold + Morphological Closing
    cvThreshold(graySrcImg, graySrcImg, threshold, 255, CV_THRESH_BINARY);
-   cvMorphologyEx(graySrcImg, graySrcImg, NULL,
+   /*cvMorphologyEx(graySrcImg, graySrcImg, NULL,
                   cvCreateStructuringElementEx(5, 5, 2, 2, CV_SHAPE_RECT),
-                  CV_MOP_CLOSE);
+                  CV_MOP_OPEN);*/
+   cvMorphologyEx(graySrcImg, graySrcImg, NULL,
+                  cvCreateStructuringElementEx(3, 3, 2, 2, CV_SHAPE_RECT),
+                  CV_MOP_CLOSE,
+                  2);
    
+   cvShowImage("Binarization", graySrcImg);
+      
    // Applying the Skeletonization
    m_src = graySrcImg;
    skeletonize();
+   cvShowImage("Skeletonization", graySrcImg);
    
    // Computing Intersections and Drawing in Red them on the original Image
    vector<CvPoint> crossroads = Intersections(graySrcImg)();

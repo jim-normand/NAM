@@ -324,11 +324,11 @@
 			children = (
 				3838FB3A137AC2B3005687A1 /* CustomCameraManipulator.h */,
 				3838FB3B137AC2B3005687A1 /* CustomCameraManipulator.cpp */,
+				385EEC9E138161E8009E3B71 /* CustomEventHandler.h */,
+				385EEC9F138161E8009E3B71 /* CustomEventHandler.cpp */,
 				384E3D2A13704B6100ABCB00 /* NAM-FFmpegImageStream.cpp */,
 				384E3D2B13704B6100ABCB00 /* NAM-FFmpegImageStream.hpp */,
 				38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */,
-				385EEC9E138161E8009E3B71 /* CustomEventHandler.h */,
-				385EEC9F138161E8009E3B71 /* CustomEventHandler.cpp */,
 				38A6E89D136E996B00F44AAD /* videogeometry.cpp */,
 				38A6E89E136E996B00F44AAD /* videogeometry.h */,
 				A36AD8471366CD3F0066E897 /* main.cpp */,
