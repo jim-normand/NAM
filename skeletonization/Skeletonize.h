@@ -15,7 +15,7 @@ public:
    
    void updateImage(IplImage *img);
    
-   void processImage(IplImage *colorSrcImg, int threshold=230);
+   virtual void processImage(IplImage *colorSrcImg, int threshold=230);
 
    
 private:
