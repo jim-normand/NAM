@@ -49,13 +49,15 @@ void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image* videoTex)
 ///////////////////////    CLASS   VIDEOGEODE   /////////////////////////////// 
 /////////////////////////////////////////////////////////////////////////////// 
 
-VideoGeode::VideoGeode(std::string videoName, GLuint w, GLuint h, int thresh):_videoName(videoName),_width(w),_height(h),_threshold(thresh)
+
+VideoGeode::VideoGeode(std::string videoName, int cc, GLuint w, GLuint h, int thresh):_videoName(videoName),_camNumber(cc),_width(w),_height(h),_threshold(thresh)
+
 {
 	clearMaterial();
 
    // OpenCV
    if(_videoName.empty()){
-      _capture = cvCreateCameraCapture(0);
+      _capture = cvCreateCameraCapture(_camNumber);
       cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH, _width);
       cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, _height);
       _camImage = cvCreateImage(cvSize(_width, _height), IPL_DEPTH_8U, 3);
@@ -109,37 +111,6 @@ void VideoGeode::decreaseThreshold(int incr){
    _threshold -= incr;
 }
 
-
-
-
-/*
-Texture2D *VideoGeode::createTexture(std::string texName, bool texRepeat)
-{
-	// load texture file
-	Image *image = osgDB::readImageFile(texName);
-	if (!image) {
-		throw "Couldn't load texture.";
-	}
-	
-	// create texture
-	Texture2D *texture = new Texture2D;
-	texture->setDataVariance(Object::DYNAMIC);
-	texture->setFilter(Texture::MIN_FILTER, Texture::LINEAR_MIPMAP_LINEAR);
-	texture->setFilter(Texture::MAG_FILTER, Texture::LINEAR);
-	
-	// handle repeat
-	if (texRepeat) {
-		texture->setWrap(Texture::WRAP_S, Texture::REPEAT);
-		texture->setWrap(Texture::WRAP_T, Texture::REPEAT);
-	} else {
-		texture->setWrap(Texture::WRAP_S, Texture::CLAMP);
-		texture->setWrap(Texture::WRAP_T, Texture::CLAMP);
-	}
-	texture->setImage(image);
-	
-	return texture;
-}
-*/
 
 // Test Jim
 Texture2D *VideoGeode::createVideoTexture(bool texRepeat)

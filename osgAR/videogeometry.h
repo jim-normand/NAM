@@ -36,14 +36,16 @@
 
 using namespace osg;
 
-#define THRESHOLD_INCR 10
+#define THRESHOLD_INCR 5
 
 void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image *videoTex);
 
 class VideoGeode : public Referenced {
 public:
-	VideoGeode(std::string videoName="", GLuint w=640, GLuint h=480, int thresh=230);
+
+	VideoGeode(std::string videoName="", int cc=0, GLuint w=640, GLuint h=480, int thresh=230);
    ~VideoGeode();
+
 	void clearMaterial();
 	void prepareMaterial(Material *givenMaterial);
 	
@@ -53,17 +55,26 @@ public:
    Texture2D *createVideoTexture(bool texRepeat);
    void updateVideoTexture();
    
+   // accessors
+   void setThreshold(int t) { _threshold = t; }
+   int  getThreshold() { return _threshold; }
+   // modifiers
    void increaseThreshold(int incr=THRESHOLD_INCR);
    void decreaseThreshold(int incr=THRESHOLD_INCR);
+
    
 private:
 	Material             *_material;
    
    // Skeletonization
    Skeletonize          *_skel;
+   // thresholding level for image processing & skeletonization
    int                  _threshold;
    
-   // Test OpenCV
+   // other features
+   int                  _camNumber; // camera number, default=0
+
+   // OpenCV & Open Scene Graph stuff
    CvCapture            *_capture;
    IplImage             *_camImage;
    GLuint               _width;

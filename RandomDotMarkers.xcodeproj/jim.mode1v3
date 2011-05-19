@@ -299,7 +299,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>15</integer>
+									<integer>14</integer>
 									<integer>6</integer>
 									<integer>0</integer>
 								</array>
@@ -342,7 +342,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>videogeometry.h</string>
+								<string>videogeometry.cpp</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -350,11 +350,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>videogeometry.h</string>
+										<string>videogeometry.cpp</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>388DB8731384257400CA3F9F</string>
+										<string>389A77961385015300469870</string>
 										<key>history</key>
 										<array>
 											<string>38C1CBE3135307CE002C7EBE</string>
@@ -454,11 +454,11 @@
 											<string>385EECB313816673009E3B71</string>
 											<string>385EECC813816A0F009E3B71</string>
 											<string>385EECFC13816FB9009E3B71</string>
-											<string>385EECFE13816FB9009E3B71</string>
 											<string>385EED0013816FB9009E3B71</string>
 											<string>385EED071381709A009E3B71</string>
-											<string>385EED0F138170E0009E3B71</string>
-											<string>385EED6D13817F0E009E3B71</string>
+											<string>389A77931385015300469870</string>
+											<string>389A77941385015300469870</string>
+											<string>389A77951385015300469870</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -516,9 +516,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>388DB7531383B87200CA3F9F</string>
+				<string>389A77811384FDC300469870</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>388DB7541383B87200CA3F9F</string>
+				<string>389A77821384FDC300469870</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -639,7 +639,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>327427444.22463298</real>
+	<real>327483731.294586</real>
 	<key>ToolbarConfigUserDefaultsMinorVersion</key>
 	<string>2</string>
 	<key>ToolbarDisplayMode</key>
@@ -656,8 +656,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>38C1CB841353066C002C7EBE</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>38C1CB841353066C002C7EBE</string>
 		<string>/Users/jim/Documents/Dev/RandomDotMarkers/NAM/RandomDotMarkers.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -682,7 +682,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>videogeometry.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -699,6 +699,8 @@
 							<string>407pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -738,7 +740,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>38C1CB841353066C002C7EBE</string>
-				<string>388DB7551383B87200CA3F9F</string>
+				<string>389A77831384FDC300469870</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -751,7 +753,7 @@
 			<key>WindowToolGUID</key>
 			<string>38C1CB841353066C002C7EBE</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -860,13 +862,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>388DB7561383B87200CA3F9F</string>
+				<string>389A77841384FDC300469870</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>388DB7571383B87200CA3F9F</string>
-				<string>388DB7581383B87200CA3F9F</string>
-				<string>388DB7591383B87200CA3F9F</string>
-				<string>388DB75A1383B87200CA3F9F</string>
-				<string>388DB75B1383B87200CA3F9F</string>
+				<string>389A77851384FDC300469870</string>
+				<string>389A77861384FDC300469870</string>
+				<string>389A77871384FDC300469870</string>
+				<string>389A77881384FDC300469870</string>
+				<string>389A77891384FDC300469870</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>

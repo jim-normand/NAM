@@ -109,6 +109,15 @@ int main(int argc, char **argv)
    // use an ArgumentParser object to manage the program arguments.
    osg::ArgumentParser arguments(&argc,argv);
    
+   // read the first useful arguments for creating video geode
+   int camNumber=0;
+   arguments.read("--cam",camNumber);
+   int imWidth = 640;
+   arguments.read("--width",imWidth);
+   int imHeight = 480;
+   arguments.read("--height",imHeight);
+   int threshold = 230;
+   arguments.read("--thres",threshold);
    
    // we need the scene's state set to enable the light for the entire scene
 	scene = new Group();
@@ -124,8 +133,8 @@ int main(int argc, char **argv)
    
 	// create VideoGeometry
 	try {
-		videoGeode = new VideoGeode(movieName);
-		
+		videoGeode = new VideoGeode(movieName,camNumber,imWidth,imHeight);
+		videoGeode->setThreshold(threshold);
 		// stars / starfield
 		Material *material = new Material();
 		material->setEmission(Material::FRONT, Vec4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -190,10 +199,10 @@ int main(int argc, char **argv)
    
    //cout<<"Number of arguments: "<<arguments.argc()<<endl;
    
+
    //if(arguments.argc() >= 3 && arguments.isString(2)){
-      
+ 
       //cout<<"Movie name: "<<arguments[2]<<endl;
-      
       
       // not sure this is actually useful
 		//Material *mat = new Material();
