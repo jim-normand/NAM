@@ -49,12 +49,12 @@ void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image* videoTex)
 ///////////////////////    CLASS   VIDEOGEODE   /////////////////////////////// 
 /////////////////////////////////////////////////////////////////////////////// 
 
-VideoGeode::VideoGeode(GLuint w, GLuint h):_width(w),_height(h)
+VideoGeode::VideoGeode(GLuint w, GLuint h, int cc):_width(w),_height(h),camNumber(cc)
 {
 	clearMaterial();
 
    // OpenCV
-   _capture = cvCreateCameraCapture(0);
+   _capture = cvCreateCameraCapture(camNumber);
    cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH, _width);
    cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, _height);
    _camImage = cvCreateImage(cvSize(_width, _height), IPL_DEPTH_8U, 3);

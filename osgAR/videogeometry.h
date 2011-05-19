@@ -39,7 +39,7 @@ void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image *videoTex);
 
 class VideoGeode : public Referenced {
 public:
-	VideoGeode(GLuint w=640, GLuint h=480);
+	VideoGeode(GLuint w=640, GLuint h=480,int cc=0);
 	void clearMaterial();
 	void prepareMaterial(Material *givenMaterial);
 	
@@ -59,6 +59,9 @@ private:
    GLuint      _height;
    Image       *_videoImage;
    Texture2D   *_videoTexture;
+   
+   // other features
+   int         camNumber; // camera number, default=0
 };
 
 
