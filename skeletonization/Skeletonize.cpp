@@ -36,6 +36,25 @@ void Skeletonize::operator()(void)
    
 }
 
+
+void Skeletonize::skeletonize() {
+   // Border blackout
+   cvRectangle(m_src,
+               cvPoint(0, 0), cvPoint(m_src->width - 1, m_src->height - 1),
+               cvScalarAll(0));
+   
+   int pixelsRemoved;
+   int pass = 0;
+   
+   do
+   {
+      pixelsRemoved = thin(pass++);
+      pixelsRemoved += thin(pass++);
+   } while (pixelsRemoved > 0);
+   
+}
+
+
 int Skeletonize::thin(unsigned int pass)
 {
    const int cMin = 1, cMax = m_src->width - 2;
@@ -90,7 +109,11 @@ int Skeletonize::thin(unsigned int pass)
    return pixelsRemoved;
 }
 
-void process(IplImage *colorSrcImg, int threshold)
+void Skeletonize::updateImage(IplImage *img){
+   m_src = img;
+}
+
+void Skeletonize::processImage(IplImage *colorSrcImg, int threshold)
 {
    IplImage *graySrcImg = cvCreateImage(cvGetSize(colorSrcImg), IPL_DEPTH_8U, 1);
    
@@ -103,12 +126,10 @@ void process(IplImage *colorSrcImg, int threshold)
    cvMorphologyEx(graySrcImg, graySrcImg, NULL,
                   cvCreateStructuringElementEx(5, 5, 2, 2, CV_SHAPE_RECT),
                   CV_MOP_CLOSE);
-   //cvShowImage("Binary", graySrcImg);
    
    // Applying the Skeletonization
-   Skeletonize skel(graySrcImg); //this can problably be optimized 
-   skel();
-  // cvShowImage("Skeleton", graySrcImg);
+   m_src = graySrcImg;
+   skeletonize();
    
    // Computing Intersections and Drawing in Red them on the original Image
    vector<CvPoint> crossroads = Intersections(graySrcImg)();
@@ -116,7 +137,6 @@ void process(IplImage *colorSrcImg, int threshold)
    {
       cvCircle(colorSrcImg, crossroads[i], 2, CV_RGB(255, 0, 0), -1);
    }
-   //cvShowImage("Intersections", colorSrcImg);
    
    cvReleaseImage(&graySrcImg);
 }

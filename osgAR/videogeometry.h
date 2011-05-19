@@ -5,6 +5,9 @@
  * @copyright Centrale Innovation 2011
  *
  */
+#ifndef NAM_VIDEO_GEOMETRY
+#define NAM_VIDEO_GEOMETRY 1
+
 
 // OSG includes
 #include <osg/Matrix>
@@ -29,17 +32,18 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 
-// Big test
-//#include "NAM-FFmpegImageStream.hpp"
+#include "../skeletonization/Skeletonize.h"
 
 using namespace osg;
 
+#define THRESHOLD_INCR 10
 
 void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image *videoTex);
 
 class VideoGeode : public Referenced {
 public:
-	VideoGeode(GLuint w=640, GLuint h=480);
+	VideoGeode(std::string videoName="", GLuint w=640, GLuint h=480, int thresh=230);
+   ~VideoGeode();
 	void clearMaterial();
 	void prepareMaterial(Material *givenMaterial);
 	
@@ -49,16 +53,24 @@ public:
    Texture2D *createVideoTexture(bool texRepeat);
    void updateVideoTexture();
    
+   void increaseThreshold(int incr=THRESHOLD_INCR);
+   void decreaseThreshold(int incr=THRESHOLD_INCR);
+   
 private:
-	Material    *_material;
+	Material             *_material;
+   
+   // Skeletonization
+   Skeletonize          *_skel;
+   int                  _threshold;
    
    // Test OpenCV
-   CvCapture   *_capture;
-   IplImage    *_camImage;
-   GLuint      _width;
-   GLuint      _height;
-   Image       *_videoImage;
-   Texture2D   *_videoTexture;
+   CvCapture            *_capture;
+   IplImage             *_camImage;
+   GLuint               _width;
+   GLuint               _height;
+   ref_ptr<Image>       _videoImage;
+   ref_ptr<Texture2D>   _videoTexture;
+   std::string          _videoName;
 };
 
-
+#endif

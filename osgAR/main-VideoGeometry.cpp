@@ -5,6 +5,7 @@
 #include "videogeometry.h"
 
 #include "CustomCameraManipulator.h"
+#include "CustomEventHandler.h"
 
 // Test Skeletonization
 #include "../skeletonization/Skeletonize.h"
@@ -28,6 +29,7 @@ ref_ptr<LightSource>                lightSource;
 // Video Geometry Stuff
 ref_ptr<PositionAttitudeTransform>  videoPlane;
 ref_ptr<VideoGeode>                 videoGeode;
+std::string                         movieName;
 
 ref_ptr<Group>                      scene;
 
@@ -113,9 +115,16 @@ int main(int argc, char **argv)
 	lightStateSet = scene->getOrCreateStateSet();
 	lightStateSet->ref();
 	
+   cout<<"Number of arguments: "<<arguments.argc()<<endl;
+   movieName = "";
+   if(arguments.argc() >= 3 && arguments.isString(2)){
+      movieName = arguments[2];
+      cout<<"Movie name: "<<movieName<<endl;
+   }
+   
 	// create VideoGeometry
 	try {
-		videoGeode = new VideoGeode();
+		videoGeode = new VideoGeode(movieName);
 		
 		// stars / starfield
 		Material *material = new Material();
@@ -179,23 +188,23 @@ int main(int argc, char **argv)
    // Testing the movie
    //osg::Image* image = osgDB::readImageFile(arguments[2]);
    
-   cout<<"Number of arguments: "<<arguments.argc()<<endl;
+   //cout<<"Number of arguments: "<<arguments.argc()<<endl;
    
-   if(arguments.argc() >= 3 && arguments.isString(2)){
+   //if(arguments.argc() >= 3 && arguments.isString(2)){
       
-      cout<<"Movie name: "<<arguments[2]<<endl;
+      //cout<<"Movie name: "<<arguments[2]<<endl;
       
       
       // not sure this is actually useful
-		Material *mat = new Material();
-		mat->setEmission(Material::FRONT, Vec4(1.0f, 1.0f, 1.0f, 1.0f));
-		mat->setAmbient(Material::FRONT,  Vec4(1.0f, 1.0f, 1.0f, 1.0f));
-		mat->setShininess(Material::FRONT, 25.0f);
+		//Material *mat = new Material();
+		//mat->setEmission(Material::FRONT, Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		//mat->setAmbient(Material::FRONT,  Vec4(1.0f, 1.0f, 1.0f, 1.0f));
+		//mat->setShininess(Material::FRONT, 25.0f);
       
       //movieGeode->prepareMaterial(mat);
       //moviePlane = movieGeode->createMoviePlane(Vec3(5,5,5), 5, 5, true); // position, width, height, repeatTexture
       //scene->addChild(moviePlane);
-   }
+   //}
    
     
    // Creating the viewer
@@ -221,6 +230,11 @@ int main(int argc, char **argv)
    viewer.addEventHandler( new osgViewer::StatsHandler );
 	viewer.setCameraManipulator(new CustomCameraManipulator(cameraPosition, cameraTarget));
 
+   
+   ref_ptr<CustomEventHandler> customHdler = new CustomEventHandler(videoGeode.get());
+   viewer.addEventHandler(customHdler.get());
+   
+   
    // New test 11/05/2011
    viewer.getCamera()->setViewMatrixAsLookAt(cameraPosition, cameraTarget,cameraUpVector);
    //viewer.getCamera()->setProjectionMatrixAsOrtho2D(-1,1,-1,1);

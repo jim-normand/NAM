@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3838FB3C137AC2B3005687A1 /* CustomCameraManipulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3838FB3B137AC2B3005687A1 /* CustomCameraManipulator.cpp */; };
+		385EECA0138161E8009E3B71 /* CustomEventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 385EEC9F138161E8009E3B71 /* CustomEventHandler.cpp */; };
 		38A4FE7213681A2A003D16F9 /* Intersections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE6E13681A2A003D16F9 /* Intersections.cpp */; };
 		38A4FE7313681A2A003D16F9 /* Skeletonize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE7013681A2A003D16F9 /* Skeletonize.cpp */; };
 		38A4FE7413681A2A003D16F9 /* Intersections.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A4FE6E13681A2A003D16F9 /* Intersections.cpp */; };
@@ -83,6 +84,8 @@
 		3838FB3B137AC2B3005687A1 /* CustomCameraManipulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomCameraManipulator.cpp; sourceTree = "<group>"; };
 		384E3D2A13704B6100ABCB00 /* NAM-FFmpegImageStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "NAM-FFmpegImageStream.cpp"; sourceTree = "<group>"; };
 		384E3D2B13704B6100ABCB00 /* NAM-FFmpegImageStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "NAM-FFmpegImageStream.hpp"; sourceTree = "<group>"; };
+		385EEC9E138161E8009E3B71 /* CustomEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEventHandler.h; sourceTree = "<group>"; };
+		385EEC9F138161E8009E3B71 /* CustomEventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomEventHandler.cpp; sourceTree = "<group>"; };
 		38A4FE6E13681A2A003D16F9 /* Intersections.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Intersections.cpp; path = skeletonization/Intersections.cpp; sourceTree = "<group>"; };
 		38A4FE6F13681A2A003D16F9 /* Intersections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Intersections.h; path = skeletonization/Intersections.h; sourceTree = "<group>"; };
 		38A4FE7013681A2A003D16F9 /* Skeletonize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skeletonize.cpp; path = skeletonization/Skeletonize.cpp; sourceTree = "<group>"; };
@@ -324,6 +327,8 @@
 				384E3D2A13704B6100ABCB00 /* NAM-FFmpegImageStream.cpp */,
 				384E3D2B13704B6100ABCB00 /* NAM-FFmpegImageStream.hpp */,
 				38A6E97A136EB0D200F44AAD /* main-VideoGeometry.cpp */,
+				385EEC9E138161E8009E3B71 /* CustomEventHandler.h */,
+				385EEC9F138161E8009E3B71 /* CustomEventHandler.cpp */,
 				38A6E89D136E996B00F44AAD /* videogeometry.cpp */,
 				38A6E89E136E996B00F44AAD /* videogeometry.h */,
 				A36AD8471366CD3F0066E897 /* main.cpp */,
@@ -439,6 +444,7 @@
 				38A6E89F136E996B00F44AAD /* videogeometry.cpp in Sources */,
 				38A6E97B136EB0D200F44AAD /* main-VideoGeometry.cpp in Sources */,
 				3838FB3C137AC2B3005687A1 /* CustomCameraManipulator.cpp in Sources */,
+				385EECA0138161E8009E3B71 /* CustomEventHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

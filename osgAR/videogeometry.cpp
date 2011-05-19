@@ -7,7 +7,7 @@
  */
 
 #include "videogeometry.h"
-#include "../skeletonization/Skeletonize.h"
+
 //#include "NAM-FFmpegImageStream.hpp"
 
 using namespace osg;
@@ -49,18 +49,45 @@ void Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg, osg::Image* videoTex)
 ///////////////////////    CLASS   VIDEOGEODE   /////////////////////////////// 
 /////////////////////////////////////////////////////////////////////////////// 
 
-VideoGeode::VideoGeode(GLuint w, GLuint h):_width(w),_height(h)
+VideoGeode::VideoGeode(std::string videoName, GLuint w, GLuint h, int thresh):_videoName(videoName),_width(w),_height(h),_threshold(thresh)
 {
 	clearMaterial();
 
    // OpenCV
-   _capture = cvCreateCameraCapture(0);
-   cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH, _width);
-   cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, _height);
-   _camImage = cvCreateImage(cvSize(_width, _height), IPL_DEPTH_8U, 3);
-   cvCopy(cvQueryFrame(_capture),_camImage,0);
+   if(_videoName.empty()){
+      _capture = cvCreateCameraCapture(0);
+      cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH, _width);
+      cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, _height);
+      _camImage = cvCreateImage(cvSize(_width, _height), IPL_DEPTH_8U, 3);
+   }
+   else {
+      _capture = cvCreateFileCapture(_videoName.c_str());
+      _width = cvGetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH);
+      _height = cvGetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT);
+      std::cout<<"videoW: "<<_width<<" videoH: "<<_height<<std::endl;
+      _camImage = cvCreateImage(cvSize(_width, _height), IPL_DEPTH_8U, 3);
+   }
+
+   //cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH, _width);
+   //cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, _height);
+   //_camImage = cvCreateImage(cvSize(_width, _height), IPL_DEPTH_8U, 3);
+   //cvCopy(cvQueryFrame(_capture),_camImage,0);
+
+   IplImage *curImage = cvQueryFrame(_capture);
+   std::cout<<"currentImage W: "<<curImage->width<<" H: "<<curImage->height<<" D: "<<curImage->depth<<std::endl;
+   std::cout<<"CamImage W: "<<_camImage->width<<" H: "<<_camImage->height<<" D: "<<_camImage->depth<<std::endl;
+   cvCopy(curImage,_camImage,0);
    
    _videoImage = new osg::Image();
+   
+   // Creating skeletonizaion object
+   _skel = new Skeletonize(_camImage);
+}
+
+VideoGeode::~VideoGeode(){
+   cvReleaseCapture(&_capture);
+   delete(_skel);
+   //delete(_camImage);
 }
 
 void VideoGeode::clearMaterial()
@@ -72,6 +99,18 @@ void VideoGeode::prepareMaterial(Material *givenMaterial)
 {
 	_material = givenMaterial;
 }
+
+void VideoGeode::increaseThreshold(int incr){
+   _threshold += incr;
+}
+
+
+void VideoGeode::decreaseThreshold(int incr){
+   _threshold -= incr;
+}
+
+
+
 
 /*
 Texture2D *VideoGeode::createTexture(std::string texName, bool texRepeat)
@@ -138,7 +177,7 @@ Texture2D *VideoGeode::createVideoTexture(bool texRepeat)
 void VideoGeode::updateVideoTexture()
 {
    cvCopy(cvQueryFrame(_capture),_camImage,0);
-   process(_camImage);
+   _skel->processImage(_camImage, _threshold);
    Convert_OpenCV_to_OSG_IMAGE(_camImage,_videoImage);
    _videoImage->dirty();
    _videoTexture->dirtyTextureObject();

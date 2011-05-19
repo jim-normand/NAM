@@ -11,6 +11,12 @@ class Skeletonize
 public:
    Skeletonize(IplImage *src);
    void operator()(void);
+   void skeletonize();
+   
+   void updateImage(IplImage *img);
+   
+   void processImage(IplImage *colorSrcImg, int threshold=230);
+
    
 private:
    IplImage *m_src;
@@ -19,6 +25,5 @@ private:
    int thin(unsigned int pass);
 };
 
-void process(IplImage *colorSrcImg, int threshold=230);
 
 #endif
