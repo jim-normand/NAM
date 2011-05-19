@@ -138,7 +138,7 @@ Texture2D *VideoGeode::createVideoTexture(bool texRepeat)
 void VideoGeode::updateVideoTexture()
 {
    cvCopy(cvQueryFrame(_capture),_camImage,0);
-   process(_camImage);
+   process(_camImage,threshold);
    Convert_OpenCV_to_OSG_IMAGE(_camImage,_videoImage);
    _videoImage->dirty();
    _videoTexture->dirtyTextureObject();

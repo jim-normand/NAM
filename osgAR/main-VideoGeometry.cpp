@@ -113,7 +113,9 @@ int main(int argc, char **argv)
    int imWidth = 640;
    arguments.read("--width",imWidth);
    int imHeight = 480;
-   arguments.read("-height",imHeight);
+   arguments.read("--height",imHeight);
+   int threshold = 230;
+   arguments.read("--thres",threshold);
    
    // we need the scene's state set to enable the light for the entire scene
 	scene = new Group();
@@ -123,7 +125,8 @@ int main(int argc, char **argv)
 	// create VideoGeometry
 	try {
 		videoGeode = new VideoGeode(imWidth,imHeight,camNumber);
-		
+		videoGeode->setThreshold(threshold);
+      
 		// stars / starfield
 		Material *material = new Material();
 		material->setEmission(Material::FRONT, Vec4(1.0f, 1.0f, 1.0f, 1.0f));

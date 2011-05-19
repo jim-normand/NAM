@@ -49,6 +49,10 @@ public:
    Texture2D *createVideoTexture(bool texRepeat);
    void updateVideoTexture();
    
+   // accessors
+   void setThreshold(int t) { threshold = t; }
+   int  getThreshold() { return threshold; }
+   
 private:
 	Material    *_material;
    
@@ -62,6 +66,7 @@ private:
    
    // other features
    int         camNumber; // camera number, default=0
+   int         threshold; // thresholding level for image processing & skeletonization
 };
 
 
