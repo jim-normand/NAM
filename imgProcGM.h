@@ -10,5 +10,8 @@
 
 class imgProcGM : public Skeletonize {
 public:
+   // constructor
+   imgProcGM(IplImage *src);
+   
    void processImage(IplImage *colorSrcImg, int threshold=230);
 };

@@ -18,7 +18,7 @@ public:
    virtual void processImage(IplImage *colorSrcImg, int threshold=230);
 
    
-private:
+protected:
    IplImage *m_src;
    static const int s_lut[256];
    
