@@ -6,9 +6,13 @@
 //  Copyright 2011 Ecole Centrale de Nantes. All rights reserved.
 //
 
+
 #include "Skeletonize.h"
 
 class imgProcGM : public Skeletonize {
 public:
+   // constructor
+   imgProcGM(IplImage *src);
+   
    void processImage(IplImage *colorSrcImg, int threshold=230);
 };
