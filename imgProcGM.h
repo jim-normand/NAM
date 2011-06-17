@@ -6,6 +6,7 @@
 //  Copyright 2011 Ecole Centrale de Nantes. All rights reserved.
 //
 
+
 #include "Skeletonize.h"
 
 class imgProcGM : public Skeletonize {

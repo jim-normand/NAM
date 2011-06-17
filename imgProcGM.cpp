@@ -8,6 +8,8 @@
 #include "Skeletonize.h"
 #include "Intersections.h"
 
+#include <iostream>
+
 using namespace std;
 
 
@@ -23,15 +25,20 @@ void imgProcGM::processImage(IplImage *colorSrcImg, int threshold)
 {
    IplImage *graySrcImg = cvCreateImage(cvGetSize(colorSrcImg), IPL_DEPTH_8U, 1);
    
+   IplImage *hsvSrcImg = cvCreateImage(cvGetSize(colorSrcImg), IPL_DEPTH_8U, 3);
    // Source Image in color
-   cvConvertImage(colorSrcImg, graySrcImg);
-   //cvShowImage("Non-Equalized", graySrcImg);
+   cvCvtColor(colorSrcImg, hsvSrcImg, CV_BGR2YUV);
    
-   cvEqualizeHist(graySrcImg, graySrcImg);
-   cvShowImage("Equalized", graySrcImg);
+   //cvShowImage("YUV", hsvSrcImg);
+   
+   cvSplit(hsvSrcImg,graySrcImg,NULL,NULL,NULL);
+   cvThreshold(graySrcImg, graySrcImg, threshold, 255, CV_THRESH_BINARY);
+
+   //cvEqualizeHist(graySrcImg, graySrcImg);
+   //cvShowImage("Y", graySrcImg);
    
    // Applying Threshold + Morphological Closing
-   cvThreshold(graySrcImg, graySrcImg, threshold, 255, CV_THRESH_BINARY);
+   //cvThreshold(graySrcImg, graySrcImg, threshold, 255, CV_THRESH_BINARY);
    /*cvMorphologyEx(graySrcImg, graySrcImg, NULL,
     cvCreateStructuringElementEx(5, 5, 2, 2, CV_SHAPE_RECT),
     CV_MOP_OPEN);*/
@@ -54,6 +61,7 @@ void imgProcGM::processImage(IplImage *colorSrcImg, int threshold)
       cvCircle(colorSrcImg, crossroads[i], 2, CV_RGB(255, 0, 0), -1);
    }
    
+   cvReleaseImage(&hsvSrcImg);
    cvReleaseImage(&graySrcImg);
 
 }
