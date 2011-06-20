@@ -107,6 +107,7 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
 	CvMat *sample = cvCreateMat(image->height*modified->width, 1, CV_32FC(3));
 	CvMat *cluster = cvCreateMat(image->height*modified->width, 1, CV_32SC1);
 
+   // ça ressemble violemment à une copie pure et simple non ?
 	for(int i=0; i<image->height ;i++)//row
 	{
 		for( int j=0; j<image->width; j++)//col
@@ -121,6 +122,15 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
 	if(profondeur==0)
 		K = 10;
 
+   /**
+    utilisation de cvKMeans2 : 
+      - sample est la matrice des échantillons
+      - K le nombre de clusters (10 ici pour la première fois, ensuite on incrémente)
+      - le critère d'arrêts, ici le epsilon + le nombre d'itérations
+      - les autres paramètres par défaut (1 seule exécution, pas de générateur aléatoire
+      externe, pas de labels initiaux, pas de centre des clusters en sortie, pas
+      d'indicateurs de compacité
+   */
 	cvKMeans2(sample, K, cluster,cvTermCriteria( CV_TERMCRIT_EPS+CV_TERMCRIT_ITER, 10, 10 ));
 
 	//Assign color in filter to destination image
@@ -154,6 +164,7 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
 			{
 			case 'y':
 				cvAdd(progressiveKMean,dst_img,progressiveKMean,NULL);
+               printClusterValues(dst_img);
 				break;
 			case 't':
 				ChiangKMean(dst_img,profondeur+1);
@@ -175,9 +186,64 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
 		cvNamedWindow ("K Mean", CV_WINDOW_AUTOSIZE);
 		cvShowImage ("K Mean", dst_img);
 
+      // affichage des valeurs de couleur des clusters foreground
+   for (map<CvScalar,int>::iterator i = foreground.begin() ; i!=foreground.end() ; i++) {
+      cout << "(" << i->first.val[0] << "," << i->first.val[1] << "," << i->first.val[2] << ") : " << i->second << endl;
+   }
 	cvReleaseMat(&sample);
 	cvReleaseMat(&cluster);
 	cvReleaseImage(&dst_img);
+}
+
+// boolean function for comparing CvScalar (uses lexicographic order) 
+bool operator<(CvScalar a,CvScalar b) {
+   if (a.val[0] < b.val[0]) {
+      return 1;
+   }
+   else {
+      if (a.val[0] == b.val[0]) {
+         if (a.val[1] < b.val[1]) {
+            return 1;
+         }
+             else {
+                if (a.val[1] == b.val[1]) {
+                   if (a.val[2] < b.val[2]) {
+                      return 1;
+                   }
+                   else {
+                      return 0;
+                   }
+                }
+                else {
+                   return 0;
+                }
+             }
+      }
+      else {
+         return 0;
+      }
+   }
+}
+             
+// affiche la liste des couleurs utilisées dans un cluster
+void RoadExtraction::printClusterValues(IplImage *im) {
+   for (int y=0 ; y<im->height ; y++) {
+      for (int x=0 ; x<im->width ; x++) {
+         uchar r = CV_IMAGE_ELEM(im,uchar, y, x*3);
+         uchar g = CV_IMAGE_ELEM(im,uchar, y, x*3+1);
+         uchar b = CV_IMAGE_ELEM(im,uchar, y, x*3+2);
+         if (r || g || b) {
+            //cout << "(" << (int) r << "," << (int) g << "," << (int) b << ")" << endl;
+            CvScalar tmp; tmp.val[0] = r ; tmp.val[1]=b; tmp.val[2]=b; tmp.val[3]=0;
+            if (foreground.find(tmp) != foreground.end()) {
+               foreground[tmp]++;
+            }
+            else {
+               foreground[tmp]=1;
+            }
+         }
+      }
+   }
 }
 
 void

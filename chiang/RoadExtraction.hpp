@@ -25,6 +25,8 @@ public:
 	void ChiangKMean(IplImage* image,int profondeur);
 	void ConnexCount(IplImage* image);
 
+   void printClusterValues(IplImage *image);
+   
 public:
 	static int NonBlackPix(IplImage* image);
 	static int ContourNumber(IplImage* image);
@@ -34,6 +36,10 @@ private:
 	IplImage* source;
 	IplImage* modified;
 	IplImage* progressiveKMean;
+   
+   /// comptage des clusters
+   map<CvScalar,int> foreground;
+   
 };
 
 #endif
