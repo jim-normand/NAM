@@ -7829,7 +7829,7 @@
 				</dict>
 			</array>
 		</dict>
-		<real>330249943.743411</real>
+		<real>330250095.541605</real>
 		<string>{0, 997}</string>
 		<string>{988, 0}</string>
 		<dict>
@@ -8147,9 +8147,9 @@
     s = 0;
 }</string>
 		</dict>
-		<real>330249943.743101</real>
+		<real>330250095.54129899</real>
 		<string>{4201, 1581}</string>
-		<string>{5349, 0}</string>
+		<string>{4974, 5}</string>
 		<string>RoadExtraction::ChiangKMean(IplImage* image,int profondeur)</string>
 		<dict>
 			<key>$class</key>
@@ -10821,9 +10821,9 @@
     s = 0;
 }</string>
 		</dict>
-		<real>330249943.73975801</real>
+		<real>330250095.53795701</real>
 		<string>{4201, 1581}</string>
-		<string>{5349, 0}</string>
+		<string>{4974, 5}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
