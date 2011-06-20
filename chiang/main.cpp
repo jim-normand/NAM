@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include <cv.h>
-#include <highgui.h>
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 #include "RoadExtraction.hpp"
 
 
@@ -14,7 +14,11 @@ int main(int argc, char *argv[])
 
 	RoadExtraction* CapturedMap = new RoadExtraction();
 
-	CapturedMap->LoadImage("chiang2.bmp");
+   if (argc != 2) {
+      std::cout << "usage: " << argv[0] << " imageFile" << endl;
+      return -1;
+   }
+	CapturedMap->LoadImage(argv[1]);
 	CapturedMap->ShowSource();
 	CapturedMap->InitModified();
 	CapturedMap->MeanShift(3,25);

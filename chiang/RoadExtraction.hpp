@@ -1,8 +1,8 @@
 #ifndef ROADEXTRACTION_HPP_
 #define ROADEXTRACTION_HPP_
 
-#include <cv.h>
-#include <highgui.h>
+#include <opencv/cv.h>
+#include <opencv/highgui.h>
 
 void SetMatElem(CvMat *mat, int row, int col, int channel, int val);
 
