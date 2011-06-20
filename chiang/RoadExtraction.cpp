@@ -186,9 +186,15 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
 		cvNamedWindow ("K Mean", CV_WINDOW_AUTOSIZE);
 		cvShowImage ("K Mean", dst_img);
 
-      // affichage des valeurs de couleur des clusters foreground
+   // second cluster par ordre décroissant d'occurences
+   map<int,CvScalar> foregroundColors;
    for (map<CvScalar,int>::iterator i = foreground.begin() ; i!=foreground.end() ; i++) {
-      cout << "(" << i->first.val[0] << "," << i->first.val[1] << "," << i->first.val[2] << ") : " << i->second << endl;
+      foregroundColors[i->second] = i->first;
+   }
+   
+      // affichage des valeurs de couleur des clusters foreground
+   for (map<int,CvScalar>::iterator i = foregroundColors.begin() ; i!=foregroundColors.end() ; i++) {
+      cout << "(" << i->second.val[0] << "," << i->second.val[1] << "," << i->second.val[2] << ") : " << i->first << endl;
    }
 	cvReleaseMat(&sample);
 	cvReleaseMat(&cluster);

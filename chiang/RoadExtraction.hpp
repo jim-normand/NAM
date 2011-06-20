@@ -42,4 +42,7 @@ private:
    
 };
 
+bool operator<(CvScalar a,CvScalar b);
+
+
 #endif
