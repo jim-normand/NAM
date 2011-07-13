@@ -2,8 +2,11 @@
 #include "Color.hpp"
 #include "IdentLabel.hpp"
 #include <iostream>
+#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
+
+using namespace std;
 
 #include <time.h>
 
@@ -196,6 +199,15 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
    for (map<int,CvScalar>::iterator i = foregroundColors.begin() ; i!=foregroundColors.end() ; i++) {
       cout << "(" << i->second.val[0] << "," << i->second.val[1] << "," << i->second.val[2] << ") : " << i->first << endl;
    }
+   
+   // sauvegarde des valeurs de l'histogramme dans un fichier
+   std::ofstream of;
+   of.open("filters.dat");
+   for (map<int,CvScalar>::iterator i = foregroundColors.begin() ; i != foregroundColors.end() ;  i++) {
+      of <<  i->second.val[0] << " " << i->second.val[1] << " " << i->second.val[2] << endl;
+   }
+   of.close();
+   
 	cvReleaseMat(&sample);
 	cvReleaseMat(&cluster);
 	cvReleaseImage(&dst_img);
