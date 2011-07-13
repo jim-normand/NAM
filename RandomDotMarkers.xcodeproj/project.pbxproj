@@ -70,6 +70,7 @@
 		A357225113AF1B7B00852F2E /* libopencv_objdetect.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A357224613AF1B7B00852F2E /* libopencv_objdetect.dylib */; };
 		A357225213AF1B7B00852F2E /* libopencv_video.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A357224713AF1B7B00852F2E /* libopencv_video.dylib */; };
 		A36AD8481366CD3F0066E897 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36AD8471366CD3F0066E897 /* main.cpp */; };
+		A383E31613CD94B4002663AD /* imgProcChiang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A383E31413CD94B4002663AD /* imgProcChiang.cpp */; };
 		A3FA014A13857056001C0AAD /* imgProcGM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3FA014813857056001C0AAD /* imgProcGM.cpp */; };
 /* End PBXBuildFile section */
 
@@ -195,6 +196,8 @@
 		A36AD8441366CD3F0066E897 /* osgAR */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = osgAR; sourceTree = BUILT_PRODUCTS_DIR; };
 		A36AD8471366CD3F0066E897 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A36AD8491366CD3F0066E897 /* osgAR.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = osgAR.1; sourceTree = "<group>"; };
+		A383E31413CD94B4002663AD /* imgProcChiang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgProcChiang.cpp; sourceTree = "<group>"; };
+		A383E31513CD94B4002663AD /* imgProcChiang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgProcChiang.h; sourceTree = "<group>"; };
 		A3FA014813857056001C0AAD /* imgProcGM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgProcGM.cpp; sourceTree = "<group>"; };
 		A3FA014913857056001C0AAD /* imgProcGM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgProcGM.h; sourceTree = "<group>"; };
 		C6859E8B029090EE04C91782 /* RandomDotMarkers.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = RandomDotMarkers.1; sourceTree = "<group>"; };
@@ -328,6 +331,8 @@
 				38A4FE7113681A2A003D16F9 /* Skeletonize.h */,
 				A3FA014813857056001C0AAD /* imgProcGM.cpp */,
 				A3FA014913857056001C0AAD /* imgProcGM.h */,
+				A383E31413CD94B4002663AD /* imgProcChiang.cpp */,
+				A383E31513CD94B4002663AD /* imgProcChiang.h */,
 			);
 			name = skeletonization;
 			sourceTree = "<group>";
@@ -576,6 +581,7 @@
 				3838FB3C137AC2B3005687A1 /* CustomCameraManipulator.cpp in Sources */,
 				385EECA0138161E8009E3B71 /* CustomEventHandler.cpp in Sources */,
 				A3FA014A13857056001C0AAD /* imgProcGM.cpp in Sources */,
+				A383E31613CD94B4002663AD /* imgProcChiang.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,6 +828,7 @@
 				A357223713AF1B1600852F2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A36AD84C1366CD3F0066E897 /* Build configuration list for PBXNativeTarget "osgAR" */ = {
 			isa = XCConfigurationList;
