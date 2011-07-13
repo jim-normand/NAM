@@ -8,6 +8,8 @@
 
 #include "videogeometry.h"
 #include "imgProcGM.h"
+#include "imgProcChiang.h"
+
 
 //#include "NAM-FFmpegImageStream.hpp"
 
@@ -87,7 +89,7 @@ VideoGeode::VideoGeode(std::string videoName, int cc, GLuint w, GLuint h, int th
    _videoImage = new osg::Image();
    
    // Creating skeletonizaion object
-   _skel = new imgProcGM(_camImage);
+   _skel = new imgProcChiang(_camImage);
 }
 
 VideoGeode::~VideoGeode(){
