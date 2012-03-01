@@ -55,7 +55,7 @@ imgProcChiang::imgProcChiang(IplImage *src) : Skeletonize(src) {
 
 void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
    IplImage *graySrcImg = cvCreateImage(cvGetSize(colorSrcImg), IPL_DEPTH_8U, 1);
-   cvShowImage("gray source",graySrcImg);
+   cvShowImage("source",colorSrcImg);
    
    cout << cvGetSize(colorSrcImg).width << "w" <<  cvGetSize(colorSrcImg).height << endl;
    cout << "--frame " << colorSrcImg->nChannels <<endl;
@@ -68,9 +68,11 @@ void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
          int bb = (int) *redPointer++;
          int gg = (int) *redPointer++;
          int rr = (int) *redPointer++;
-         //cout << "(" << rr << "," << gg << "," << bb << ") ";
+         
          if (thresTable[rr][gg][bb]) {
-            //cout << "+ajout de (" << rr << "," << gg << "," << bb << ")" << endl;
+            //if (rr != 255 || gg != 255 || bb != 255) {
+            //   cout << "+ajout de (" << (int)rr << "," << (int)gg << "," << (int)bb << ")" << endl;
+            //}
             *greyPointer++ = 255;
          }
          else {
