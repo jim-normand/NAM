@@ -158,7 +158,10 @@ Texture2D *VideoGeode::createVideoTexture(bool texRepeat)
 
 void VideoGeode::updateVideoTexture()
 {
-   cvCopy(cvQueryFrame(_capture),_camImage,0);
+   IplImage *im = cvQueryFrame(_capture);
+   if (im != NULL) {
+      cvCopy(im,_camImage,0);
+   }
    //_camImage = cvCloneImage(cvQueryFrame(_capture));
    _skel->processImage(_camImage, _threshold);
    Convert_OpenCV_to_OSG_IMAGE(_camImage,_videoImage);

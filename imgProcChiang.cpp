@@ -52,16 +52,18 @@ imgProcChiang::imgProcChiang(IplImage *src) : Skeletonize(src) {
 
 void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
    IplImage *graySrcImg = cvCreateImage(cvGetSize(colorSrcImg), IPL_DEPTH_8U, 1);
+   cout << cvGetSize(colorSrcImg).width << "w" <<  cvGetSize(colorSrcImg).height << endl;
    cout << "--frame " << colorSrcImg->nChannels <<endl;
    // seuillage rapide : parcours de l'ensemble des pixels et validation par la table
    uchar *redPointer = (uchar*) colorSrcImg->imageData;
    uchar *greyPointer = (uchar*) graySrcImg->imageData;
    for (int y=0 ; y<colorSrcImg->height ; y++) {
+      //cout << "line " << y ;
       for (int x=0 ; x<colorSrcImg->width ; x++) {
-         int rr = (int) *redPointer++;
-         int gg = (int) *redPointer++;
          int bb = (int) *redPointer++;
-         //cout << "P(" << x << "," << y << ")=" << rr << "," << gg << "," << bb << ")" << endl;
+         int gg = (int) *redPointer++;
+         int rr = (int) *redPointer++;
+         //cout << "(" << rr << "," << gg << "," << bb << ") ";
          if (thresTable[rr][gg][bb]) {
             cout << "+ajout de (" << rr << "," << gg << "," << bb << ")" << endl;
             *greyPointer++ = 255;
@@ -71,6 +73,7 @@ void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
          }
       }
       //*redPointer += colorSrcImg->width;
+      //cout << endl;
    }
    // on montre le résultat
    cvShowImage("Binarization", graySrcImg);
