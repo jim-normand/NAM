@@ -252,7 +252,7 @@ void RoadExtraction::printClusterValues(IplImage *im) {
          uchar b = CV_IMAGE_ELEM(im,uchar, y, x*3+2);
          if (r || g || b) {
             cout << "(" << (int) r << "," << (int) g << "," << (int) b << ")" << endl;
-            CvScalar tmp; tmp.val[0] = r ; tmp.val[1]=b; tmp.val[2]=b; tmp.val[3]=0;
+            CvScalar tmp; tmp.val[0] = r ; tmp.val[1]=g; tmp.val[2]=b; tmp.val[3]=0;
             if (foreground.find(tmp) != foreground.end()) {
                foreground[tmp]++;
             }
