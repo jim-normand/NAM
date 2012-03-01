@@ -183,7 +183,7 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
 
 		//Show selected filters
 		cvNamedWindow ("Selected Filters", CV_WINDOW_AUTOSIZE);
-		cvShowImage ("Selected Fi,lters", progressiveKMean);
+		cvShowImage ("Selected Filters", progressiveKMean);
 		cvSaveImage("extracted chiang.bmp",progressiveKMean);
 		//Show image
 		cvNamedWindow ("K Mean", CV_WINDOW_AUTOSIZE);

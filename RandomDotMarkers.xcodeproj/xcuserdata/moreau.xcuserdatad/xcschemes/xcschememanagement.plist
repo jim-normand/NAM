@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>chiangTest copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>chiangTest.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +38,11 @@
 			<true/>
 		</dict>
 		<key>A36AD8431366CD3F0066E897</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A3FCB78814FF376100BAE07A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

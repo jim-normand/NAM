@@ -83,7 +83,7 @@ osg::Image* Convert_OpenCV_to_OSG_IMAGE(IplImage* cvImg)
    osgImg1->setOrigin( (cvImg->origin == IPL_ORIGIN_BL) ? 
                      osg::Image::BOTTOM_LEFT : osg::Image::TOP_LEFT); 
    
-   std::cout<<"Conversion finihed"<<std::endl;
+   std::cout<<"Conversion finished"<<std::endl;
    
    //Mutex.unlock(); 
    return osgImg1; 

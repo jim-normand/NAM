@@ -41,7 +41,7 @@ imgProcChiang::imgProcChiang(IplImage *src) : Skeletonize(src) {
       if (r>=0 && r<256 && g>=0 && g<256 && b>=0 && b<256) {
          thresTable[r][g][b] = true;
          // debug lecture
-         cout << "ajout de (" << r << "," << g << "," << b << ")" << endl;
+         // cout << "ajout de (" << r << "," << g << "," << b << ")" << endl;
       }
       else {
          cerr << "pb a la lecture du fichier de filtrage" << endl;
@@ -52,6 +52,8 @@ imgProcChiang::imgProcChiang(IplImage *src) : Skeletonize(src) {
 
 void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
    IplImage *graySrcImg = cvCreateImage(cvGetSize(colorSrcImg), IPL_DEPTH_8U, 1);
+   cvShowImage("gray source",graySrcImg);
+   
    cout << cvGetSize(colorSrcImg).width << "w" <<  cvGetSize(colorSrcImg).height << endl;
    cout << "--frame " << colorSrcImg->nChannels <<endl;
    // seuillage rapide : parcours de l'ensemble des pixels et validation par la table
@@ -65,7 +67,7 @@ void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
          int rr = (int) *redPointer++;
          //cout << "(" << rr << "," << gg << "," << bb << ") ";
          if (thresTable[rr][gg][bb]) {
-            cout << "+ajout de (" << rr << "," << gg << "," << bb << ")" << endl;
+            //cout << "+ajout de (" << rr << "," << gg << "," << bb << ")" << endl;
             *greyPointer++ = 255;
          }
          else {
