@@ -204,7 +204,7 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
    std::ofstream of;
    of.open("filters.dat");
    for (map<int,CvScalar>::iterator i = foregroundColors.begin() ; i != foregroundColors.end() ;  i++) {
-      of <<  i->second.val[0] << " " << i->second.val[1] << " " << i->second.val[2] << endl;
+      of <<  i->second.val[2] << " " << i->second.val[1] << " " << i->second.val[0] << endl;
    }
    of.close();
    
@@ -251,7 +251,7 @@ void RoadExtraction::printClusterValues(IplImage *im) {
          uchar g = CV_IMAGE_ELEM(im,uchar, y, x*3+1);
          uchar b = CV_IMAGE_ELEM(im,uchar, y, x*3+2);
          if (r || g || b) {
-            //cout << "(" << (int) r << "," << (int) g << "," << (int) b << ")" << endl;
+            cout << "(" << (int) r << "," << (int) g << "," << (int) b << ")" << endl;
             CvScalar tmp; tmp.val[0] = r ; tmp.val[1]=b; tmp.val[2]=b; tmp.val[3]=0;
             if (foreground.find(tmp) != foreground.end()) {
                foreground[tmp]++;

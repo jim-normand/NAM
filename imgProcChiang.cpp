@@ -35,11 +35,13 @@ imgProcChiang::imgProcChiang(IplImage *src) : Skeletonize(src) {
    // de lecture. mais sans effet sur la suite...
    ifstream inf;
    inf.open("filters.dat");
+   int line = 0; // pour compter le nombre de lignes lues
    while (!inf.eof()) {
       int r,g,b;
       inf >> r >> g >> b;
       if (r>=0 && r<256 && g>=0 && g<256 && b>=0 && b<256) {
          thresTable[r][g][b] = true;
+         line++;
          // debug lecture
          // cout << "ajout de (" << r << "," << g << "," << b << ")" << endl;
       }
@@ -47,6 +49,7 @@ imgProcChiang::imgProcChiang(IplImage *src) : Skeletonize(src) {
          cerr << "pb a la lecture du fichier de filtrage" << endl;
       }
    }
+   cout << line << " lignes lues dans le fichier de filtre" << endl;
    inf.close();
 }
 
@@ -79,6 +82,13 @@ void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
    }
    // on montre le résultat
    cvShowImage("Binarization", graySrcImg);
+   
+   // morpho math
+   cvMorphologyEx(graySrcImg, graySrcImg, NULL,
+                  cvCreateStructuringElementEx(3, 3, 2, 2, CV_SHAPE_RECT),
+                  CV_MOP_CLOSE,
+                  2);
+   cvShowImage("Morpho-math", graySrcImg);
    
    cvReleaseImage(&graySrcImg);
 }
