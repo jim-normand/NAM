@@ -30,6 +30,9 @@ imgProcChiang::imgProcChiang(IplImage *src) : Skeletonize(src) {
       }
    }
    
+   // debug mode à faux par défaut
+   debugVizMode = false;
+   
    // remplissage avec les valeurs données dans le fichier
    // @bug: le dernier point sera lu en double (eof() positionné après tentative
    // de lecture. mais sans effet sur la suite...
@@ -43,7 +46,7 @@ imgProcChiang::imgProcChiang(IplImage *src) : Skeletonize(src) {
          thresTable[r][g][b] = true;
          line++;
          // debug lecture
-         // cout << "ajout de (" << r << "," << g << "," << b << ")" << endl;
+         cout << "ajout de (" << r << "," << g << "," << b << ")" << endl;
       }
       else {
          cerr << "pb a la lecture du fichier de filtrage" << endl;
@@ -55,7 +58,10 @@ imgProcChiang::imgProcChiang(IplImage *src) : Skeletonize(src) {
 
 void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
    IplImage *graySrcImg = cvCreateImage(cvGetSize(colorSrcImg), IPL_DEPTH_8U, 1);
-   cvShowImage("source",colorSrcImg);
+   
+   if (debugVizMode) { 
+      cvShowImage("source",colorSrcImg);
+   }
    
    cout << cvGetSize(colorSrcImg).width << "w" <<  cvGetSize(colorSrcImg).height << endl;
    cout << "--frame " << colorSrcImg->nChannels <<endl;
@@ -64,15 +70,17 @@ void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
    uchar *greyPointer = (uchar*) graySrcImg->imageData;
    for (int y=0 ; y<colorSrcImg->height ; y++) {
       //cout << "line " << y ;
+      redPointer = (uchar*) (colorSrcImg->imageData+y*colorSrcImg->widthStep);
+      greyPointer = (uchar*) (graySrcImg->imageData+y*graySrcImg->widthStep);
       for (int x=0 ; x<colorSrcImg->width ; x++) {
          int bb = (int) *redPointer++;
          int gg = (int) *redPointer++;
          int rr = (int) *redPointer++;
          
          if (thresTable[rr][gg][bb]) {
-            //if (rr != 255 || gg != 255 || bb != 255) {
-            //   cout << "+ajout de (" << (int)rr << "," << (int)gg << "," << (int)bb << ")" << endl;
-            //}
+            if (rr != 255 || gg != 255 || bb != 255) {
+               cout << "+ajout de (" << (int)rr << "," << (int)gg << "," << (int)bb << ")" << endl;
+            }
             *greyPointer++ = 255;
          }
          else {
@@ -83,15 +91,38 @@ void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
       //cout << endl;
    }
    // on montre le résultat
-   cvShowImage("Binarization", graySrcImg);
+   if (debugVizMode) {
+      cvShowImage("Binarization", graySrcImg);
+   }
    
    // morpho math
    cvMorphologyEx(graySrcImg, graySrcImg, NULL,
                   cvCreateStructuringElementEx(3, 3, 2, 2, CV_SHAPE_RECT),
                   CV_MOP_CLOSE,
                   2);
-   cvShowImage("Morpho-math", graySrcImg);
    
+   if (debugVizMode) {
+      cvShowImage("Morpho-math", graySrcImg);
+   }
+   
+   // Applying the Skeletonization
+   m_src = graySrcImg;
+   skeletonize();
+   
+   if (debugVizMode) {
+      cvShowImage("Skeletonization", graySrcImg);
+   }
+
+   // Computing Intersections and Drawing in Red them on the original Image
+   vector<CvPoint> crossroads = Intersections(graySrcImg)();
+   for (unsigned int i = 0; i < crossroads.size(); ++i)
+   {
+      cvCircle(colorSrcImg, crossroads[i], 2, CV_RGB(255, 0, 0), -1);
+   }
+   if (debugVizMode) {
+      cvShowImage("source avec intersections",colorSrcImg);
+   }
+
    cvReleaseImage(&graySrcImg);
 }
 

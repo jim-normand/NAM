@@ -12,11 +12,16 @@ class imgProcChiang : public Skeletonize {
 private:
    bool thresTable[256][256][256];
    
+   /// affiche les images si true
+   bool debugVizMode;
+   
 public:
    // constructor
    imgProcChiang(IplImage *src);
    
    void processImage(IplImage *colorSrcImg, int threshold=230);
+   
+   void setDebugVizMode() { debugVizMode = true; }
 };
 
 
