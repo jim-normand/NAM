@@ -21,9 +21,10 @@ typedef std::map<unsigned, Paper> paperlist;
 class PaperList
 {
 public:
-	Paper* FindPaper(const int paperid);
-	void Delete(const int paperid);
-	unsigned Add(eblobs *blobs);
+	Paper* Find(const unsigned int paperid);
+	void Delete(const unsigned int paperid);
+   unsigned Add(eblobs *blobs);
+	unsigned Add(eblobs *blobs, int width, int height);
 	void Clear();
 
 private:
