@@ -8,6 +8,48 @@
 
 #include "bloblist.h"
 
+eblobs BlobList::CloseBlobs(const double x, const double y)
+{
+	int idx = static_cast<int>(x) / m_windows.size;
+	int idy = static_cast<int>(y) / m_windows.size;
+   
+	eblobs blobs;
+   
+	
+	int size=0;
+   
+	while(1){
+      
+		int num=0;
+      
+		for(int y=-size; y<=size; y++){
+			for(int x=-size; x<=size; x++){
+            
+				xy idxy;
+				idxy.x = idx-x;
+				idxy.y = idx-y;
+            
+				if(0 <= idxy.x && idxy.x < m_windows.w && 0 <= idxy.y && idxy.y < m_windows.h){
+					const bblobs *tmp = m_windows(idxy.x,idxy.y);
+					num += static_cast<int>(tmp->size());
+					for(bblobs::const_iterator itbl=(*tmp).begin();itbl!=(*tmp).end();++itbl){
+						blobs.push_back((*itbl));
+					}
+				}
+			}
+		}
+      
+		if(num != 0){
+			break;
+		}
+		else{
+			++size;
+		}
+	}
+   
+	return blobs;
+}
+
 nblobs* BlobList::SortbyPaper(const int th)
 {
 	m_bypaper.clear();
@@ -146,6 +188,11 @@ blob* BlobList::GetBlob(const int labelnum)
 void BlobList::SetBlobs(const MyLabel &label, const int th)
 {
 	CheckLength(label.num);
+   
+   // Jim's modification
+   m_width  = label.w;
+   m_height = label.h;
+   // End of modification
 
 	for(int y=1;y<label.h-1;y++){
 		for(int x=1;x<label.w-1;x++){
@@ -179,10 +226,10 @@ void BlobList::SetBlobs(const char *name)
 	std::ifstream in(name);
 	
 	int num;
-	in >> num;
-
+	in >> num;   
+   
 	CheckLength(num);
-
+   
 	for(int i=0;i<num;i++){
 
 		in >> m_blobs[i].x >> m_blobs[i].y;
@@ -199,7 +246,101 @@ void BlobList::SetBlobs(const char *name)
 	in.close();
 }
 
+// Jim's modification
+void BlobList::SetBlobsWithSize(const char *name)
+{
+	std::ifstream in(name);
+	
+	int num;
+	in >> num;   
+   
+	CheckLength(num);
+   
+   
+   // Beware: the files have to be modified to include the size of the marker
+   // at the beginning of the text file containing the dots' coordinates
+   
+   // Jim's modification
+   in >> m_width;
+   in >> m_height;
+   // End of modification
+   
+   
+	for(int i=0;i<num;i++){
+      
+		in >> m_blobs[i].x >> m_blobs[i].y;
+      
+      // Jim's modification
+      m_blobs[i].y = m_height - m_blobs[i].y;
+      // End of modification
+      
+		m_blobs[i].idxy.x = 0;
+		m_blobs[i].idxy.y = 0;
+      
+		m_windows.Add(m_blobs[i].idxy.x, m_blobs[i].idxy.y, &m_blobs[i]);
+      
+		m_extracted.push_back(&m_blobs[i]);
+      
+	}
+   
+	in.close();
+}
+// End of modification
+
+// Jim's modification
+void BlobList::SetBlobs(const std::vector<CvPoint> dots)
+{
+   // Size should be set prior to this call
+   
+   // Checking length
+   int num = (int)dots.size();
+   CheckLength(num);
+   
+   for(int i=0;i<num;i++) {
+      
+      m_blobs[i].x = dots[i].x;
+      m_blobs[i].y = dots[i].y;
+      
+      m_blobs[i].idxy.x = 0;
+      m_blobs[i].idxy.y = 0;
+      
+      m_windows.Add(m_blobs[i].idxy.x, m_blobs[i].idxy.y, &m_blobs[i]);
+      
+		m_extracted.push_back(&m_blobs[i]);
+   }
+}
+
+
 void BlobList::Init(const int iw, const int ih, const int windowsize)
 {
 	m_windows.Init(iw/windowsize+1, ih/windowsize+1, windowsize);
 }
+
+// Jim's modification
+void BlobList::SetWidth(int w)
+{
+   m_width = w;
+}
+
+void BlobList::SetHeight(int h)
+{
+   m_height = h;
+}
+
+int BlobList::GetWidth()
+{
+   return m_width;
+}
+
+int BlobList::GetHeight()
+{
+   return m_height;
+}
+
+void BlobList::SetSize(int w, int h)
+{
+   m_width  = w;
+   m_height = h;
+}
+
+// End of modification

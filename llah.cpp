@@ -10,12 +10,14 @@
 
 void LLAH::SetHash(Paper* paper, const eblobs *blobs)
 {
+   ptlist *pts = paper->GetPts();
+   
 	for(eblobs::const_iterator itbl=blobs->begin();itbl!=blobs->end();++itbl){
 		for(descriptors::iterator itde=(*itbl)->descs.begin();itde!=(*itbl)->descs.end();++itde){
 			bool flag = m_table.Set(static_cast<unsigned>(*itde), (*itbl)->id);
 
 			if(flag){
-				paper->pts[(*itbl)->PtID()].descs.insert(static_cast<unsigned>(*itde));
+				(*pts)[(*itbl)->PtID()].descs.insert(static_cast<unsigned>(*itde));
 			}
 		}
 	}
@@ -42,9 +44,36 @@ void LLAH::AddPaper(const char *name)
 		}
 	}
 
-	unsigned paperid = m_paperlist.Add(blobs);
-	Paper* paper = m_paperlist.FindPaper(paperid);
+	unsigned paperid = m_paperlist.Add(blobs, m_bloblist.GetWidth(), m_bloblist.GetHeight());
+	Paper* paper = m_paperlist.Find(paperid);
 
+	SetHash(paper, blobs);
+}
+
+void LLAH::AddPaperWithSize(const char *name)
+{
+	m_bloblist.SetBlobsWithSize(name);
+   
+	eblobs *blobs = m_bloblist.GetExtracted();
+   
+	if(static_cast<int>(blobs->size()) > m_param.n){
+		m_bloblist.SetNeighbor(m_param.n);
+      
+		for(eblobs::iterator itbl=(*blobs).begin();itbl!=(*blobs).end();++itbl){
+         
+			for(allcombi::iterator itnm=m_param.rnm.begin();itnm!=m_param.rnm.end();++itnm){
+				unsigned index = ComputeIndex(*itbl, *itnm);
+				(*itbl)->descs.insert(index);
+			}
+         
+			ComputeDescriptors(*itbl);
+			m_table.ComputeID(*itbl);
+		}
+	}
+   
+	unsigned paperid = m_paperlist.Add(blobs, m_bloblist.GetWidth(), m_bloblist.GetHeight());
+	Paper* paper = m_paperlist.Find(paperid);
+   
 	SetHash(paper, blobs);
 }
 
@@ -54,7 +83,7 @@ visible* LLAH::GetVisiblePaper()
 	return &m_visible;
 }
 
-void LLAH::UpdateTracking(Paper *paper, const double repro)
+/*void LLAH::UpdateTracking(Paper *paper, const double repro)
 {
 	int allpts = static_cast<int>(paper->pts.size());
 
@@ -96,66 +125,119 @@ void LLAH::UpdateTracking(Paper *paper, const double repro)
 		}
 		++i;
 	}
+}*/
+
+void LLAH::UpdateTracking(Paper *paper, const double repro)
+{
+	ptlist *pts = paper->GetPts();
+	mesh m = paper->GetMesh();
+   
+	//int count = 0;
+	for(ptlist::iterator itpt=(*pts).begin();itpt!=(*pts).end();++itpt){
+      
+		if((*itpt).inside){
+         
+			double x = (*m.ver)[(*itpt).centerid[0]].x*(*itpt).centerval[0]+(*m.ver)[(*itpt).centerid[1]].x*(*itpt).centerval[1]+(*m.ver)[(*itpt).centerid[2]].x*(*itpt).centerval[2];
+			double y = (*m.ver)[(*itpt).centerid[0]].y*(*itpt).centerval[0]+(*m.ver)[(*itpt).centerid[1]].y*(*itpt).centerval[1]+(*m.ver)[(*itpt).centerid[2]].y*(*itpt).centerval[2];
+         
+			int lx = static_cast<int>(x);
+			int ly = m_label.h-static_cast<int>(y);
+         
+			if(0 <= lx && lx < m_label.w && 0 <= ly && ly < m_label.h){
+            
+				int labelnum = m_label(lx,ly);
+            
+				blob* bb = m_bloblist.GetBlob(labelnum);
+				
+            
+				if(bb != NULL && bb->Distance(x,y) < repro){
+               
+					for(descriptors::iterator itde= (*bb).descs.begin();itde!=(*bb).descs.end();++itde){
+						bool flag = m_trackingtable.Set(static_cast<unsigned>(*itde), (*itpt).id);
+					}
+               
+					(*bb).found = true;
+					//++count;
+				}
+			}
+		}
+	}
+   
+	//printf("updated: %d\n",count);
 }
 
 bool LLAH::FindPaper(const int min, const double repro)
 {
-	bool flag = false;
+   bool flag = false;
 	
 	nblobs *bloblist = m_bloblist.SortbyPaper(min);
-
+   
 	for(nblobs::iterator itbl=bloblist->begin();itbl!=bloblist->end();++itbl){
-
+      
 		unsigned paperid = (*(*itbl).second).first;
-
-		Paper* paper = m_paperlist.FindPaper(paperid);
-
+		Paper* paper = m_paperlist.Find(paperid);
+      
 		if(paper != NULL && find(m_visible.begin(), m_visible.end(), paper) == m_visible.end()){
-
-			eblobs *blobs = &(*(*itbl).second).second;
-
-			int num = static_cast<int>(blobs->size());
-
-			MyMat impts(3,num), dbpts(3,num);
-
-			int i = 0;
-			for(eblobs::iterator itbs=blobs->begin();itbs!=blobs->end();++itbs){
-
-				impts(0,i) = (*itbs)->x;
-				impts(1,i) = (*itbs)->y;
-				impts(2,i) = 1.0;
-
-				unsigned ptid = (*itbs)->PtID();
-
-				dbpts(0,i) = paper->pts[ptid].x;
-				dbpts(1,i) = paper->pts[ptid].y;
-				dbpts(2,i) = 1.0;
-				
-				++i;
-			}
-
-			paper->H.Homography(dbpts, impts, repro);
-
-			impts.Mul(paper->H, dbpts);
-
-			i=0;
-			int count = 0;
-			for(eblobs::iterator itbs=blobs->begin();itbs!=blobs->end();++itbs){
-				double x = impts(0,i)/impts(2,i);
-				double y = impts(1,i)/impts(2,i);
-
-				double distance = (*itbs)->Distance(x, y);
-				if(distance < repro){
-					count++;
+         
+			if(!paper->Deformed()){
+            
+				eblobs *blobs = &(*(*itbl).second).second;
+            
+				int num = static_cast<int>(blobs->size());
+            
+				MyMat impts(3,num), dbpts(3,num);
+            
+				int i = 0;
+				ptlist *pts = paper->GetPts();
+				for(eblobs::iterator itbs=blobs->begin();itbs!=blobs->end();++itbs){
+               
+					impts(0,i) = (*itbs)->x;
+					impts(1,i) = (*itbs)->y;
+					impts(2,i) = 1.0;
+               
+					unsigned ptid = (*itbs)->PtID();
+               
+					dbpts(0,i) = (*pts)[ptid].x;
+					dbpts(1,i) = (*pts)[ptid].y;
+					dbpts(2,i) = 1.0;
+               
+					++i;
 				}
-
-				++i;
+            
+				paper->InitHomography(dbpts, impts, repro);
+				paper->Reprojection(dbpts, impts);
+            
+				i=0;
+				int count = 0;
+				for(eblobs::iterator itbs=blobs->begin();itbs!=blobs->end();++itbs){
+					double x = impts(0,i)/impts(2,i);
+					double y = impts(1,i)/impts(2,i);
+               
+					double distance = (*itbs)->Distance(x, y);
+               if(distance < repro){
+						count++;
+					}
+               
+					++i;
+				}
+            
+				if(count > min){
+					paper->Detected();
+				}	
 			}
-
-			if(count > min){
-				flag = true;
-				m_visible.push_back(paper);
-				UpdateTracking(paper,repro);
+         
+			if(paper->Deformed()){
+            
+				paper->RecoverMesh((*(*itbl).second).second, min);
+            
+				if(paper->Deformed()){
+					flag = true;
+					m_visible.push_back(paper);
+					UpdateTracking(paper,repro);
+				}
+				else{
+					paper->Lost();
+				}
 			}
 		}
 	}
@@ -250,16 +332,27 @@ void LLAH::SetPts()
 	m_bloblist.SetBlobs(m_label);
 }
 
-void LLAH::Extract(const MyImage &src, int threshold)
+void LLAH::Extract(const MyImage &src)
 {
 	m_gray.ColortoGray(src);
+   m_smooth.Smooth(m_gray);
+	m_binary.Binarization(m_gray);
+}
+
+// Jim's modification
+void LLAH::ExtractWithThreshold(const MyImage &src, int threshold)
+{
+	m_gray.ColortoGray(src);
+   m_smooth.Smooth(m_gray);
 	m_binary.Binarization(m_gray, threshold);
 }
+// End of modification
 
 void LLAH::Init(const int iw, const int ih)
 {
 	m_gray.Init(iw,ih,1);
 	m_binary.Init(iw,ih,1);
+   m_smooth.Init(iw,ih,1);
 	m_label.Init(iw,ih);
 	m_bloblist.Init(iw,ih,10);
 }
@@ -279,11 +372,26 @@ void LLAH::DrawPts(MyImage &dst) const
 	const eblobs *blobs = m_bloblist.GetExtracted();
 
 	for(eblobs::const_iterator itbl=(*blobs).begin();itbl!=(*blobs).end();++itbl){
+      
 		if((*itbl)->found){
 			dst.Circle(static_cast<int>((*itbl)->rawx), static_cast<int>((*itbl)->rawy), 3, -1, 0,255);
 		}
 		else{
 			dst.Circle(static_cast<int>((*itbl)->rawx), static_cast<int>((*itbl)->rawy), 3, -1, 255);
+		}
+	}
+}
+
+void LLAH::DrawMatch(MyImage &dst, const int size)
+{
+	const eblobs *blobs = m_bloblist.GetExtracted();
+	Paper* paper = m_paperlist.Find(1);
+	ptlist *pts = paper->GetPts();
+   
+	for(eblobs::const_iterator itbl=(*blobs).begin(); itbl!=(*blobs).end(); ++itbl){
+		if((*itbl)->id != NOID){
+			unsigned ptid = (*itbl)->PtID();
+			dst.Line(static_cast<int>((*pts)[ptid].x), size-static_cast<int>((*pts)[ptid].y), static_cast<int>((*itbl)->rawx)+size, static_cast<int>((*itbl)->rawy), 1, 0, 255);
 		}
 	}
 }

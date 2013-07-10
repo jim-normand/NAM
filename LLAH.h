@@ -43,22 +43,29 @@ public:
 
 	void CoordinateTransform(const double h);
 	void SetPts();
-	void Extract(const MyImage &src, int threshold);
+	void Extract(const MyImage &src);
 	void Init(const int iw, const int ih);
 
 	void DrawBinary(MyImage &dst) const;
 	void DrawPts(MyImage &dst) const;
+   void DrawMatch(MyImage &dst, const int size);
 
+   // Jim's modification
+   void ExtractWithThreshold(const MyImage &src, int threshold);
+   void AddPaperWithSize(const char *name);
+   // End of modification
+   
 private:
-	MyImage m_gray;
-	MyImage m_binary;
-	MyLabel m_label;
-	LLAHParam m_param;
-	BlobList m_bloblist;
-	HashTable m_table;
-	HashTable m_trackingtable;
-	PaperList m_paperlist;
-	visible m_visible;
+	MyImage     m_gray;
+	MyImage     m_binary;
+   MyImage     m_smooth;
+	MyLabel     m_label;
+	LLAHParam   m_param;
+	BlobList    m_bloblist;
+	HashTable   m_table;
+	HashTable   m_trackingtable;
+	PaperList   m_paperlist;
+	visible     m_visible;
 };
 
 #endif
