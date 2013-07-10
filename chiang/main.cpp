@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	RoadExtraction* CapturedMap = new RoadExtraction();
 
    if (argc != 2) {
-      std::cout << "usage: " << argv[0] << " imageFile" << endl;
+      std::cout << "usage: " << argv[0] << " imageFile" << std::endl;
       return -1;
    }
 	CapturedMap->LoadImage(argv[1]);

@@ -38,7 +38,7 @@ private:
 	IplImage* progressiveKMean;
    
    /// comptage des clusters
-   map<CvScalar,int> foreground;
+   std::map<CvScalar,int> foreground;
    
 };
 

@@ -167,7 +167,7 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
 			{
 			case 'y':
 				cvAdd(progressiveKMean,dst_img,progressiveKMean,NULL);
-               printClusterValues(dst_img);
+            printClusterValues(dst_img);
 				break;
 			case 't':
 				ChiangKMean(dst_img,profondeur+1);
@@ -189,23 +189,40 @@ RoadExtraction::ChiangKMean(IplImage* image,int profondeur)
 		cvNamedWindow ("K Mean", CV_WINDOW_AUTOSIZE);
 		cvShowImage ("K Mean", dst_img);
 
+   
+   // affichage des valeurs de couleur des clusters foreground
+   for (map<CvScalar, int>::iterator i = foreground.begin() ; i!=foreground.end() ; i++) {
+      cout << "Not sorted : (" << i->first.val[0] << "," << i->first.val[1] << "," << i->first.val[2] << ") : " << i->second << endl;
+   }
+   
+   /*
+    
+    NB : cannot work with maps, we need multimaps
+    since if two colors have the same numbers of appearances, the last one will replace the previous ones in the map
+    
    // second cluster par ordre dŽcroissant d'occurences
    map<int,CvScalar> foregroundColors;
    for (map<CvScalar,int>::iterator i = foreground.begin() ; i!=foreground.end() ; i++) {
       foregroundColors[i->second] = i->first;
+      cout << "foregroundColors[" << i->first.val[0] << "," << i->first.val[1] << "," << i->first.val[2] << "] = " << i->second << endl;
    }
    
       // affichage des valeurs de couleur des clusters foreground
    for (map<int,CvScalar>::iterator i = foregroundColors.begin() ; i!=foregroundColors.end() ; i++) {
       cout << "(" << i->second.val[0] << "," << i->second.val[1] << "," << i->second.val[2] << ") : " << i->first << endl;
-   }
+   }*/
    
    // sauvegarde des valeurs de l'histogramme dans un fichier
    std::ofstream of;
    of.open("filters.dat");
-   for (map<int,CvScalar>::iterator i = foregroundColors.begin() ; i != foregroundColors.end() ;  i++) {
+   /*for (map<int,CvScalar>::iterator i = foregroundColors.begin() ; i != foregroundColors.end() ;  i++) {
       of <<  i->second.val[2] << " " << i->second.val[1] << " " << i->second.val[0] << endl;
+   }*/
+   
+   for (map<CvScalar,int>::iterator i = foreground.begin() ; i != foreground.end() ;  i++) {
+      of <<  i->first.val[2] << " " << i->first.val[1] << " " << i->first.val[0] << endl;
    }
+   
    of.close();
    
 	cvReleaseMat(&sample);
@@ -252,7 +269,8 @@ void RoadExtraction::printClusterValues(IplImage *im) {
          uchar b = CV_IMAGE_ELEM(im,uchar, y, x*3+2);
          if (r || g || b) {
             cout << "(" << (int) r << "," << (int) g << "," << (int) b << ")" << endl;
-            CvScalar tmp; tmp.val[0] = r ; tmp.val[1]=g; tmp.val[2]=b; tmp.val[3]=0;
+            CvScalar tmp; 
+            tmp.val[0]=r; tmp.val[1]=g; tmp.val[2]=b; tmp.val[3]=0;
             if (foreground.find(tmp) != foreground.end()) {
                foreground[tmp]++;
             }
