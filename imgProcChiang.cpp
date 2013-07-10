@@ -96,8 +96,13 @@ void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
    }
    
    // morpho math
-   cvMorphologyEx(graySrcImg, graySrcImg, NULL,
+   /*cvMorphologyEx(graySrcImg, graySrcImg, NULL,
                   cvCreateStructuringElementEx(3, 3, 2, 2, CV_SHAPE_RECT),
+                  CV_MOP_CLOSE,
+                  2);*/
+   
+   cvMorphologyEx(graySrcImg, graySrcImg, NULL,
+                  cvCreateStructuringElementEx(5, 5, 2, 2, CV_SHAPE_RECT),
                   CV_MOP_CLOSE,
                   2);
    
@@ -112,12 +117,51 @@ void imgProcChiang::processImage(IplImage *colorSrcImg, int threshold) {
    if (debugVizMode) {
       cvShowImage("Skeletonization", graySrcImg);
    }
+   
+   /*
+   // Test Jim
+   CvMemStorage* storage = cvCreateMemStorage(0);
+   CvSeq* lines = 0;
+   IplImage* dst = cvCreateImage( cvGetSize(graySrcImg), 8, 1 );
+   IplImage* color_dst = cvCreateImage( cvGetSize(graySrcImg), 8, 3 );
+   int i;
+   
+   lines = cvHoughLines2( dst,
+                         storage,
+                         CV_HOUGH_MULTI_SCALE,
+                         1,
+                         0.01,
+                         75,
+                         0,
+                         0 );
+   
+   for( i = 0; i < MIN(lines->total,100); i++ )
+   {
+      float* line = (float*)cvGetSeqElem(lines,i);
+      float rho = line[0];
+      float theta = line[1];
+      CvPoint pt1, pt2;
+      double a = cos(theta), b = sin(theta);
+      double x0 = a*rho, y0 = b*rho;
+      pt1.x = cvRound(x0 + 1000*(-b));
+      pt1.y = cvRound(y0 + 1000*(a));
+      pt2.x = cvRound(x0 - 1000*(-b));
+      pt2.y = cvRound(y0 - 1000*(a));
+      cvLine( color_dst, pt1, pt2, CV_RGB(255,0,0), 3, 8 );
+   }
+   
+   cvNamedWindow( "Hough", 1 );
+   cvShowImage( "Hough", color_dst );
+   // End Test
+   */
 
    // Computing Intersections and Drawing in Red them on the original Image
    vector<CvPoint> crossroads = Intersections(graySrcImg)();
    for (unsigned int i = 0; i < crossroads.size(); ++i)
    {
-      cvCircle(colorSrcImg, crossroads[i], 2, CV_RGB(255, 0, 0), -1);
+      //cvCircle(colorSrcImg, crossroads[i], 2, CV_RGB(255, 0, 0), -1);
+      cvCircle(colorSrcImg, crossroads[i], 4, CV_RGB(0, 0, 0), -1);
+
    }
    if (debugVizMode) {
       cvShowImage("source avec intersections",colorSrcImg);
