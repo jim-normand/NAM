@@ -1,5 +1,5 @@
 /*
-	This file is part of UCHIYAMARKERS, a software for random dot markers.
+	This file is part of UCHIYAMARKER 2.0, a software for deformable random dot markers.
 	Copyright (c) 2011 Hideaki Uchiyama
 
 	You can use, copy, modify and re-distribute this software

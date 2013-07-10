@@ -1,5 +1,5 @@
 /*
-	This file is part of UCHIYAMARKERS, a software for random dot markers.
+	This file is part of UCHIYAMARKER 2.0, a software for deformable random dot markers.
 	Copyright (c) 2011 Hideaki Uchiyama
 
 	You can use, copy, modify and re-distribute this software
@@ -16,7 +16,7 @@
 #include <OpenGL/gl.h>
 #include <GLUT/glut.h>
 
-const int MAXSIZE = 1024;
+const int MAXWINDOW = 2048;
 
 class GLWindow
 {
@@ -25,7 +25,6 @@ public:
 	void Draw(const char* data);
 	void SetTexture(const int texturenum);
 	void Init(const int iw, const int ih, const char* name);
-
 
 private:
 	GLuint m_texture;

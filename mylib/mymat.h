@@ -1,5 +1,5 @@
 /*
-	This file is part of UCHIYAMARKERS, a software for random dot markers.
+	This file is part of UCHIYAMARKER 2.0, a software for deformable random dot markers.
 	Copyright (c) 2011 Hideaki Uchiyama
 
 	You can use, copy, modify and re-distribute this software
@@ -10,6 +10,7 @@
 #define MYMAT_H
 
 #include <iostream>
+#include <cmath>
 
 #include "opencvpath.h"
 
@@ -21,7 +22,11 @@ public:
 	MyMat(const MyMat &src);
 	~MyMat();
 
+	void Add(const MyMat &src1, const MyMat &src2);
+	double Angle(const MyMat &src);
+	void Transpose(const MyMat &src);
 	void Inv(const MyMat& src);
+	void Scale(const double val);
 	void Mul(const MyMat& src1, const MyMat& src2);
 	void Cross(const MyMat &src1, const MyMat &src2);
 	void RtfromH(const MyMat &invintrinsic, MyMat &R, MyMat &t) const;

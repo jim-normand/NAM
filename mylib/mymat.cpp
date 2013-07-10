@@ -1,5 +1,5 @@
 /*
-	This file is part of UCHIYAMARKERS, a software for random dot markers.
+	This file is part of UCHIYAMARKER 2.0, a software for deformable random dot markers.
 	Copyright (c) 2011 Hideaki Uchiyama
 
 	You can use, copy, modify and re-distribute this software
@@ -25,11 +25,31 @@ MyMat::MyMat(const MyMat &src):m_data(NULL)
 MyMat::~MyMat()
 {
 	Release();
+} 
+
+void MyMat::Add(const MyMat &src1, const MyMat &src2)
+{
+	cvAdd(src1.m_data, src2.m_data, m_data);
+}
+
+double MyMat::Angle(const MyMat &src)
+{
+	return acos(cvDotProduct(m_data, src.m_data)/(cvNorm(m_data)*cvNorm(src.m_data)));
+}
+
+void MyMat::Transpose(const MyMat& src)
+{
+	cvTranspose(src.m_data, m_data);
 }
 
 void MyMat::Inv(const MyMat& src)
 {
-	cvInvert(src.m_data, m_data);
+	cvInvert(src.m_data, m_data, CV_SVD);
+}
+
+void MyMat::Scale(const double val)
+{
+	cvConvertScale(m_data, m_data, val);
 }
 
 void MyMat::Mul(const MyMat& src1, const MyMat& src2)
@@ -91,7 +111,9 @@ void MyMat::Homography(const MyMat& src, const MyMat& dst, const double repro)
 void MyMat::Clone(const MyMat &src)
 {
 	Release();
-	m_data = cvCloneMat(src.m_data);
+	if(src.m_data != NULL){
+		m_data = cvCloneMat(src.m_data);
+	}
 }
 
 void MyMat::Release()

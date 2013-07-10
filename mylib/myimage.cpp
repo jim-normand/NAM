@@ -1,5 +1,5 @@
 /*
-	This file is part of UCHIYAMARKERS, a software for random dot markers.
+	This file is part of UCHIYAMARKER 2.0, a software for deformable random dot markers.
 	Copyright (c) 2011 Hideaki Uchiyama
 
 	You can use, copy, modify and re-distribute this software
@@ -22,6 +22,17 @@ MyImage::~MyImage()
 	Release();
 }
 
+void MyImage::Copy(const MyImage &src, const int x, const int y)
+{
+	cvSetImageROI(m_img, cvRect(x,y,src.w,src.h));
+	cvCopyImage(src.m_img, m_img);
+	cvResetImageROI(m_img);
+}
+
+void MyImage::Copy(const MyImage &src)
+{
+	cvCopyImage(src.m_img, m_img);
+}
 
 void MyImage::Flip(const MyImage &src)
 {
@@ -44,9 +55,16 @@ void MyImage::Clone(const MyImage &src)
 	h = m_img->height;
 }
 
-void MyImage::Binarization(const MyImage &src, int threshold)
+void MyImage::Smooth(const MyImage &src)
 {
-	cvThreshold(src.m_img, m_img, threshold, 255, CV_THRESH_BINARY_INV);
+	cvSmooth(src.m_img, m_img);
+}
+
+void MyImage::Binarization(const MyImage &src)
+{
+	////cvThreshold(src.m_img, m_img, 100, 255, CV_THRESH_BINARY_INV);
+	
+   cvAdaptiveThreshold(src.m_img, m_img, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY_INV, 3);//9);
 }
 
 void MyImage::GraytoColor(const MyImage &src)
@@ -101,6 +119,12 @@ void MyImage::Circle(const int x, const int y, const int radius, const int thick
 	cvCircle(m_img,cvPoint(x,y),radius,CV_RGB(r,g,b),thickness);
 }
 
+
+void MyImage::Line(const int x1, const int y1, const int x2, const int y2, const int thickness, const unsigned char r, const unsigned char g, const unsigned char b)
+{
+	cvLine(m_img, cvPoint(x1,y1), cvPoint(x2,y2),CV_RGB(r,g,b),thickness);
+}
+
 MyImage::operator const char* () const
 {
 	return m_img->imageData;
@@ -120,4 +144,11 @@ MyImage::operator IplImage* ()
 {
 	return m_img;
 }
+
+// Jim's modification
+void MyImage::Binarization(const MyImage &src, int threshold)
+{
+	cvThreshold(src.m_img, m_img, threshold, 255, CV_THRESH_BINARY_INV);
+}
+// End of modification
 

@@ -1,5 +1,5 @@
 /*
-	This file is part of UCHIYAMARKERS, a software for random dot markers.
+	This file is part of UCHIYAMARKER 2.0, a software for deformable random dot markers.
 	Copyright (c) 2011 Hideaki Uchiyama
 
 	You can use, copy, modify and re-distribute this software
@@ -46,18 +46,17 @@ void GLWindow::SetTexture(const int texturenum)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, MAXSIZE, MAXSIZE, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, MAXWINDOW, MAXWINDOW, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, 0);
 }
 
 void GLWindow::Init(const int iw, const int ih, const char* name)
 {
 	m_w = iw, m_h = ih;
-	m_wr = static_cast<double>(iw) / static_cast<double>(MAXSIZE);
-	m_hr = static_cast<double>(ih) / static_cast<double>(MAXSIZE);
+	m_wr = static_cast<double>(iw) / static_cast<double>(MAXWINDOW);
+	m_hr = static_cast<double>(ih) / static_cast<double>(MAXWINDOW);
 
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(iw, ih);
 	m_ID = glutCreateWindow(name);
 }
-
